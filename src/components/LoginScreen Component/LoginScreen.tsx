@@ -7,6 +7,7 @@ import {
   View,
   TextInput,
 } from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 function LoginScreen(): JSX.Element {
   const [emailOrCtag, setEmailOrCtag] = useState('');
@@ -47,6 +48,12 @@ function LoginScreen(): JSX.Element {
             placeholderTextColor={'#3D4C63'}
             secureTextEntry={passwordHidden}
           />
+          <TouchableOpacity style={styles.passwordEye}>
+            <Image
+              source={require('../../assets/eye.png')}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
         </View>
       </View>
     </SafeAreaView>
@@ -61,7 +68,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '90%',
-    height: '40%',
+    height: '35%',
     marginTop: '5%',
   },
   welcomeHeader: {
@@ -91,12 +98,16 @@ const styles = StyleSheet.create({
   emailInput: {
     width: '90%',
     display: 'flex',
+    marginTop: '5%',
   },
 
   passwordInput: {
     width: '90%',
     display: 'flex',
+    marginTop: '5%',
   },
+
+  passwordEye: {position: 'absolute', right: 20, bottom: 15},
 });
 
 export default LoginScreen;
