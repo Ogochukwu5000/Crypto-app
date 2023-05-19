@@ -1,13 +1,32 @@
 import React, {useState} from 'react';
-import {Text, View, SafeAreaView} from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableOpacity,
+  SafeAreaView,
+  StyleSheet,
+} from 'react-native';
 
 function LoginScreen(): JSX.Element {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
-    <SafeAreaView>
-      <Text>This is the The login screen</Text>
-    </SafeAreaView>
+    <View>
+      {/* Image */}
+      <Image source={require('../../assets/social.png')} style={styles.image} />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  image: {
+    width: '100%',
+    height: '70%',
+    alignSelf: 'center',
+    marginTop: '5%',
+    objectFit: 'contain',
+  },
+});
 
 export default LoginScreen;
