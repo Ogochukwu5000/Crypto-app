@@ -6,6 +6,7 @@ import {
   StyleSheet,
   View,
   TextInput,
+  KeyboardAvoidingView,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
@@ -13,6 +14,15 @@ function LoginScreen(): JSX.Element {
   const [emailOrCtag, setEmailOrCtag] = useState('');
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -24,7 +34,7 @@ function LoginScreen(): JSX.Element {
         resizeMode="contain"
       />
       {/* Bottom half  log in modal */}
-      <View style={styles.bottomHalfLoginModal}>
+      <KeyboardAvoidingView style={styles.bottomHalfLoginModal}>
         <View style={styles.emailInput}>
           <TextInput
             style={styles.input}
@@ -35,6 +45,7 @@ function LoginScreen(): JSX.Element {
             keyboardType="email-address"
             placeholderTextColor={'#3D4C63'}
             textContentType="emailAddress"
+            // onFocus={}
           />
         </View>
         <View style={styles.passwordInput}>
@@ -55,7 +66,20 @@ function LoginScreen(): JSX.Element {
             />
           </TouchableOpacity>
         </View>
-      </View>
+        <TouchableOpacity style={styles.forgotPasswordButton}>
+          <Text style={styles.forgotPasswordBottonText}>Forgot Password?</Text>
+        </TouchableOpacity>
+        <View style={styles.loginFooter}>
+          <TouchableOpacity style={styles.loginButton}>
+            <Text style={styles.loginButtonText}>Login</Text>
+          </TouchableOpacity>
+          {/* Dont have an account sign up */}
+          <TouchableOpacity style={styles.signUpButton}>
+            <Text style={styles.signUpButtonText}>Don't have an account?</Text>
+            <Text style={styles.signUpLinkText}> Sign up</Text>
+          </TouchableOpacity>
+        </View>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
@@ -84,6 +108,9 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     alignItems: 'center',
+    zIndex: 999,
+    position: 'absolute',
+    bottom: 0,
   },
 
   input: {
@@ -108,6 +135,52 @@ const styles = StyleSheet.create({
   },
 
   passwordEye: {position: 'absolute', right: 20, bottom: 15},
+
+  forgotPasswordButton: {
+    marginTop: '3%',
+    marginLeft: '60%',
+  },
+
+  forgotPasswordBottonText: {
+    color: '#3447F0',
+    fontSize: 15,
+  },
+
+  loginButton: {
+    backgroundColor: '#3447F0',
+    width: 200,
+    height: 50,
+    borderRadius: 25,
+    marginTop: '10%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  loginButtonText: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+
+  loginFooter: {
+    marginTop: '25%',
+  },
+
+  signUpButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+  },
+  signUpButtonText: {
+    color: '#3D4C63',
+    fontSize: 16,
+    textAlign: 'center',
+  },
+  signUpLinkText: {
+    color: '#3447F0',
+    fontSize: 16,
+    textAlign: 'center',
+  },
 });
 
 export default LoginScreen;
