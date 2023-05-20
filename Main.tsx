@@ -8,7 +8,6 @@ function Main(): JSX.Element {
   return (
     <View style={styles.container}>
       {isLoggedIn ? <PostAuthenticationNav /> : <PreAuthenticationNav />}
-      {/* {isLoggedIn ? <Text> Hi There </Text> : <Text> Bye There </Text>} */}
     </View>
   );
 }
