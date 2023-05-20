@@ -15,7 +15,6 @@ function LoginScreen(): JSX.Element {
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
-  console.log('isFocused', isFocused);
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -23,6 +22,10 @@ function LoginScreen(): JSX.Element {
 
   const handleBlur = () => {
     setIsFocused(false);
+  };
+
+  const togglePasswordHidden = () => {
+    setPasswordHidden(!passwordHidden);
   };
 
   return (
@@ -63,11 +66,17 @@ function LoginScreen(): JSX.Element {
             onFocus={handleFocus}
             onBlur={handleBlur}
           />
-          <TouchableOpacity style={styles.passwordEye}>
-            <Image
-              source={require('../../assets/eye.png')}
-              resizeMode="contain"
-            />
+          <TouchableOpacity
+            style={styles.passwordEye}
+            onPress={togglePasswordHidden}>
+            {
+              // if password is hidden show text "show" else show text "hide"
+              passwordHidden ? (
+                <Text style={styles.passwordEyeText}>Show</Text>
+              ) : (
+                <Text style={styles.passwordEyeText}>Hide</Text>
+              )
+            }
           </TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.forgotPasswordButton}>
@@ -112,7 +121,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     alignItems: 'center',
-    zIndex: 999,
     position: 'absolute',
     bottom: 0,
   },
@@ -142,7 +150,14 @@ const styles = StyleSheet.create({
     marginTop: '5%',
   },
 
-  passwordEye: {position: 'absolute', right: 20, bottom: 15},
+  passwordEye: {
+    position: 'relative',
+  },
+
+  passwordEyeText: {
+    color: '#3D4C63',
+    zIndex: 100000,
+  },
 
   forgotPasswordButton: {
     marginTop: '3%',
