@@ -37,6 +37,17 @@ function PinVerification(): JSX.Element {
           </Text>
         </View>
       </View>
+      {/* four white circles for pin */}
+      <View
+        style={[
+          styles.pinContainer,
+          isSmallScreen && styles.smallScreenPinContainer,
+        ]}>
+        <View style={styles.pin}></View>
+        <View style={styles.pin}></View>
+        <View style={styles.pin}></View>
+        <View style={styles.pin}></View>
+      </View>
     </SafeAreaView>
   );
 }
@@ -75,7 +86,7 @@ const styles = StyleSheet.create({
   verificationSubHeader: {
     color: '#fff',
     fontSize: 15,
-    marginLeft: '15%',
+    marginLeft: '13%',
     width: '100%',
     marginTop: '2%',
   },
@@ -89,6 +100,34 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
     marginLeft: '5%',
+  },
+  pinContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: '10%',
+    gap: 25,
+    justifyContent: 'center',
+    height: '40%',
+    marginLeft: '3%',
+  },
+  smallScreenPinContainer: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: '10%',
+    gap: 20,
+    justifyContent: 'center',
+    height: '40%',
+    marginLeft: '3%',
+  },
+  pin: {
+    width: 30,
+    height: 30,
+    borderRadius: 50,
+    backgroundColor: '#fff',
   },
 });
 
