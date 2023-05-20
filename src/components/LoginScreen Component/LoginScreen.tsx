@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
 
   passwordEye: {
-    position: 'relative',
+    width: '10%',
   },
 
   passwordEyeText: {
