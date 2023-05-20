@@ -51,7 +51,7 @@ function LoginScreen(): JSX.Element {
             placeholderTextColor={'#3D4C63'}
             textContentType="emailAddress"
             onFocus={handleFocus}
-            onBlur={handleBlur}
+            onSubmitEditing={handleBlur}
           />
         </View>
         <View style={styles.passwordInput}>
@@ -64,7 +64,7 @@ function LoginScreen(): JSX.Element {
             placeholderTextColor={'#3D4C63'}
             secureTextEntry={passwordHidden}
             onFocus={handleFocus}
-            onBlur={handleBlur}
+            onSubmitEditing={handleBlur}
           />
           <TouchableOpacity
             style={styles.passwordEye}
@@ -105,19 +105,18 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '90%',
-    height: '35%',
-    marginTop: '5%',
+    height: '30%',
+    marginTop: '8%',
   },
   welcomeHeader: {
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
-    marginTop: '5%',
   },
   bottomHalfLoginModal: {
     backgroundColor: '#fff',
     width: '100%',
-    height: '60%',
+    height: '63%',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     alignItems: 'center',
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
   },
 
   focusedInput: {
-    height: '95%',
+    height: '99%',
   },
 
   input: {
@@ -151,7 +150,7 @@ const styles = StyleSheet.create({
   },
 
   passwordEye: {
-    width: '10%',
+    position: 'relative',
   },
 
   passwordEyeText: {
@@ -186,7 +185,7 @@ const styles = StyleSheet.create({
   },
 
   loginFooter: {
-    marginTop: '25%',
+    marginTop: '17%',
   },
 
   signUpButton: {
