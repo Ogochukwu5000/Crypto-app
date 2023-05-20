@@ -15,6 +15,7 @@ function LoginScreen(): JSX.Element {
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
+  console.log('isFocused', isFocused);
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -34,7 +35,8 @@ function LoginScreen(): JSX.Element {
         resizeMode="contain"
       />
       {/* Bottom half  log in modal */}
-      <KeyboardAvoidingView style={styles.bottomHalfLoginModal}>
+      <KeyboardAvoidingView
+        style={[styles.bottomHalfLoginModal, isFocused && styles.focusedInput]}>
         <View style={styles.emailInput}>
           <TextInput
             style={styles.input}
@@ -45,7 +47,8 @@ function LoginScreen(): JSX.Element {
             keyboardType="email-address"
             placeholderTextColor={'#3D4C63'}
             textContentType="emailAddress"
-            // onFocus={}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
           />
         </View>
         <View style={styles.passwordInput}>
@@ -54,10 +57,11 @@ function LoginScreen(): JSX.Element {
             placeholder="Password"
             onChangeText={setPassword}
             value={password}
-            // specify type
             keyboardType="default"
             placeholderTextColor={'#3D4C63'}
             secureTextEntry={passwordHidden}
+            onFocus={handleFocus}
+            onBlur={handleBlur}
           />
           <TouchableOpacity style={styles.passwordEye}>
             <Image
@@ -111,6 +115,10 @@ const styles = StyleSheet.create({
     zIndex: 999,
     position: 'absolute',
     bottom: 0,
+  },
+
+  focusedInput: {
+    height: '95%',
   },
 
   input: {
