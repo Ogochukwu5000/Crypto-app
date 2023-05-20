@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Animated,
 } from 'react-native';
 
 const {width} = Dimensions.get('window');
@@ -15,6 +16,7 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function PinVerification(): JSX.Element {
   const [pin, setPin] = useState('');
   const [pinCount, setPinCount] = useState(0);
+  const shakeAnimation = useRef(new Animated.Value(0)).current;
 
   const handlePinKeyPress = (digit: string) => {
     if (digit === 'X') {
@@ -28,8 +30,45 @@ function PinVerification(): JSX.Element {
     }
   };
 
-  console.log(pin);
+  const shakePinContainer = () => {
+    Animated.sequence([
+      Animated.timing(shakeAnimation, {
+        toValue: -10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: -10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 10,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+      Animated.timing(shakeAnimation, {
+        toValue: 0,
+        duration: 50,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      // Animation completed, clear the pin
+      setPin('');
+      setPinCount(0);
+    });
+  };
 
+  const isPinWrong = pin.length === 4 && pin !== '1234'; // Adjust the condition to match your validation logic
+
+  if (isPinWrong) {
+    shakePinContainer();
+  }
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -55,17 +94,19 @@ function PinVerification(): JSX.Element {
           </Text>
         </View>
       </View>
-      {/* four white circles for pin */}
-      <View
+      <Animated.View
         style={[
           styles.pinContainer,
           isSmallScreen && styles.smallScreenPinContainer,
+          isPinWrong && {
+            transform: [{translateX: shakeAnimation}],
+          },
         ]}>
         <View style={[styles.pin, pinCount >= 1 && styles.pinFilled]} />
         <View style={[styles.pin, pinCount >= 2 && styles.pinFilled]} />
         <View style={[styles.pin, pinCount >= 3 && styles.pinFilled]} />
         <View style={[styles.pin, pinCount >= 4 && styles.pinFilled]} />
-      </View>
+      </Animated.View>
       {/* Pin key pad */}
       <View
         style={[
