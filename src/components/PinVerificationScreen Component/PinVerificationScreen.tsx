@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -6,12 +6,30 @@ import {
   SafeAreaView,
   Image,
   Dimensions,
+  TouchableOpacity,
 } from 'react-native';
 
 const {width} = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function PinVerification(): JSX.Element {
+  const [pin, setPin] = useState('');
+  const [pinCount, setPinCount] = useState(0);
+
+  const handlePinKeyPress = (digit: string) => {
+    if (digit === 'X') {
+      // Clear the pin
+      setPin('');
+      setPinCount(0);
+    } else {
+      // Append the digit to the pin
+      setPinCount(prevPinCount => prevPinCount + 1);
+      setPin(prevPin => prevPin + digit);
+    }
+  };
+
+  console.log(pin);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -43,10 +61,85 @@ function PinVerification(): JSX.Element {
           styles.pinContainer,
           isSmallScreen && styles.smallScreenPinContainer,
         ]}>
-        <View style={styles.pin}></View>
-        <View style={styles.pin}></View>
-        <View style={styles.pin}></View>
-        <View style={styles.pin}></View>
+        <View style={[styles.pin, pinCount >= 1 && styles.pinFilled]} />
+        <View style={[styles.pin, pinCount >= 2 && styles.pinFilled]} />
+        <View style={[styles.pin, pinCount >= 3 && styles.pinFilled]} />
+        <View style={[styles.pin, pinCount >= 4 && styles.pinFilled]} />
+      </View>
+      {/* Pin key pad */}
+      <View
+        style={[
+          styles.pinKeyPad,
+          isSmallScreen && styles.smallScreenPinKeyPad,
+        ]}>
+        <View style={styles.pinKeyPadRow}>
+          <TouchableOpacity
+            style={styles.pinKeyPadButton}
+            onPress={() => handlePinKeyPress('1')}>
+            <Text style={styles.pinKeyPadButtonText}>1</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.pinKeyPadButton}
+            onPress={() => handlePinKeyPress('2')}>
+            <Text style={styles.pinKeyPadButtonText}>2</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.pinKeyPadButton}
+            onPress={() => handlePinKeyPress('3')}>
+            <Text style={styles.pinKeyPadButtonText}>3</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.pinKeyPadRow}>
+          <TouchableOpacity
+            style={styles.pinKeyPadButton}
+            onPress={() => handlePinKeyPress('4')}>
+            <Text style={styles.pinKeyPadButtonText}>4</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.pinKeyPadButton}
+            onPress={() => handlePinKeyPress('5')}>
+            <Text style={styles.pinKeyPadButtonText}>5</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.pinKeyPadButton}
+            onPress={() => handlePinKeyPress('6')}>
+            <Text style={styles.pinKeyPadButtonText}>6</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.pinKeyPadRow}>
+          <TouchableOpacity
+            style={styles.pinKeyPadButton}
+            onPress={() => handlePinKeyPress('7')}>
+            <Text style={styles.pinKeyPadButtonText}>7</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.pinKeyPadButton}
+            onPress={() => handlePinKeyPress('8')}>
+            <Text style={styles.pinKeyPadButtonText}>8</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.pinKeyPadButton}
+            onPress={() => handlePinKeyPress('9')}>
+            <Text style={styles.pinKeyPadButtonText}>9</Text>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.pinKeyPadRow}>
+          <TouchableOpacity
+            style={styles.pinKeyPadButton}
+            onPress={() => handlePinKeyPress('.')}>
+            <Text style={styles.pinKeyPadButtonText}>.</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.pinKeyPadButton}
+            onPress={() => handlePinKeyPress('0')}>
+            <Text style={styles.pinKeyPadButtonText}>0</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.pinKeyPadButton}
+            onPress={() => handlePinKeyPress('X')}>
+            <Text style={styles.pinKeyPadButtonText}>X</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -106,10 +199,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: '10%',
+    marginTop: '5%',
     gap: 25,
     justifyContent: 'center',
-    height: '40%',
+    height: '30%',
     marginLeft: '3%',
   },
   smallScreenPinContainer: {
@@ -120,14 +213,63 @@ const styles = StyleSheet.create({
     marginTop: '10%',
     gap: 20,
     justifyContent: 'center',
-    height: '40%',
+    height: '20%',
     marginLeft: '3%',
   },
   pin: {
     width: 30,
     height: 30,
     borderRadius: 50,
+    backgroundColor: '#9EA5B1',
+  },
+  pinFilled: {
     backgroundColor: '#fff',
+  },
+  pinKeyPad: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 20,
+    justifyContent: 'center',
+    height: '50%',
+    marginLeft: '3%',
+  },
+  smallScreenPinKeyPad: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    marginTop: '10%',
+    gap: 10,
+    justifyContent: 'center',
+    height: '50%',
+    marginLeft: '3%',
+  },
+
+  pinKeyPadRow: {
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 40,
+    justifyContent: 'center',
+  },
+
+  pinKeyPadButton: {
+    width: 80,
+    height: 80,
+    borderRadius: 50,
+    backgroundColor: '#fff',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  pinKeyPadButtonText: {
+    color: '#3447F0',
+    fontSize: 20,
+    fontWeight: 'bold',
   },
 });
 
