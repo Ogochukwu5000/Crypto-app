@@ -40,9 +40,21 @@ function CheckEmailScreen(): JSX.Element {
           </Text>
         </View>
       </View>
-      {/* <TouchableOpacity style={styles.resetButton}>
+      <Image
+        source={require('../../assets/email.png')}
+        style={[
+          styles.emailImage,
+          isSmallScreen && styles.smallScreenEmailImage,
+        ]}
+        resizeMode="contain"
+      />
+      <TouchableOpacity
+        style={[
+          styles.resetButton,
+          isSmallScreen && styles.smallScreenResetButton,
+        ]}>
         <Text style={styles.resetButtonText}>Reset Password</Text>
-      </TouchableOpacity> */}
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -55,7 +67,7 @@ const styles = StyleSheet.create({
   },
 
   resetButton: {
-    backgroundColor: '#3447F0',
+    backgroundColor: '#fff',
     width: 200,
     height: 50,
     borderRadius: 25,
@@ -65,9 +77,13 @@ const styles = StyleSheet.create({
   },
 
   resetButtonText: {
-    color: '#fff',
+    color: '#347AF0',
     fontSize: 20,
     fontWeight: 'bold',
+  },
+
+  smallScreenResetButton: {
+    marginTop: '20%',
   },
   checkScreenHeader: {
     color: '#fff',
@@ -116,6 +132,18 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-start',
     marginLeft: '5%',
+  },
+  emailImage: {
+    width: 300,
+    height: 500,
+    marginTop: '10%',
+    marginLeft: '10%',
+  },
+  smallScreenEmailImage: {
+    width: 300,
+    height: 300,
+    marginTop: '10%',
+    marginLeft: '10%',
   },
 });
 
