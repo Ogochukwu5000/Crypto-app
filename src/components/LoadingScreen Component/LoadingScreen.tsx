@@ -18,11 +18,7 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function Loading(): JSX.Element {
   return (
     <SafeAreaView style={styles.container}>
-      <PacmanIndicator color="white" size={100} />
-
-      <Text style={{color: 'white', fontSize: 20, marginTop: 20}}>
-        Loading...
-      </Text>
+      <SkypeIndicator color="white" size={100} />
     </SafeAreaView>
   );
 }
