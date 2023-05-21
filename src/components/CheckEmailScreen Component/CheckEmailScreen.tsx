@@ -106,7 +106,9 @@ const styles = StyleSheet.create({
   },
   smallScreenCheckScreenSubHeader: {
     fontSize: 13,
-    marginLeft: '10%',
+    width: '80%',
+    alignItems: 'center',
+    textAlign: 'center',
   },
   headerText: {
     width: '100%',
