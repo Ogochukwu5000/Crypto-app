@@ -8,7 +8,6 @@ import {
   Dimensions,
   TouchableOpacity,
   Animated,
-  ActivityIndicator,
 } from 'react-native';
 import Loading from '../LoadingScreen Component/LoadingScreen';
 
@@ -71,6 +70,8 @@ function PinVerification(): JSX.Element {
 
   if (isPinWrong) {
     shakePinContainer();
+  } else {
+    setIsLoading(false);
   }
   return (
     <SafeAreaView style={styles.container}>
