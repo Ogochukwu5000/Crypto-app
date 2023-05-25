@@ -40,12 +40,12 @@ function SignupScreen(): JSX.Element {
             <Text style={styles.welcomeHeader}>Create Account</Text>
             <Image
                 source={require('../../assets/office.png')}
-                style={styles.image}
+                style={[styles.image, isSmallScreen && styles.smallScreenImage]}
                 resizeMode="contain"
             />
             {/* Bottom half  log in modal */}
             <KeyboardAvoidingView
-                style={[styles.bottomHalfLoginModal, isFocused && styles.focusedInput]}>
+                style={[styles.bottomHalfLoginModal, isSmallScreen && styles.isSmallBottomHalfLoginModal, isFocused && styles.focusedInput]}>
                 <View style={styles.emailInput}>
                     <TextInput
                         style={styles.input}
@@ -110,7 +110,7 @@ function SignupScreen(): JSX.Element {
                 <TouchableOpacity style={styles.forgotPasswordButton}>
                     <Text style={styles.forgotPasswordBottonText}>Forgot Password?</Text>
                 </TouchableOpacity>
-                <View style={styles.loginFooter}>
+                <View style={[styles.loginFooter, isSmallScreen && styles.isSmallScreenLoginFooter]}>
                     <TouchableOpacity style={styles.loginButton}>
                         <Text style={styles.loginButtonText}>Let Get Started</Text>
                     </TouchableOpacity>
@@ -136,6 +136,13 @@ const styles = StyleSheet.create({
         height: '30%',
         marginTop: '8%',
     },
+
+    smallScreenImage: {
+        width: '100%',
+        height: '20%',
+        marginTop: '8%',
+    },
+
     welcomeHeader: {
         color: '#fff',
         fontSize: 30,
@@ -150,6 +157,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
         bottom: 0,
+    },
+
+    isSmallBottomHalfLoginModal: {
+        height: '80%',
     },
 
     focusedInput: {
@@ -214,6 +225,11 @@ const styles = StyleSheet.create({
 
     loginFooter: {
         marginTop: '10%',
+    },
+
+    isSmallScreenLoginFooter: {
+        marginTop: '2%',
+
     },
 
     signUpButton: {
