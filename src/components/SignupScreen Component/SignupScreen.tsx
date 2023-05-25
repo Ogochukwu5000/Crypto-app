@@ -7,8 +7,12 @@ import {
     View,
     TextInput,
     KeyboardAvoidingView,
+    Dimensions,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+
+const { width } = Dimensions.get('window');
+const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function SignupScreen(): JSX.Element {
     const [firstName, setFirstName] = useState('');
