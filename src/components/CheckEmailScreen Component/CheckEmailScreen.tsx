@@ -53,7 +53,7 @@ function CheckEmailScreen(): JSX.Element {
           styles.resetButton,
           isSmallScreen && styles.smallScreenResetButton,
         ]}>
-        <Text style={styles.resetButtonText}>Reset Password</Text>
+        <Text style={styles.resetButtonText}>Open Email App</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
