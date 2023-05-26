@@ -9,6 +9,7 @@ import {
     KeyboardAvoidingView,
     Dimensions,
 } from 'react-native';
+import Loading from '../LoadingScreen Component/LoadingScreen';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width } = Dimensions.get('window');
@@ -18,6 +19,7 @@ function ChooseCryptoTag(): JSX.Element {
     const [cryptoTag, setCryptoTag] = useState('');
     const [isFocused, setIsFocused] = useState(false);
     const [checker, setChecker] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleFocus = () => {
         setIsFocused(true);
@@ -29,54 +31,62 @@ function ChooseCryptoTag(): JSX.Element {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* Image */}
-            <View style={styles.header}>
-                <Image
-                    source={require('../../assets/back.png')}
-                    style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-                    resizeMode="contain"
-                />
-                <View style={styles.headerText}>
-                    <Text
-                        style={[
-                            styles.verificationHeader,
-                            isSmallScreen && styles.smallScreenVerificationHeader,
-                        ]}>
-                        Choose a #Cryptotag
-                    </Text>
-                    <Text
-                        style={[
-                            styles.verificationSubHeader,
-                            isSmallScreen && styles.smallScreenVerificationSubHeader,
-                        ]}>
-                        Here’s the fun part! show us what you’ve got, create your unique crypto tag :)
-                    </Text>
+            {!isLoading ?
+                (<>
+                    {/* Image */}
+                    <View style={styles.header}>
+                        <Image
+                            source={require('../../assets/back.png')}
+                            style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                            resizeMode="contain"
+                        />
+                        <View style={styles.headerText}>
+                            <Text
+                                style={[
+                                    styles.verificationHeader,
+                                    isSmallScreen && styles.smallScreenVerificationHeader,
+                                ]}>
+                                Choose a #Cryptotag
+                            </Text>
+                            <Text
+                                style={[
+                                    styles.verificationSubHeader,
+                                    isSmallScreen && styles.smallScreenVerificationSubHeader,
+                                ]}>
+                                Here’s the fun part! show us what you’ve got, create your unique crypto tag :)
+                            </Text>
+                        </View>
+                    </View>
+                    {/* Bottom half  log in modal */}
+                    <KeyboardAvoidingView
+                        style={[styles.bottomHalfLoginModal, isFocused && styles.focusedInput]}>
+                        <View style={styles.emailInput}>
+                            <TextInput
+                                style={styles.input}
+                                placeholder="Crypto Tag (e.g. #CryptoKing)"
+                                onChangeText={setCryptoTag}
+                                value={cryptoTag}
+                                // specify type
+                                keyboardType="email-address"
+                                placeholderTextColor={'#3D4C63'}
+                                textContentType="emailAddress"
+                                onFocus={handleFocus}
+                                onSubmitEditing={handleBlur}
+                            />
+                            <Text style={styles.availabilityText}>
+                                {cryptoTag.length <= 0 ? "" : !checker ? `${cryptoTag} is unavailable` : `${cryptoTag} now we talking!`}
+                            </Text>
+                        </View>
+                        <TouchableOpacity style={styles.resetButton}>
+                            <Text style={styles.resetButtonText}>Next</Text>
+                        </TouchableOpacity>
+                    </KeyboardAvoidingView>
+                </>
+                ) :
+                <View>
+                    <Loading />
                 </View>
-            </View>
-            {/* Bottom half  log in modal */}
-            <KeyboardAvoidingView
-                style={[styles.bottomHalfLoginModal, isFocused && styles.focusedInput]}>
-                <View style={styles.emailInput}>
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Crypto Tag (e.g. #CryptoKing)"
-                        onChangeText={setCryptoTag}
-                        value={cryptoTag}
-                        // specify type
-                        keyboardType="email-address"
-                        placeholderTextColor={'#3D4C63'}
-                        textContentType="emailAddress"
-                        onFocus={handleFocus}
-                        onSubmitEditing={handleBlur}
-                    />
-                    <Text style={styles.availabilityText}>
-                        {cryptoTag.length <= 0 ? "" : !checker ? `${cryptoTag} is unavailable` : `${cryptoTag} now we talking!`}
-                    </Text>
-                </View>
-                <TouchableOpacity style={styles.resetButton}>
-                    <Text style={styles.resetButtonText}>Next</Text>
-                </TouchableOpacity>
-            </KeyboardAvoidingView>
+            }
         </SafeAreaView>
     );
 }
