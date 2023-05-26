@@ -213,7 +213,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   smallScreentopSubHeader: {
-    ontSize: 13,
+    fontSize: 13,
     width: '80%',
     alignItems: 'center',
     textAlign: 'center',
