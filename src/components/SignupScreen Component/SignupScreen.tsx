@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import axios from 'axios';
+import Toast from 'react-native-toast-message';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -35,6 +37,29 @@ function SignupScreen(): JSX.Element {
     const togglePasswordHidden = () => {
         setPasswordHidden(!passwordHidden);
     };
+
+    const handleSignup = () => {
+        // axios.post('http://localhost:8000/api/v1/users', {
+        //     firstName,
+        //     lastName,
+        //     email,
+        //     password
+        // })
+        //     .then((response) => {
+        //         console.log(response);
+        //     }, (error) => {
+        //         console.log(error);
+        //         Toast.show({
+        //             type: 'error',
+        //             text1: 'Error',
+        //             text2: 'There was an error signing up. Please try again later.',
+        //             visibilityTime: 3000,
+        //             autoHide: true,
+        //         });
+        //     });
+        console.log(firstName, lastName, email, password);
+    };
+
 
     return (
         <SafeAreaView style={styles.container}>
