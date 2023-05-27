@@ -114,7 +114,9 @@ function SignupScreen(): JSX.Element {
                         <Text style={styles.loginButtonText}>Let Get Started</Text>
                     </TouchableOpacity>
                     {/* Dont have an account sign up */}
-                    <TouchableOpacity style={styles.signUpButton}>
+                    <TouchableOpacity style={styles.signUpButton} onPress={() => {
+                        navigation.navigate('Login' as never);
+                    }}>
                         <Text style={styles.signUpButtonText}>Already have an account?</Text>
                         <Text style={styles.signUpLinkText}> Login</Text>
                     </TouchableOpacity>
