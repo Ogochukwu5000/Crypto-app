@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   Image,
@@ -9,9 +9,9 @@ import {
   KeyboardAvoidingView,
   Dimensions,
 } from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function ForgotPassword(): JSX.Element {
@@ -41,14 +41,14 @@ function ForgotPassword(): JSX.Element {
               styles.verificationHeader,
               isSmallScreen && styles.smallScreenVerificationHeader,
             ]}>
-            Verification Required
+            Forgot Password
           </Text>
           <Text
             style={[
               styles.verificationSubHeader,
               isSmallScreen && styles.smallScreenVerificationSubHeader,
             ]}>
-            Please enter your PIN to proceed
+            Enter your registrated email address to receive password reset instruction
           </Text>
         </View>
       </View>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
-    marginLeft: '5%',
+    marginLeft: '13%',
     width: '100%',
   },
   smallScreenVerificationHeader: {
@@ -151,18 +151,19 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    marginLeft: '3%',
+    marginLeft: '5%',
   },
   verificationSubHeader: {
     color: '#fff',
     fontSize: 15,
-    marginLeft: '13%',
-    width: '100%',
+    marginLeft: '3%',
+    width: '80%',
     marginTop: '2%',
+    textAlign: 'center',
   },
   smallScreenVerificationSubHeader: {
     fontSize: 13,
-    marginLeft: '10%',
+    marginLeft: '1%',
   },
   headerText: {
     width: '100%',
