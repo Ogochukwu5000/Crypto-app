@@ -135,7 +135,7 @@ function SignupScreen(): JSX.Element {
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.loginFooter, isSmallScreen && styles.isSmallScreenLoginFooter]}>
-                    <TouchableOpacity style={styles.loginButton}>
+                    <TouchableOpacity style={styles.loginButton} onPress={handleSignup}>
                         <Text style={styles.loginButtonText}>Let Get Started</Text>
                     </TouchableOpacity>
                     {/* Dont have an account sign up */}
