@@ -11,8 +11,9 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import axios from 'axios';
 import Toast from 'react-native-toast-message';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -25,6 +26,7 @@ function SignupScreen(): JSX.Element {
     const [passwordHidden, setPasswordHidden] = useState(true);
     const [isFocused, setIsFocused] = useState(false);
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
     const handleFocus = () => {
         setIsFocused(true);
@@ -38,17 +40,9 @@ function SignupScreen(): JSX.Element {
         setPasswordHidden(!passwordHidden);
     };
 
+    const user = useSelector((state: RootState) => state.userReducer.user);
+
     const handleSignup = () => {
-        // axios.post('http://localhost:8000/api/v1/users', {
-        //     firstName,
-        //     lastName,
-        //     email,
-        //     password
-        // })
-        //     .then((response) => {
-        //         console.log(response);
-        //     }, (error) => {
-        //         console.log(error);
         //         Toast.show({
         //             type: 'error',
         //             text1: 'Error',
@@ -56,8 +50,8 @@ function SignupScreen(): JSX.Element {
         //             visibilityTime: 3000,
         //             autoHide: true,
         //         });
-        //     });
-        console.log(firstName, lastName, email, password);
+        dispatch({ type: 'SIGNUP', payload: { firstName, lastName, email, password } });
+        console.log('user', user);
     };
 
 
