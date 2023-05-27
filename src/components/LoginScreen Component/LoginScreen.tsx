@@ -82,7 +82,7 @@ function LoginScreen(): JSX.Element {
             }
           </TouchableOpacity>
         </View>
-        <TouchableOpacity style={styles.forgotPasswordButton}>
+        <TouchableOpacity style={styles.forgotPasswordButton} onPress={() => navigation.navigate('ForgotPassword' as never)}>
           <Text style={styles.forgotPasswordBottonText}>Forgot Password?</Text>
         </TouchableOpacity>
         <View style={styles.loginFooter}>
