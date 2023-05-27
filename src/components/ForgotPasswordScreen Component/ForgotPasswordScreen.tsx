@@ -9,6 +9,7 @@ import {
   KeyboardAvoidingView,
   Dimensions,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width } = Dimensions.get('window');
@@ -17,6 +18,7 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function ForgotPassword(): JSX.Element {
   const [email, setEmail] = useState('');
   const [isFocused, setIsFocused] = useState(false);
+  const navigation = useNavigation();
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -30,11 +32,13 @@ function ForgotPassword(): JSX.Element {
     <SafeAreaView style={styles.container}>
       {/* Image */}
       <View style={styles.header}>
-        <Image
-          source={require('../../assets/back.png')}
-          style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-          resizeMode="contain"
-        />
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Image
+            source={require('../../assets/back.png')}
+            style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
         <View style={styles.headerText}>
           <Text
             style={[
