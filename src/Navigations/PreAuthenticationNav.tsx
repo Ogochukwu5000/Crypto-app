@@ -6,6 +6,7 @@ import CheckEmailScreen from '../components/CheckEmailScreen Component/CheckEmai
 import CreateNewPassword from '../components/CreateNewPasswordScreen Component/CreateNewPassword';
 import SignupScreen from '../components/SignupScreen Component/SignupScreen';
 import ChooseCryptoTag from '../components/ChooseCryptoTagScreen Component/ChooseCryptoTag';
+import CreatePin from '../components/CreatePinScreen Component/CreatePinScreen';
 
 function PreAuthenticationNav(): JSX.Element {
   const Stack = createStackNavigator();
@@ -42,9 +43,14 @@ function PreAuthenticationNav(): JSX.Element {
         component={SignupScreen}
         options={{ headerShown: false }}
       /> */}
-      <Stack.Screen
+      {/* <Stack.Screen
         name="ChooseCryptoTag"
         component={ChooseCryptoTag}
+        options={{ headerShown: false }}
+      /> */}
+      <Stack.Screen
+        name="CreatePin"
+        component={CreatePin}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
