@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   Text,
   Image,
@@ -8,13 +8,16 @@ import {
   TextInput,
   KeyboardAvoidingView,
 } from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 function LoginScreen(): JSX.Element {
   const [emailOrCtag, setEmailOrCtag] = useState('');
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
+  const navigation = useNavigation();
+
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -87,7 +90,7 @@ function LoginScreen(): JSX.Element {
             <Text style={styles.loginButtonText}>Login</Text>
           </TouchableOpacity>
           {/* Dont have an account sign up */}
-          <TouchableOpacity style={styles.signUpButton}>
+          <TouchableOpacity style={styles.signUpButton} onPress={() => navigation.navigate('Signup' as never)}>
             <Text style={styles.signUpButtonText}>Don't have an account?</Text>
             <Text style={styles.signUpLinkText}> Sign up</Text>
           </TouchableOpacity>
