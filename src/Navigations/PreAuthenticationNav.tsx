@@ -10,6 +10,7 @@ import CreatePin from '../components/CreatePinScreen Component/CreatePinScreen';
 import ConfirmPin from '../components/ConfirmPinScreen Component/ConfirmPinScreen';
 import VerifyEmailScreen from '../components/VerifyEmailScreen Component/VerifyEmailScreen';
 import LoginScreen from '../components/LoginScreen Component/LoginScreen';
+import Welcome from '../components/WelcomeScreen Component/WelcomeScreen';
 
 function PreAuthenticationNav(): JSX.Element {
   const Stack = createStackNavigator();
@@ -19,17 +20,17 @@ function PreAuthenticationNav(): JSX.Element {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="PinVerification"
         component={PinVerification}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="ForgotPassword"
         component={ForgotPassword}
-        options={{headerShown: false}}
+        options={{ headerShown: false }}
       />
       <Stack.Screen
         name="CheckEmail"
@@ -64,6 +65,11 @@ function PreAuthenticationNav(): JSX.Element {
       <Stack.Screen
         name="VerifyEmail"
         component={VerifyEmailScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="Welcome"
+        component={Welcome}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
