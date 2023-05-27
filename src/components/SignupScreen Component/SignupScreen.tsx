@@ -9,6 +9,7 @@ import {
     KeyboardAvoidingView,
     Dimensions,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width } = Dimensions.get('window');
@@ -21,6 +22,7 @@ function SignupScreen(): JSX.Element {
     const [password, setPassword] = useState('');
     const [passwordHidden, setPasswordHidden] = useState(true);
     const [isFocused, setIsFocused] = useState(false);
+    const navigation = useNavigation();
 
     const handleFocus = () => {
         setIsFocused(true);
@@ -107,9 +109,6 @@ function SignupScreen(): JSX.Element {
                         }
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.forgotPasswordButton}>
-                    <Text style={styles.forgotPasswordBottonText}>Forgot Password?</Text>
-                </TouchableOpacity>
                 <View style={[styles.loginFooter, isSmallScreen && styles.isSmallScreenLoginFooter]}>
                     <TouchableOpacity style={styles.loginButton}>
                         <Text style={styles.loginButtonText}>Let Get Started</Text>
