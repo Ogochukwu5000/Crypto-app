@@ -8,55 +8,62 @@ import SignupScreen from '../components/SignupScreen Component/SignupScreen';
 import ChooseCryptoTag from '../components/ChooseCryptoTagScreen Component/ChooseCryptoTag';
 import CreatePin from '../components/CreatePinScreen Component/CreatePinScreen';
 import ConfirmPin from '../components/ConfirmPinScreen Component/ConfirmPinScreen';
+import VerifyEmailScreen from '../components/VerifyEmailScreen Component/VerifyEmailScreen';
+import LoginScreen from '../components/LoginScreen Component/LoginScreen';
 
 function PreAuthenticationNav(): JSX.Element {
   const Stack = createStackNavigator();
 
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen
+      <Stack.Screen
         name="Login"
         component={LoginScreen}
         options={{headerShown: false}}
-      /> */}
-      {/* <Stack.Screen
+      />
+      <Stack.Screen
         name="PinVerification"
         component={PinVerification}
         options={{headerShown: false}}
-      /> */}
-      {/* <Stack.Screen
+      />
+      <Stack.Screen
         name="ForgotPassword"
         component={ForgotPassword}
         options={{headerShown: false}}
-      /> */}
-      {/* <Stack.Screen
+      />
+      <Stack.Screen
         name="CheckEmail"
         component={CheckEmailScreen}
         options={{ headerShown: false }}
-      /> */}
-      {/* <Stack.Screen
+      />
+      <Stack.Screen
         name="CreateNewPassword"
         component={CreateNewPassword}
         options={{ headerShown: false }}
-      /> */}
-      {/* <Stack.Screen
+      />
+      <Stack.Screen
         name="Signup"
         component={SignupScreen}
         options={{ headerShown: false }}
-      /> */}
-      {/* <Stack.Screen
+      />
+      <Stack.Screen
         name="ChooseCryptoTag"
         component={ChooseCryptoTag}
         options={{ headerShown: false }}
-      /> */}
-      {/* <Stack.Screen
+      />
+      <Stack.Screen
         name="CreatePin"
         component={CreatePin}
         options={{ headerShown: false }}
-      /> */}
+      />
       <Stack.Screen
         name="ConfirmPin"
         component={ConfirmPin}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="VerifyEmail"
+        component={VerifyEmailScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
