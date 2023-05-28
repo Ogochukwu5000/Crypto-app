@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Text,
     Image,
@@ -11,15 +11,23 @@ import {
 } from 'react-native';
 import Loading from '../LoadingScreen Component/LoadingScreen';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers';
+import axios from 'axios';
+import Toast from 'react-native-toast-message';
+import { useNavigation } from '@react-navigation/native';
+
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function ChooseCryptoTag(): JSX.Element {
-    const [cryptoTag, setCryptoTag] = useState('');
+    let [cryptoTag, setCryptoTag] = useState('');
     const [isFocused, setIsFocused] = useState(false);
-    const [checker, setChecker] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
+    const navigation = useNavigation();
+    const user = useSelector((state: RootState) => state.userReducer.user);
 
     const handleFocus = () => {
         setIsFocused(true);
@@ -28,6 +36,51 @@ function ChooseCryptoTag(): JSX.Element {
     const handleBlur = () => {
         setIsFocused(false);
     };
+
+    const handleNext = () => {
+        if (!cryptoTag.startsWith('#')) {
+            cryptoTag = '#' + cryptoTag;
+        }
+        axios
+            .post('http://localhost:8000/user/check-crypto-tag', {
+                crypto_tag: cryptoTag,
+            })
+            .then((response) => {
+                if (response.data.cryptoTag) {
+                    dispatch({ type: 'SIGNUP', payload: { cryptoTag: cryptoTag } });
+                    setIsLoading(true);
+                    setTimeout(() => {
+                        setIsLoading(false); // hide loading screen
+                        navigation.navigate('CreatePin' as never); // navigate to next screen
+                    }, 2000); // delay for 2 seconds
+                    console.log('User: ', user);
+                } else {
+                    Toast.show({
+                        type: 'error',
+                        text1: 'Error',
+                        text2: 'Crypto Tag already exists.',
+                        visibilityTime: 3000,
+                        autoHide: true,
+                        topOffset: 30,
+                        bottomOffset: 40,
+                    });
+                    setIsLoading(false);
+                }
+            })
+            .catch((error) => {
+                console.log(error);
+                Toast.show({
+                    type: 'error',
+                    text1: 'Error',
+                    text2: `Something went wrong. ${error}.`,
+                    visibilityTime: 3000,
+                    autoHide: true,
+                    topOffset: 30,
+                    bottomOffset: 40,
+                });
+            })
+    };
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -73,11 +126,8 @@ function ChooseCryptoTag(): JSX.Element {
                                 onFocus={handleFocus}
                                 onSubmitEditing={handleBlur}
                             />
-                            <Text style={styles.availabilityText}>
-                                {cryptoTag.length <= 0 ? "" : !checker ? `${cryptoTag} is unavailable` : `${cryptoTag} now we talking!`}
-                            </Text>
                         </View>
-                        <TouchableOpacity style={styles.resetButton}>
+                        <TouchableOpacity style={styles.resetButton} onPress={handleNext}>
                             <Text style={styles.resetButtonText}>Next</Text>
                         </TouchableOpacity>
                     </KeyboardAvoidingView>
@@ -185,11 +235,6 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'flex-start',
         marginLeft: '5%',
-    },
-    availabilityText: {
-        color: '#808080',
-        fontSize: 16,
-        marginTop: 5,
     },
 });
 
