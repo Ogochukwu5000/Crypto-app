@@ -6,11 +6,18 @@ import {
     StyleSheet,
     View,
     Dimensions,
+    Linking
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
+
+const handleOpenEmailApp = () => {
+    // Open Email App
+    Linking.openURL('mailto:');
+}
+
 
 function VerifyEmailScreen(): JSX.Element {
     return (
@@ -48,6 +55,7 @@ function VerifyEmailScreen(): JSX.Element {
                 resizeMode="contain"
             />
             <TouchableOpacity
+                onPress={handleOpenEmailApp}
                 style={[
                     styles.resetButton,
                     isSmallScreen && styles.smallScreenResetButton,
