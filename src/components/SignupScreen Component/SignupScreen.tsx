@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Text,
     Image,
@@ -42,16 +42,41 @@ function SignupScreen(): JSX.Element {
 
     const user = useSelector((state: RootState) => state.userReducer.user);
 
+    useEffect(() => {
+        if (user) {
+            setFirstName(user.firstName);
+            setLastName(user.lastName);
+            setEmail(user.email);
+            setPassword(user.password);
+        }
+    }, [user]);
+
     const handleSignup = () => {
-        //         Toast.show({
-        //             type: 'error',
-        //             text1: 'Error',
-        //             text2: 'There was an error signing up. Please try again later.',
-        //             visibilityTime: 3000,
-        //             autoHide: true,
-        //         });
-        dispatch({ type: 'SIGNUP', payload: { firstName, lastName, email, password } });
-        console.log('user', user);
+        if (password.length < 6) {
+            Toast.show({
+                type: 'error',
+                text1: 'Error',
+                text2: 'Password must be at least 6 characters long.',
+                visibilityTime: 3000,
+                autoHide: true,
+            });
+        }
+
+        if (!firstName || !lastName || !email || !password) {
+            Toast.show({
+                type: 'error',
+                text1: 'Error',
+                text2: 'Please fill out all fields.',
+                visibilityTime: 3000,
+                autoHide: true,
+            });
+        }
+
+        if (firstName && lastName && email && password) {
+            dispatch({ type: 'SIGNUP', payload: { firstName, lastName, email, password } })
+            navigation.navigate('ChooseCryptoTag' as never);
+        }
+
     };
 
 
