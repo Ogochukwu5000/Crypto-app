@@ -22,7 +22,10 @@ function userReducer(state = initialUserState, action: any) {
         case 'SIGNUP':
             return {
                 ...state,
-                user: action.payload,
+                user: {
+                    ...state.user,
+                    ...action.payload,
+                }
             };
         default:
             return state;
