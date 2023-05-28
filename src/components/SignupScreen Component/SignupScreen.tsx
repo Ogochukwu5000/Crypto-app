@@ -75,7 +75,6 @@ function SignupScreen(): JSX.Element {
         if (firstName && lastName && email && password) {
             dispatch({ type: 'SIGNUP', payload: { firstName, lastName, email, password } });
             navigation.navigate('ChooseCryptoTag' as never);
-            console.log('user: ', user);
         }
 
     };
