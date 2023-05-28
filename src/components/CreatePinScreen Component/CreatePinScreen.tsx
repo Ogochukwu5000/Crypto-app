@@ -9,8 +9,9 @@ import {
     TouchableOpacity,
     Animated,
 } from 'react-native';
-import Loading from '../LoadingScreen Component/LoadingScreen';
-
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers';
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
@@ -18,8 +19,12 @@ function CreatePin(): JSX.Element {
     const [pin, setPin] = useState('');
     const [pinCount, setPinCount] = useState(0);
     const shakeAnimation = useRef(new Animated.Value(0)).current;
-    const [isLoading, setIsLoading] = useState(true);
     const [isPinWrong, setIsPinWrong] = useState(false);
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const user = useSelector((state: RootState) => state.userReducer.user);
+
+    console.log('user: ', user);
 
     const handlePinKeyPress = (digit: string) => {
         if (digit === 'X') {
@@ -67,137 +72,132 @@ function CreatePin(): JSX.Element {
         });
     };
 
+    const handlePinSubmit = () => {
+        dispatch({ type: 'SIGNUP', payload: { pin } });
+        navigation.navigate('ConfirmPin' as never);
+    };
+
     useEffect(() => {
-        if (pin.length === 4 && pin !== '1234') {
-            setIsPinWrong(true);
-            shakePinContainer();
-        } else {
-            setIsPinWrong(false);
-            setIsLoading(false);
-        }
-    }, [pin, isLoading]);
+        if (pin.length === 4) {
+            handlePinSubmit();
+        } 
+    }, [pin]);
 
     return (
         <SafeAreaView style={styles.container}>
-            {!isLoading ? (
-                <>
-                    <View style={styles.header}>
-                        <Image
-                            source={require('../../assets/back.png')}
-                            style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-                            resizeMode="contain"
-                        />
-                        <View style={styles.headerText}>
-                            <Text
-                                style={[
-                                    styles.verificationHeader,
-                                    isSmallScreen && styles.smallScreenVerificationHeader,
-                                ]}>
-                                Create a PIN
-                            </Text>
-                            <Text
-                                style={[
-                                    styles.verificationSubHeader,
-                                    isSmallScreen && styles.smallScreenVerificationSubHeader,
-                                ]}>
-                                Enhance the security of your account by creating a PIN code
-                            </Text>
-                        </View>
+            <>
+                <View style={styles.header}>
+                    <Image
+                        source={require('../../assets/back.png')}
+                        style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                        resizeMode="contain"
+                    />
+                    <View style={styles.headerText}>
+                        <Text
+                            style={[
+                                styles.verificationHeader,
+                                isSmallScreen && styles.smallScreenVerificationHeader,
+                            ]}>
+                            Create a PIN
+                        </Text>
+                        <Text
+                            style={[
+                                styles.verificationSubHeader,
+                                isSmallScreen && styles.smallScreenVerificationSubHeader,
+                            ]}>
+                            Enhance the security of your account by creating a PIN code
+                        </Text>
                     </View>
-                    <Animated.View
-                        style={[
-                            styles.pinContainer,
-                            isSmallScreen && styles.smallScreenPinContainer,
-                            isPinWrong && {
-                                transform: [{ translateX: shakeAnimation }],
-                            },
-                        ]}>
-                        <View style={[styles.pin, pinCount >= 1 && styles.pinFilled]} />
-                        <View style={[styles.pin, pinCount >= 2 && styles.pinFilled]} />
-                        <View style={[styles.pin, pinCount >= 3 && styles.pinFilled]} />
-                        <View style={[styles.pin, pinCount >= 4 && styles.pinFilled]} />
-                    </Animated.View>
-                    {/* Pin key pad */}
-                    <View
-                        style={[
-                            styles.pinKeyPad,
-                            isSmallScreen && styles.smallScreenPinKeyPad,
-                        ]}>
-                        <View style={styles.pinKeyPadRow}>
-                            <TouchableOpacity
-                                style={styles.pinKeyPadButton}
-                                onPress={() => handlePinKeyPress('1')}>
-                                <Text style={styles.pinKeyPadButtonText}>1</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.pinKeyPadButton}
-                                onPress={() => handlePinKeyPress('2')}>
-                                <Text style={styles.pinKeyPadButtonText}>2</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.pinKeyPadButton}
-                                onPress={() => handlePinKeyPress('3')}>
-                                <Text style={styles.pinKeyPadButtonText}>3</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.pinKeyPadRow}>
-                            <TouchableOpacity
-                                style={styles.pinKeyPadButton}
-                                onPress={() => handlePinKeyPress('4')}>
-                                <Text style={styles.pinKeyPadButtonText}>4</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.pinKeyPadButton}
-                                onPress={() => handlePinKeyPress('5')}>
-                                <Text style={styles.pinKeyPadButtonText}>5</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.pinKeyPadButton}
-                                onPress={() => handlePinKeyPress('6')}>
-                                <Text style={styles.pinKeyPadButtonText}>6</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.pinKeyPadRow}>
-                            <TouchableOpacity
-                                style={styles.pinKeyPadButton}
-                                onPress={() => handlePinKeyPress('7')}>
-                                <Text style={styles.pinKeyPadButtonText}>7</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.pinKeyPadButton}
-                                onPress={() => handlePinKeyPress('8')}>
-                                <Text style={styles.pinKeyPadButtonText}>8</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.pinKeyPadButton}
-                                onPress={() => handlePinKeyPress('9')}>
-                                <Text style={styles.pinKeyPadButtonText}>9</Text>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.pinKeyPadRow}>
-                            <TouchableOpacity
-                                style={styles.pinKeyPadButton}
-                                onPress={() => handlePinKeyPress('.')}>
-                                <Text style={styles.pinKeyPadButtonText}>.</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.pinKeyPadButton}
-                                onPress={() => handlePinKeyPress('0')}>
-                                <Text style={styles.pinKeyPadButtonText}>0</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity
-                                style={styles.pinKeyPadButton}
-                                onPress={() => handlePinKeyPress('X')}>
-                                <Text style={styles.pinKeyPadButtonText}>X</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </>
-            ) : (
-                <View>
-                    <Loading />
                 </View>
-            )}
+                <Animated.View
+                    style={[
+                        styles.pinContainer,
+                        isSmallScreen && styles.smallScreenPinContainer,
+                        isPinWrong && {
+                            transform: [{ translateX: shakeAnimation }],
+                        },
+                    ]}>
+                    <View style={[styles.pin, pinCount >= 1 && styles.pinFilled]} />
+                    <View style={[styles.pin, pinCount >= 2 && styles.pinFilled]} />
+                    <View style={[styles.pin, pinCount >= 3 && styles.pinFilled]} />
+                    <View style={[styles.pin, pinCount >= 4 && styles.pinFilled]} />
+                </Animated.View>
+                {/* Pin key pad */}
+                <View
+                    style={[
+                        styles.pinKeyPad,
+                        isSmallScreen && styles.smallScreenPinKeyPad,
+                    ]}>
+                    <View style={styles.pinKeyPadRow}>
+                        <TouchableOpacity
+                            style={styles.pinKeyPadButton}
+                            onPress={() => handlePinKeyPress('1')}>
+                            <Text style={styles.pinKeyPadButtonText}>1</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.pinKeyPadButton}
+                            onPress={() => handlePinKeyPress('2')}>
+                            <Text style={styles.pinKeyPadButtonText}>2</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.pinKeyPadButton}
+                            onPress={() => handlePinKeyPress('3')}>
+                            <Text style={styles.pinKeyPadButtonText}>3</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.pinKeyPadRow}>
+                        <TouchableOpacity
+                            style={styles.pinKeyPadButton}
+                            onPress={() => handlePinKeyPress('4')}>
+                            <Text style={styles.pinKeyPadButtonText}>4</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.pinKeyPadButton}
+                            onPress={() => handlePinKeyPress('5')}>
+                            <Text style={styles.pinKeyPadButtonText}>5</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.pinKeyPadButton}
+                            onPress={() => handlePinKeyPress('6')}>
+                            <Text style={styles.pinKeyPadButtonText}>6</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.pinKeyPadRow}>
+                        <TouchableOpacity
+                            style={styles.pinKeyPadButton}
+                            onPress={() => handlePinKeyPress('7')}>
+                            <Text style={styles.pinKeyPadButtonText}>7</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.pinKeyPadButton}
+                            onPress={() => handlePinKeyPress('8')}>
+                            <Text style={styles.pinKeyPadButtonText}>8</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.pinKeyPadButton}
+                            onPress={() => handlePinKeyPress('9')}>
+                            <Text style={styles.pinKeyPadButtonText}>9</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.pinKeyPadRow}>
+                        <TouchableOpacity
+                            style={styles.pinKeyPadButton}
+                            onPress={() => handlePinKeyPress('.')}>
+                            <Text style={styles.pinKeyPadButtonText}>.</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.pinKeyPadButton}
+                            onPress={() => handlePinKeyPress('0')}>
+                            <Text style={styles.pinKeyPadButtonText}>0</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.pinKeyPadButton}
+                            onPress={() => handlePinKeyPress('X')}>
+                            <Text style={styles.pinKeyPadButtonText}>X</Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </>
         </SafeAreaView>
     );
 }
