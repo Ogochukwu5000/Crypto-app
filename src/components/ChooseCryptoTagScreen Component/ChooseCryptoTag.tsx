@@ -22,7 +22,7 @@ const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function ChooseCryptoTag(): JSX.Element {
-    let [cryptoTag, setCryptoTag] = useState('');
+    const [cryptoTag, setCryptoTag] = useState('');
     const [isFocused, setIsFocused] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
@@ -38,16 +38,13 @@ function ChooseCryptoTag(): JSX.Element {
     };
 
     const handleNext = () => {
-        if (!cryptoTag.startsWith('#')) {
-            cryptoTag = '#' + cryptoTag;
-        }
         axios
             .post('http://localhost:8000/user/check-crypto-tag', {
-                crypto_tag: cryptoTag,
+                crypto_tag: !cryptoTag.startsWith('#') ? '#' + cryptoTag : cryptoTag,
             })
             .then((response) => {
                 if (response.data.cryptoTag) {
-                    dispatch({ type: 'SIGNUP', payload: { cryptoTag: cryptoTag } });
+                    dispatch({ type: 'SIGNUP', payload: { cryptoTag: !cryptoTag.startsWith('#') ? '#' + cryptoTag : cryptoTag } });
                     setIsLoading(true);
                     setTimeout(() => {
                         setIsLoading(false); // hide loading screen
