@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Text,
     Image,
@@ -6,7 +6,10 @@ import {
     StyleSheet,
     View,
     Dimensions,
-    Linking
+    Linking,
+    Alert,
+    LayoutAnimation,
+    LogBox
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
@@ -14,51 +17,70 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import { useNavigation } from '@react-navigation/native';
 import Loading from '../LoadingScreen Component/LoadingScreen';
+import Toast from 'react-native-toast-message';
+import { StackActions } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 const handleOpenEmailApp = () => {
-    Linking.openURL('https://mail.google.com/');
+    Linking.openURL('googlegmail://');
 }
+
+LogBox.ignoreAllLogs();
 
 function VerifyEmailScreen(): JSX.Element {
     const user = useSelector((state: RootState) => state.userReducer.user);
     const navigation = useNavigation();
     const [isLoading, setIsLoading] = React.useState(false);
+    const [otp, setOtp] = useState('');
 
     useEffect(() => {
-        const handleDeepLink = (url: string) => {
-            const route = url.replace(/.*?:\/\//g, '');
-            const routeName = route.split('/')[1];
-            if (routeName === 'verify-email') {
-                setIsLoading(true);
-                setTimeout(() => {
-                    setIsLoading(false);
-                    navigation.navigate('Welcome' as never);
-                }, 2000);
-            }
+        axios.post('http://10.0.0.174:8000/user/sendverification', {
+            email: user?.email,
+        }).then((response) => {
+            console.log('Response: ', response.data);
+            setOtp(response.data.otp);
         }
-
-        Linking.getInitialURL().then((url) => {
-            if (url) {
-                handleDeepLink(url);
-            }
-        });
-
-        const handleUrl = ({ url }: { url: string }) => {
-            handleDeepLink(url);
-        };
-        (Linking as any).addEventListener('url', handleUrl);
-        return () => {
-            (Linking as any).removeEventListener('url', handleUrl);
-        };
+        ).catch((error) => {
+            console.log('Error: ', error);
+        }
+        );
     }, []);
+
+    const handleEnterCode = () => {
+        let code = '';
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        Alert.prompt(
+            'Enter Code',
+            'Please enter the code you received in your email:',
+            (text) => {
+                code = text;
+                if (code === otp) {
+                    setIsLoading(true);
+                    setTimeout(() => {
+                        setIsLoading(false);
+                        navigation.dispatch(StackActions.replace('Welcome' as never));
+                    }, 2000);
+                } else {
+                    Toast.show({
+                        type: 'error',
+                        text1: 'Error',
+                        text2: 'Incorrect code.',
+                        visibilityTime: 3000,
+                        autoHide: true,
+                    });
+                }
+            },
+            undefined,
+            ''
+        );
+    };
 
     return (
         <SafeAreaView style={styles.container}>
             {
-                isLoading ? (
+                !isLoading ? (
                     <>
                         {/* Image */}
                         <View style={styles.header}>
@@ -80,7 +102,7 @@ function VerifyEmailScreen(): JSX.Element {
                                         styles.checkScreenSubHeader,
                                         isSmallScreen && styles.smallScreenCheckScreenSubHeader,
                                     ]}>
-                                    Just one last thing, lets verify that gorgeous email of yours!{' '}
+                                    We sent you a code, lets verify that gorgeous email of yours!{' '}
                                 </Text>
                             </View>
                         </View>
@@ -93,21 +115,22 @@ function VerifyEmailScreen(): JSX.Element {
                             resizeMode="contain"
                         />
                         <TouchableOpacity
-                            onPress={() => {
-                                axios.post('http://localhost:8000/user/sendverification', {
-                                    email: user?.email,
-                                }).then((response) => {
-                                    console.log('Response: ', response.data);
-                                }).catch((error) => {
-                                    console.log('Error: ', error);
-                                });
-                                handleOpenEmailApp();
-                            }}
+                            // onPress={() => {
+                            //     axios.post('http://10.0.0.174:8000/user/sendverification', {
+                            //         email: user?.email,
+                            //     }).then((response) => {
+                            //         console.log('Response: ', response.data);
+                            //     }).catch((error) => {
+                            //         console.log('Error: ', error);
+                            //     });
+                            //     handleOpenEmailApp();
+                            // }}
+                            onPress={handleEnterCode}
                             style={[
                                 styles.resetButton,
                                 isSmallScreen && styles.smallScreenResetButton,
                             ]}>
-                            <Text style={styles.resetButtonText}>Open Email App</Text>
+                            <Text style={styles.resetButtonText}>Enter Code</Text>
                         </TouchableOpacity>
                     </>
                 ) : (
