@@ -39,7 +39,7 @@ function ChooseCryptoTag(): JSX.Element {
 
     const handleNext = () => {
         axios
-            .post('http://localhost:8000/user/check-crypto-tag', {
+            .post('http://10.0.0.174:8000/user/check-crypto-tag', {
                 crypto_tag: !cryptoTag.startsWith('#') ? '#' + cryptoTag : cryptoTag,
             })
             .then((response) => {
