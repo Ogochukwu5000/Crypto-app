@@ -7,6 +7,7 @@ interface User {
     password: string;
     cryptoTag: string;
     pin: string;
+    authenticated: boolean;
 }
 
 interface UserState {
@@ -14,7 +15,15 @@ interface UserState {
 }
 
 const initialUserState: UserState = {
-    user: null,
+    user: {
+        firstName: '',
+        lastName: '',
+        email: '',
+        password: '',
+        cryptoTag: '',
+        pin: '',
+        authenticated: false,
+    },
 };
 
 function userReducer(state = initialUserState, action: any) {
@@ -25,6 +34,14 @@ function userReducer(state = initialUserState, action: any) {
                 user: {
                     ...state.user,
                     ...action.payload,
+                }
+            };
+        case 'AUTHENTICATE':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    authenticated: true,
                 }
             };
         default:
