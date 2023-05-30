@@ -63,6 +63,7 @@ function userReducer(state = initialUserState, action: any) {
                 user: {
                     ...state.user,
                     otp: action.payload.otp,
+                    email: action.payload.email,
                 }
             };
         default:
