@@ -8,9 +8,13 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Dimensions,
+  Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -19,6 +23,7 @@ function ForgotPassword(): JSX.Element {
   const [email, setEmail] = useState('');
   const [isFocused, setIsFocused] = useState(false);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -27,6 +32,40 @@ function ForgotPassword(): JSX.Element {
   const handleBlur = () => {
     setIsFocused(false);
   };
+
+  const handleResetPassword = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+      Alert.alert('Error', 'Please enter a valid email address');
+      return;
+    }
+
+    axios
+      .post('http://10.0.0.174:8000/user/forgot-password', {
+        email,
+      }).
+      then((response) => {
+        if (response.status) {
+          console.log('Response: ', response.data);
+          dispatch({
+            type: 'VERIFY_OTP',
+            payload: {
+              otp: response.data.otp,
+              email,
+            },
+          });
+          navigation.navigate('CheckEmail' as never);
+        } else {
+          Alert.alert('Error', response.data.message);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+
 
   return (
     <SafeAreaView style={styles.container}>
@@ -73,7 +112,7 @@ function ForgotPassword(): JSX.Element {
             onSubmitEditing={handleBlur}
           />
         </View>
-        <TouchableOpacity style={styles.resetButton}>
+        <TouchableOpacity style={styles.resetButton} onPress={handleResetPassword}>
           <Text style={styles.resetButtonText}>Reset Password</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
