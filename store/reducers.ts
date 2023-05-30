@@ -9,6 +9,7 @@ interface User {
     pin: string;
     authenticated: boolean;
     token: string;
+    otp: string;
 }
 
 interface UserState {
@@ -25,6 +26,7 @@ const initialUserState: UserState = {
         pin: '',
         authenticated: false,
         token: '',
+        otp: '',
     },
 };
 
@@ -53,6 +55,14 @@ function userReducer(state = initialUserState, action: any) {
                     ...state.user,
                     authenticated: true,
                     token: action.payload.token,
+                }
+            };
+        case 'VERIFY_OTP':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    otp: action.payload.otp,
                 }
             };
         default:
