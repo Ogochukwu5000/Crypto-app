@@ -51,6 +51,20 @@ function CreateNewPassword(): JSX.Element {
       Alert.alert('Error', 'Passwords do not match');
       return;
     }
+
+    axios.post(`http://10.0.0.174:8000/user/reset-password/${user?.token}`, {
+      password,
+    }).then((response) => {
+      if (response.status) {
+        console.log('Response: ', response.data);
+        Alert.alert('Success', 'Password reset successfully');
+        navigation.navigate('Login' as never);
+      }
+    }).catch((error) => {
+      console.log(error);
+      Alert.alert('Error', 'Something went wrong try again, pretty please');
+    }
+    );
   };
 
   return (
