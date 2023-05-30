@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Text,
   Image,
@@ -6,55 +6,127 @@ import {
   StyleSheet,
   View,
   Dimensions,
+  Linking,
+  Alert,
+  LayoutAnimation,
+  LogBox
 } from 'react-native';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers';
+import { useNavigation } from '@react-navigation/native';
+import Loading from '../LoadingScreen Component/LoadingScreen';
+import Toast from 'react-native-toast-message';
+import { StackActions } from '@react-navigation/native';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
+LogBox.ignoreAllLogs();
+
 function CheckEmailScreen(): JSX.Element {
+  const user = useSelector((state: RootState) => state.userReducer.user);
+  const navigation = useNavigation();
+  const [isLoading, setIsLoading] = React.useState(false);
+
+
+
+  const handleEnterCode = () => {
+    let code = '';
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    Alert.prompt(
+      'Enter Code',
+      'Please enter the code you received in your email:',
+      (text) => {
+        code = text;
+        if (code === user?.otp) {
+          setIsLoading(true);
+          setTimeout(() => {
+            setIsLoading(false);
+            navigation.navigate('CreateNewPassword' as never);
+          }, 2000);
+        } else {
+          Toast.show({
+            type: 'error',
+            text1: 'Error',
+            text2: 'Incorrect code.',
+            visibilityTime: 3000,
+            autoHide: true,
+          });
+        }
+      },
+      undefined,
+      ''
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* Image */}
-      <View style={styles.header}>
-        <Image
-          source={require('../../assets/back.png')}
-          style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-          resizeMode="contain"
-        />
-        <View style={styles.headerText}>
-          <Text
-            style={[
-              styles.checkScreenHeader,
-              isSmallScreen && styles.smallScreenCheckScreenHeader,
-            ]}>
-            Check Your Email
-          </Text>
-          <Text
-            style={[
-              styles.checkScreenSubHeader,
-              isSmallScreen && styles.smallScreenCheckScreenSubHeader,
-            ]}>
-            Follow a password recovery instructions we have just sent to your
-            email address{' '}
-          </Text>
-        </View>
-      </View>
-      <Image
-        source={require('../../assets/email.png')}
-        style={[
-          styles.emailImage,
-          isSmallScreen && styles.smallScreenEmailImage,
-        ]}
-        resizeMode="contain"
-      />
-      <TouchableOpacity
-        style={[
-          styles.resetButton,
-          isSmallScreen && styles.smallScreenResetButton,
-        ]}>
-        <Text style={styles.resetButtonText}>Open Email App</Text>
-      </TouchableOpacity>
+      {
+        !isLoading ? (
+          <>
+            {/* Image */}
+            <View style={styles.header}>
+              <TouchableOpacity onPress={() => {
+                navigation.goBack();
+              }}>
+                <Image
+                  source={require('../../assets/back.png')}
+                  style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                  resizeMode="contain"
+                />
+              </TouchableOpacity>
+              <View style={styles.headerText}>
+                <Text
+                  style={[
+                    styles.checkScreenHeader,
+                    isSmallScreen && styles.smallScreenCheckScreenHeader,
+                  ]}>
+                  Check Email
+                </Text>
+                <Text
+                  style={[
+                    styles.checkScreenSubHeader,
+                    isSmallScreen && styles.smallScreenCheckScreenSubHeader,
+                  ]}>
+                  We sent you a code, lets verify that gorgeous email of yours!{' '}
+                </Text>
+              </View>
+            </View>
+            <Image
+              source={require('../../assets/email.png')}
+              style={[
+                styles.emailImage,
+                isSmallScreen && styles.smallScreenEmailImage,
+              ]}
+              resizeMode="contain"
+            />
+            <TouchableOpacity
+              // onPress={() => {
+              //     axios.post('http://10.0.0.174:8000/user/sendverification', {
+              //         email: user?.email,
+              //     }).then((response) => {
+              //         console.log('Response: ', response.data);
+              //     }).catch((error) => {
+              //         console.log('Error: ', error);
+              //     });
+              //     handleOpenEmailApp();
+              // }}
+              onPress={handleEnterCode}
+              style={[
+                styles.resetButton,
+                isSmallScreen && styles.smallScreenResetButton,
+              ]}>
+              <Text style={styles.resetButtonText}>Enter Code</Text>
+            </TouchableOpacity>
+          </>
+        ) : (
+          <View>
+            <Loading />
+          </View>
+        )
+      }
     </SafeAreaView>
   );
 }
@@ -89,7 +161,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
-    marginLeft: '10%',
+    marginLeft: '17%',
     width: '100%',
     alignItems: 'center',
   },
@@ -131,7 +203,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
-    marginLeft: '5%',
+    marginLeft: '6%',
   },
   emailImage: {
     width: 300,
