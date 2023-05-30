@@ -90,11 +90,15 @@ function ConfirmPin(): JSX.Element {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Image
-                    source={require('../../assets/back.png')}
-                    style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-                    resizeMode="contain"
-                />
+                <TouchableOpacity onPress={() => {
+                    navigation.goBack();
+                }}>
+                    <Image
+                        source={require('../../assets/back.png')}
+                        style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                        resizeMode="contain"
+                    />
+                </TouchableOpacity>
                 <View style={styles.headerText}>
                     <Text
                         style={[
