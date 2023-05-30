@@ -52,8 +52,9 @@ function CreateNewPassword(): JSX.Element {
       return;
     }
 
-    axios.post(`http://10.0.0.174:8000/user/reset-password/${user?.email}`, {
+    axios.post(`http://10.0.0.174:8000/user/reset-password`, {
       password,
+      email: user?.email,
     }).then((response) => {
       if (response.status) {
         console.log('Response: ', response.data);
@@ -61,7 +62,7 @@ function CreateNewPassword(): JSX.Element {
         navigation.navigate('Login' as never);
       }
     }).catch((error) => {
-      console.log(error);
+      console.log(error.response);
       Alert.alert('Error', 'Something went wrong try again, pretty please');
     }
     );
