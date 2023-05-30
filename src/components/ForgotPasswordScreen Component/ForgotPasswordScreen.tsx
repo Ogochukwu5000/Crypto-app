@@ -52,7 +52,7 @@ function ForgotPassword(): JSX.Element {
             type: 'VERIFY_OTP',
             payload: {
               otp: response.data.otp,
-              email,
+              email: response.data.email,
             },
           });
           navigation.navigate('CheckEmail' as never);
