@@ -8,6 +8,7 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Dimensions,
+  Alert
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
@@ -42,6 +43,14 @@ function CreateNewPassword(): JSX.Element {
 
   const togglePasswordConfirmHidden = () => {
     setPasswordConfirmHidden(!passwordConfirmHidden);
+  };
+
+
+  const handleCreateNewPassword = () => {
+    if (password !== confirmPassword) {
+      Alert.alert('Error', 'Passwords do not match');
+      return;
+    }
   };
 
   return (
