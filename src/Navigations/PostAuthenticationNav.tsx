@@ -6,7 +6,7 @@ function PostAuthenticationNav(): JSX.Element {
   return (
     <SafeAreaView>
       <View>
-        <Text>This is the POST AUTH NAV</Text>
+        <Text>This is the POST AUTH NAV, YOU'RE LOGGED IN LETS FUCKING GO!!</Text>
       </View>
     </SafeAreaView>
   );
