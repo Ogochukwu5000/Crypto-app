@@ -148,7 +148,7 @@ function CreateNewPassword(): JSX.Element {
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity style={styles.resetButton}>
+        <TouchableOpacity style={styles.resetButton} onPress={handleCreateNewPassword}>
           <Text style={styles.submitButtonText}>Submit</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
