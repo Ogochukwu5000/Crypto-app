@@ -23,10 +23,6 @@ import { StackActions } from '@react-navigation/native';
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
-const handleOpenEmailApp = () => {
-    Linking.openURL('googlegmail://');
-}
-
 LogBox.ignoreAllLogs();
 
 function VerifyEmailScreen(): JSX.Element {
@@ -84,11 +80,15 @@ function VerifyEmailScreen(): JSX.Element {
                     <>
                         {/* Image */}
                         <View style={styles.header}>
-                            <Image
-                                source={require('../../assets/back.png')}
-                                style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-                                resizeMode="contain"
-                            />
+                            <TouchableOpacity onPress={() => {
+                                navigation.goBack();
+                            }}>
+                                <Image
+                                    source={require('../../assets/back.png')}
+                                    style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                                    resizeMode="contain"
+                                />
+                            </TouchableOpacity>
                             <View style={styles.headerText}>
                                 <Text
                                     style={[
