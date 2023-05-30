@@ -52,7 +52,7 @@ function CreateNewPassword(): JSX.Element {
       return;
     }
 
-    axios.post(`http://10.0.0.174:8000/user/reset-password/${user?.token}`, {
+    axios.post(`http://10.0.0.174:8000/user/reset-password/${user?.email}`, {
       password,
     }).then((response) => {
       if (response.status) {
