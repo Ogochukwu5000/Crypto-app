@@ -44,7 +44,7 @@ function CheckEmailScreen(): JSX.Element {
           setIsLoading(true);
           setTimeout(() => {
             setIsLoading(false);
-            navigation.navigate('CreateNewPassword' as never);
+            navigation.dispatch(StackActions.replace('CreateNewPassword' as never));
           }, 2000);
         } else {
           Toast.show({
