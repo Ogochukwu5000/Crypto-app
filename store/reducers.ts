@@ -8,6 +8,7 @@ interface User {
     cryptoTag: string;
     pin: string;
     authenticated: boolean;
+    token: string;
 }
 
 interface UserState {
@@ -23,6 +24,7 @@ const initialUserState: UserState = {
         cryptoTag: '',
         pin: '',
         authenticated: false,
+        token: '',
     },
 };
 
@@ -42,6 +44,15 @@ function userReducer(state = initialUserState, action: any) {
                 user: {
                     ...state.user,
                     authenticated: true,
+                }
+            };
+        case 'LOGIN':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    authenticated: true,
+                    token: action.payload.token,
                 }
             };
         default:
