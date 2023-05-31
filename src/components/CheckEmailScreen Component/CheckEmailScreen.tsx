@@ -47,13 +47,7 @@ function CheckEmailScreen(): JSX.Element {
             navigation.dispatch(StackActions.replace('CreateNewPassword' as never));
           }, 2000);
         } else {
-          Toast.show({
-            type: 'error',
-            text1: 'Error',
-            text2: 'Incorrect code.',
-            visibilityTime: 3000,
-            autoHide: true,
-          });
+          Alert.alert('Error', 'Invalid code');
         }
       },
       undefined,
