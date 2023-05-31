@@ -8,6 +8,7 @@ import {
     TextInput,
     KeyboardAvoidingView,
     Dimensions,
+    Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -53,23 +54,11 @@ function SignupScreen(): JSX.Element {
 
     const handleSignup = () => {
         if (password.length < 6) {
-            Toast.show({
-                type: 'error',
-                text1: 'Error',
-                text2: 'Password must be at least 6 characters long.',
-                visibilityTime: 3000,
-                autoHide: true,
-            });
+            Alert.alert('Error', 'Password must be at least 6 characters long.');
         }
 
         if (!firstName || !lastName || !email || !password) {
-            Toast.show({
-                type: 'error',
-                text1: 'Error',
-                text2: 'Please fill out all fields.',
-                visibilityTime: 3000,
-                autoHide: true,
-            });
+            Alert.alert('Error', 'Please fill out all fields.');
         }
 
         if (firstName && lastName && email && password) {
