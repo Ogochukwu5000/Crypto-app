@@ -106,9 +106,8 @@ function ChooseCryptoTag(): JSX.Element {
                                 onChangeText={setCryptoTag}
                                 value={cryptoTag}
                                 // specify type
-                                keyboardType="email-address"
+
                                 placeholderTextColor={'#3D4C63'}
-                                textContentType="emailAddress"
                                 onFocus={handleFocus}
                                 onSubmitEditing={handleBlur}
                             />
