@@ -8,6 +8,7 @@ import {
     TextInput,
     KeyboardAvoidingView,
     Dimensions,
+    Alert,
 } from 'react-native';
 import Loading from '../LoadingScreen Component/LoadingScreen';
 import { TouchableOpacity } from 'react-native-gesture-handler';
@@ -52,15 +53,7 @@ function ChooseCryptoTag(): JSX.Element {
                     }, 2000); // delay for 2 seconds
                     console.log('User: ', user);
                 } else {
-                    Toast.show({
-                        type: 'error',
-                        text1: 'Error',
-                        text2: 'Crypto Tag already exists.',
-                        visibilityTime: 3000,
-                        autoHide: true,
-                        topOffset: 30,
-                        bottomOffset: 40,
-                    });
+                    Alert.alert('Error', 'Crypto Tag already exists.');
                     setIsLoading(false);
                 }
             })
