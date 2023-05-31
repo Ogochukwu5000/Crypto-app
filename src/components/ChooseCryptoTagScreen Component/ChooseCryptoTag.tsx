@@ -59,15 +59,7 @@ function ChooseCryptoTag(): JSX.Element {
             })
             .catch((error) => {
                 console.log(error);
-                Toast.show({
-                    type: 'error',
-                    text1: 'Error',
-                    text2: `Something went wrong. ${error}.`,
-                    visibilityTime: 3000,
-                    autoHide: true,
-                    topOffset: 30,
-                    bottomOffset: 40,
-                });
+                Alert.alert('Error', 'Something went wrong. Please try again.');
             })
     };
 
