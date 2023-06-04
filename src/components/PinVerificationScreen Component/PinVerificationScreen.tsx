@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, { useState, useRef } from 'react';
 import {
   View,
   Text,
@@ -10,8 +10,9 @@ import {
   Animated,
 } from 'react-native';
 import Loading from '../LoadingScreen Component/LoadingScreen';
+import { useNavigation } from '@react-navigation/native';
 
-const {width} = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function PinVerification(): JSX.Element {
@@ -19,6 +20,7 @@ function PinVerification(): JSX.Element {
   const [pinCount, setPinCount] = useState(0);
   const shakeAnimation = useRef(new Animated.Value(0)).current;
   const [isLoading, setIsLoading] = useState(true);
+  const navigation = useNavigation();
 
   const handlePinKeyPress = (digit: string) => {
     if (digit === 'X') {
@@ -78,11 +80,13 @@ function PinVerification(): JSX.Element {
       {!isLoading ? (
         <>
           <View style={styles.header}>
-            <Image
-              source={require('../../assets/back.png')}
-              style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-              resizeMode="contain"
-            />
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              <Image
+                source={require('../../assets/back.png')}
+                style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                resizeMode="contain"
+              />
+            </TouchableOpacity>
             <View style={styles.headerText}>
               <Text
                 style={[
@@ -105,7 +109,7 @@ function PinVerification(): JSX.Element {
               styles.pinContainer,
               isSmallScreen && styles.smallScreenPinContainer,
               isPinWrong && {
-                transform: [{translateX: shakeAnimation}],
+                transform: [{ translateX: shakeAnimation }],
               },
             ]}>
             <View style={[styles.pin, pinCount >= 1 && styles.pinFilled]} />
