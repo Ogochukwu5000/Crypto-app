@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text, View, SafeAreaView } from 'react-native';
 import Home from '../components/HomeScreen Component/HomeScreen';
 import CryptoApp from '../components/CryptoAppScreen Component/CryptoAppScreen';
 import Search from '../components/SearchScreen Component/SearchScreen';
