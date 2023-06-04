@@ -8,9 +8,15 @@ import Activity from '../components/ActivityScreen Component/ActivityScreen';
 function PostAuthenticationNav(): JSX.Element {
   const Tab = createBottomTabNavigator();
   return (
-    <Tab.Navigator screenOptions={{
+    <Tab.Navigator initialRouteName="cryptoapp" screenOptions={{
       headerShown: false,
-    }}>
+      tabBarStyle: {
+        backgroundColor: '#3447F0',
+      },
+      tabBarActiveTintColor: '#FFFFFF',
+      tabBarInactiveTintColor: '#B3B3B3',
+    }}
+    >
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="cryptoapp" component={CryptoApp} />
       <Tab.Screen name="search" component={Search} />
