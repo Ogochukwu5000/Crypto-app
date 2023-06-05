@@ -21,6 +21,78 @@ const cryptoAppSvgNotFocused = `
 <line x1="24" y1="28" x2="24" y2="34" stroke="#B3B3B3" stroke-width="4"/>
 </svg>
 `
+
+const homeSvgNotFocused = `
+<svg width="45" height="34" viewBox="0 0 35 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_30_2425)">
+<path d="M1.25 19.2857L17.5 5.35715L33.75 19.2857" stroke="#B3B3B3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.25 15V28.9286H28.75V15" stroke="#B3B3B3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.5 28.9286V20.3572" stroke="#B3B3B3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_30_2425">
+<rect width="35" height="30" fill="#B3B3B3"/>
+</clipPath>
+</defs>
+</svg>
+`
+
+const homeSvgFocused = `
+<svg width="45" height="34" viewBox="0 0 35 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_30_2425)">
+<path d="M1.25 19.2857L17.5 5.35715L33.75 19.2857" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M6.25 15V28.9286H28.75V15" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M17.5 28.9286V20.3572" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_30_2425">
+<rect width="35" height="30" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+`
+
+const searchSvgFocused = `
+<svg width="20" height="20" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_30_2431)">
+<path d="M10.9943 19.44C16.5534 19.44 21.06 15.2801 21.06 10.1486C21.06 5.01706 16.5534 0.857147 10.9943 0.857147C5.43513 0.857147 0.928558 5.01706 0.928558 10.1486C0.928558 15.2801 5.43513 19.44 10.9943 19.44Z" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M25.0714 23.1429L18.1071 16.7143" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<clipPath id="clip0_30_2431">
+<rect width="26" height="24" fill="white"/>
+</clipPath>
+</defs>
+</svg>
+`
+const searchSvgNotFocused = `
+<svg width="20" height="20" viewBox="0 0 26 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_30_2431)">
+<path d="M10.9943 19.44C16.5534 19.44 21.06 15.2801 21.06 10.1486C21.06 5.01706 16.5534 0.857147 10.9943 0.857147C5.43513 0.857147 0.928558 5.01706 0.928558 10.1486C0.928558 15.2801 5.43513 19.44 10.9943 19.44Z" stroke="#B3B3B3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M25.0714 23.1429L18.1071 16.7143" stroke="#B3B3B3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/> 
+</g>
+<defs>
+<clipPath id="clip0_30_2431">
+<rect width="26" height="24" fill="#B3B3B3"/>
+</clipPath>
+</defs>
+</svg>
+`
+
+const activitySvgFocused = `
+<svg width="32" height="31" viewBox="0 0 32 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 29C23.732 29 30 22.9558 30 15.5C30 8.04416 23.732 2 16 2C8.26801 2 2 8.04416 2 15.5C2 22.9558 8.26801 29 16 29Z" stroke="#EEEEEE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 10.3077V15.5L21.4708 21.6477" stroke="#EEEEEE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`
+
+const activitySvgNotFocused = `
+<svg width="32" height="31" viewBox="0 0 32 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M16 29C23.732 29 30 22.9558 30 15.5C30 8.04416 23.732 2 16 2C8.26801 2 2 8.04416 2 15.5C2 22.9558 8.26801 29 16 29Z" stroke="#B3B3B3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M16 10.3077V15.5L21.4708 21.6477" stroke="#B3B3B3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+`
+
 function PostAuthenticationNav(): JSX.Element {
   const Tab = createBottomTabNavigator();
   return (
@@ -29,8 +101,8 @@ function PostAuthenticationNav(): JSX.Element {
       tabBarStyle: {
         backgroundColor: `#3447F0`,
       },
-      tabBarActiveTintColor: '#FFFFFF',
-      tabBarInactiveTintColor: '#B3B3B3',
+      tabBarActiveTintColor: '#3447F0',
+      tabBarInactiveTintColor: '#3447F0',
     }}
     >
       <Tab.Screen
@@ -38,6 +110,10 @@ function PostAuthenticationNav(): JSX.Element {
         component={Home}
         options={{
           tabBarLabel: () => null,
+          tabBarIcon: ({ focused, color, size }) => {
+            const svgXmlData = focused ? homeSvgFocused : homeSvgNotFocused;
+            return <SvgXml xml={svgXmlData} width={40} height={70} fill={color} />;
+          },
         }}
       />
       <Tab.Screen options={
@@ -51,9 +127,17 @@ function PostAuthenticationNav(): JSX.Element {
       } name="cryptoapp" component={CryptoApp} />
       <Tab.Screen options={{
         tabBarLabel: () => null,
+        tabBarIcon: ({ focused, color, size }) => {
+          const svgXmlData = focused ? searchSvgFocused : searchSvgNotFocused;
+          return <SvgXml xml={svgXmlData} width={30} height={70} fill={color} />;
+        }
       }} name="Search" component={Search} />
       <Tab.Screen options={{
         tabBarLabel: () => null,
+        tabBarIcon: ({ focused, color, size }) => {
+          const svgXmlData = focused ? activitySvgFocused : activitySvgNotFocused;
+          return <SvgXml xml={svgXmlData} width={40} height={70} fill={color} />;
+        }
       }} name="Activity" component={Activity} />
     </Tab.Navigator>
   );
