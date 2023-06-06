@@ -136,14 +136,14 @@ function PostAuthenticationNav(): JSX.Element {
   const cryptoAppScreen = useSelector((state: RootState) => state.navigateReducer.cryptoAppScreen);
   const Tab = createBottomTabNavigator();
   return (
-    <Tab.Navigator initialRouteName="cryptoapp" screenOptions={{
+    <Tab.Navigator initialRouteName="cryptoapp" screenOptions={({ route }) => ({
       headerShown: false,
       tabBarStyle: {
-        backgroundColor: `${cryptoAppScreen ? '#3447F0' : '#FFFFFF'}`,
+        backgroundColor: `${route.name === 'cryptoapp' ? '#3447F0' : '#FFFFFF'}`,
       },
-      tabBarActiveTintColor: `${cryptoAppScreen ? '#3447F0' : '#FFFFFF'}`,
-      tabBarInactiveTintColor: `${cryptoAppScreen ? '#3447F0' : '#FFFFFF'}`,
-    }}
+      tabBarActiveTintColor: `${route.name === 'cryptoapp' ? '#3447F0' : '#FFFFFF'}`,
+      tabBarInactiveTintColor: `${route.name === 'cryptoapp' ? '#3447F0' : '#FFFFFF'}`,
+    })}
     >
       <Tab.Screen
         name="Home"
