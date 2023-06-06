@@ -5,6 +5,8 @@ import CryptoApp from '../components/CryptoAppScreen Component/CryptoAppScreen';
 import Search from '../components/SearchScreen Component/SearchScreen';
 import Activity from '../components/ActivityScreen Component/ActivityScreen';
 import { SvgXml } from 'react-native-svg';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/reducers';
 
 const cryptoAppSvgFocused = `
 <svg width="45" height="34" viewBox="0 0 45 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -131,8 +133,8 @@ const activitySvgNotFocused = `
 `
 
 function PostAuthenticationNav(): JSX.Element {
+  const cryptoAppScreen = useSelector((state: RootState) => state.navigateReducer.cryptoAppScreen);
   const Tab = createBottomTabNavigator();
-  const cryptoAppScreen = false;
   return (
     <Tab.Navigator initialRouteName="cryptoapp" screenOptions={{
       headerShown: false,
@@ -173,7 +175,7 @@ function PostAuthenticationNav(): JSX.Element {
       <Tab.Screen options={{
         tabBarLabel: () => null,
         tabBarIcon: ({ focused, color, size }) => {
-          const svgXmlData = focused ? activitySvgFocused : activitySvgNotFocused;
+          const svgXmlData = focused ? !cryptoAppScreen ? activitySvgFocusedBlack : activitySvgFocused : activitySvgNotFocused;
           return <SvgXml xml={svgXmlData} width={40} height={70} fill={color} />;
         }
       }} name="Activity" component={Activity} />
