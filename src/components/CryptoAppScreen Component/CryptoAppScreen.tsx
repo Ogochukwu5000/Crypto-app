@@ -1,22 +1,20 @@
 import React from 'react';
-import { Text, View, SafeAreaView, StyleSheet } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import CryptoAppMain from './CryptoAppMain';
 
 function CryptoApp(): JSX.Element {
+    const Stack = createStackNavigator();
     return (
-        <SafeAreaView style={styles.container}>
-            <View>
-                <Text>This is the cryptoapp screen</Text>
-            </View>
-        </SafeAreaView>
+        <Stack.Navigator>
+            <Stack.Screen
+                name="CryptoAppMainScreen"
+                component={CryptoAppMain}
+                options={{ headerShown: false }}
+            />
+        </Stack.Navigator>
     );
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#3447F0',
-        alignItems: 'center',
-    },
-});
+
 
 export default CryptoApp;
