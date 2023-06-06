@@ -71,12 +71,39 @@ function userReducer(state = initialUserState, action: any) {
     }
 }
 
+interface navigateState {
+    cryptoAppScreen: boolean;
+};
+
+const initialNavigateState: navigateState = {
+    cryptoAppScreen: true,
+};
+
+function navigateReducer(state = initialNavigateState, action: any) {
+    switch (action.type) {
+        case 'CRYPTO_APP_SCREEN_TRUE':
+            return {
+                ...state,
+                cryptoAppScreen: true,
+            };
+        case 'CRYPTO_APP_SCREEN_FALSE':
+            return {
+                ...state,
+                cryptoAppScreen: false,
+            };
+        default:
+            return state;
+    }
+}
+
 export interface RootState {
     userReducer: UserState;
+    navigateReducer: navigateState;
 }
 
 const rootReducer = combineReducers({
     userReducer,
+    navigateReducer,
 });
 
 export default rootReducer;
