@@ -151,7 +151,7 @@ function PostAuthenticationNav(): JSX.Element {
         options={{
           tabBarLabel: () => null,
           tabBarIcon: ({ focused, color, size }) => {
-            const svgXmlData = focused ? !cryptoAppScreen ? homeSvgFocusedBlack : homeSvgFocused : homeSvgNotFocused;
+            const svgXmlData = focused ? homeSvgFocusedBlack : homeSvgNotFocused;
             return <SvgXml xml={svgXmlData} width={40} height={70} fill={color} />;
           },
         }}
