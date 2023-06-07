@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView, Animated } from 'react-native';
 
 interface KeypadButtonProps {
     value: string;
@@ -31,7 +31,9 @@ function CryptoAppMain(): JSX.Element {
             setAmount(value);
         }
         else {
-            setAmount(amount + value);
+            if (amount.length < 5) {
+                setAmount(amount + value);
+            }
         }
     };
 
@@ -111,7 +113,9 @@ function CryptoAppMain(): JSX.Element {
                 <View style={styles.keypadRow}>
                     <KeypadButton value="." onPress={() => handleKeypadPress('.')} isHighlighted={false} />
                     <KeypadButton value="0" onPress={() => handleKeypadPress('0')} isHighlighted={false} />
-                    <KeypadButton value="X" onPress={handleDeletePress} isHighlighted={false} />
+                    <TouchableOpacity style={styles.keypadButton} onPress={handleDeletePress}>
+                        <Image source={require('../../assets/keypadDelete.png')} />
+                    </TouchableOpacity>
                 </View>
             </View>
         </SafeAreaView>
@@ -192,16 +196,17 @@ const styles = StyleSheet.create({
     keypadContainer: {
         padding: 10,
         alignItems: 'center',
+        marginTop: 15,
     },
     keypadRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '80%',
+        width: '75%',
         marginBottom: 10,
     },
     keypadButton: {
         width: 70,
-        height: 103,
+        height: 102,
         borderRadius: 35,
         justifyContent: 'center',
         alignItems: 'center',
