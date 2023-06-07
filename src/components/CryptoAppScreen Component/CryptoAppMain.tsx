@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView, Animated } from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 
 interface KeypadButtonProps {
     value: string;
     onPress: () => void;
     isHighlighted: boolean;
 }
+
+const { width } = Dimensions.get('window');
+const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function KeypadButton({ value, onPress, isHighlighted }: KeypadButtonProps): JSX.Element {
     return (
@@ -89,28 +92,30 @@ function CryptoAppMain(): JSX.Element {
                     0.00
                 </Text>
             </View>
-            <TouchableOpacity style={styles.chooseRecipientContainer}>
+            <TouchableOpacity style={[styles.chooseRecipientContainer, isSmallScreen && styles.chooseRecipientContainerSmallScreen
+            ]}>
                 <Text style={styles.chooseRecipientText}>
                     Choose Recipient
                 </Text>
             </TouchableOpacity>
-            <View style={styles.keypadContainer}>
-                <View style={styles.keypadRow}>
+            <View style={[styles.keypadContainer, isSmallScreen && styles.keypadContainerSmallScreen
+            ]}>
+                <View style={[styles.keypadRow, isSmallScreen && styles.smallScreenKeypadRow]}>
                     <KeypadButton value="1" onPress={() => handleKeypadPress('1')} isHighlighted={false} />
                     <KeypadButton value="2" onPress={() => handleKeypadPress('2')} isHighlighted={false} />
                     <KeypadButton value="3" onPress={() => handleKeypadPress('3')} isHighlighted={false} />
                 </View>
-                <View style={styles.keypadRow}>
+                <View style={[styles.keypadRow, isSmallScreen && styles.smallScreenKeypadRow]}>
                     <KeypadButton value="4" onPress={() => handleKeypadPress('4')} isHighlighted={false} />
                     <KeypadButton value="5" onPress={() => handleKeypadPress('5')} isHighlighted={false} />
                     <KeypadButton value="6" onPress={() => handleKeypadPress('6')} isHighlighted={false} />
                 </View>
-                <View style={styles.keypadRow}>
+                <View style={[styles.keypadRow, isSmallScreen && styles.smallScreenKeypadRow]}>
                     <KeypadButton value="7" onPress={() => handleKeypadPress('7')} isHighlighted={false} />
                     <KeypadButton value="8" onPress={() => handleKeypadPress('8')} isHighlighted={false} />
                     <KeypadButton value="9" onPress={() => handleKeypadPress('9')} isHighlighted={false} />
                 </View>
-                <View style={styles.keypadRow}>
+                <View style={[styles.keypadRow, isSmallScreen && styles.smallScreenKeypadRow]}>
                     <KeypadButton value="." onPress={() => handleKeypadPress('.')} isHighlighted={false} />
                     <KeypadButton value="0" onPress={() => handleKeypadPress('0')} isHighlighted={false} />
                     <TouchableOpacity style={styles.keypadButton} onPress={handleDeletePress}>
@@ -187,6 +192,9 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         marginTop: 20,
     },
+    chooseRecipientContainerSmallScreen: {
+        marginTop: 0,
+    },
     chooseRecipientText: {
         color: '#FFFFFF',
         fontSize: 18,
@@ -198,11 +206,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginTop: 15,
     },
+    keypadContainerSmallScreen: {
+        marginTop: 0,
+        padding: 0,
+        height: 300,
+    },
     keypadRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '75%',
         marginBottom: 10,
+    },
+    smallScreenKeypadRow: {
+        width: '75%',
+        marginBottom: -35,
     },
     keypadButton: {
         width: 70,
