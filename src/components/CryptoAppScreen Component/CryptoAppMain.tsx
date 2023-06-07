@@ -1,11 +1,46 @@
 import React, { useState } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 
+interface KeypadButtonProps {
+    value: string;
+    onPress: () => void;
+    isHighlighted: boolean;
+}
+
+function KeypadButton({ value, onPress, isHighlighted }: KeypadButtonProps): JSX.Element {
+    return (
+        <TouchableOpacity
+            style={[styles.keypadButton, isHighlighted && styles.keypadButtonHighlighted]}
+            onPress={onPress}
+        >
+            <Text style={[styles.keypadButtonText, isHighlighted && styles.keypadButtonTextHighlighted]}>{value}</Text>
+        </TouchableOpacity>
+    );
+}
+
 function CryptoAppMain(): JSX.Element {
     const [selectedCrypto, setSelectedCrypto] = useState('bitcoin');
+    const [amount, setAmount] = useState('0');
 
     const handleCryptoPress = (crypto: string) => {
         setSelectedCrypto(crypto);
+    };
+
+    const handleKeypadPress = (value: string) => {
+        if (amount === '0') {
+            setAmount(value);
+        }
+        else {
+            setAmount(amount + value);
+        }
+    };
+
+    const handleDeletePress = () => {
+        if (amount.length > 1) {
+            setAmount(amount.slice(0, -1));
+        } else {
+            setAmount('0');
+        }
     };
 
     return (
@@ -46,7 +81,7 @@ function CryptoAppMain(): JSX.Element {
             </View>
             <View style={styles.cryptoToSendContainer}>
                 <Text style={styles.cashToSend}>
-                    $0
+                    ${amount}
                 </Text>
                 <Text style={styles.cryptoToSend}>
                     0.00
@@ -57,6 +92,28 @@ function CryptoAppMain(): JSX.Element {
                     Choose Recipient
                 </Text>
             </TouchableOpacity>
+            <View style={styles.keypadContainer}>
+                <View style={styles.keypadRow}>
+                    <KeypadButton value="1" onPress={() => handleKeypadPress('1')} isHighlighted={false} />
+                    <KeypadButton value="2" onPress={() => handleKeypadPress('2')} isHighlighted={false} />
+                    <KeypadButton value="3" onPress={() => handleKeypadPress('3')} isHighlighted={false} />
+                </View>
+                <View style={styles.keypadRow}>
+                    <KeypadButton value="4" onPress={() => handleKeypadPress('4')} isHighlighted={false} />
+                    <KeypadButton value="5" onPress={() => handleKeypadPress('5')} isHighlighted={false} />
+                    <KeypadButton value="6" onPress={() => handleKeypadPress('6')} isHighlighted={false} />
+                </View>
+                <View style={styles.keypadRow}>
+                    <KeypadButton value="7" onPress={() => handleKeypadPress('7')} isHighlighted={false} />
+                    <KeypadButton value="8" onPress={() => handleKeypadPress('8')} isHighlighted={false} />
+                    <KeypadButton value="9" onPress={() => handleKeypadPress('9')} isHighlighted={false} />
+                </View>
+                <View style={styles.keypadRow}>
+                    <KeypadButton value="." onPress={() => handleKeypadPress('.')} isHighlighted={false} />
+                    <KeypadButton value="0" onPress={() => handleKeypadPress('0')} isHighlighted={false} />
+                    <KeypadButton value="X" onPress={handleDeletePress} isHighlighted={false} />
+                </View>
+            </View>
         </SafeAreaView>
     );
 }
@@ -131,6 +188,34 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '500',
         alignItems: 'center',
+    },
+    keypadContainer: {
+        padding: 10,
+        alignItems: 'center',
+    },
+    keypadRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '80%',
+        marginBottom: 10,
+    },
+    keypadButton: {
+        width: 70,
+        height: 103,
+        borderRadius: 35,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    keypadButtonText: {
+        fontSize: 30,
+        fontWeight: '400',
+        color: '#FFFFFF',
+    },
+    keypadButtonHighlighted: {
+        backgroundColor: '#B5BBC9',
+    },
+    keypadButtonTextHighlighted: {
+        color: '#FFFFFF',
     },
 });
 
