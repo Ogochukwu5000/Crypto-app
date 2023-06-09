@@ -5,6 +5,7 @@ import CryptoApp from '../components/CryptoAppScreen Component/CryptoAppScreen';
 import Search from '../components/SearchScreen Component/SearchScreen';
 import Activity from '../components/ActivityScreen Component/ActivityScreen';
 import { SvgXml } from 'react-native-svg';
+import CryptoAppMain from '../components/CryptoAppScreen Component/CryptoAppMain';
 
 const cryptoAppSvgFocused = `
 <svg width="45" height="34" viewBox="0 0 45 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -161,7 +162,7 @@ function PostAuthenticationNav(): JSX.Element {
             return <SvgXml xml={svgXmlData} width={50} height={70} fill={color} />;
           },
         }
-      } name="cryptoapp" component={CryptoApp} />
+      } name="cryptoapp" component={CryptoAppMain} />
       <Tab.Screen options={{
         tabBarLabel: () => null,
         tabBarIcon: ({ focused, color, size }) => {

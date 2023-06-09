@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import CryptoAppMain from './CryptoAppMain';
 import ChooseRecipientScreen from './ChooseRecipientScreen';
+import PostAuthenticationNav from '../../Navigations/PostAuthenticationNav';
 
 function CryptoApp(): JSX.Element {
     const Stack = createStackNavigator();
@@ -9,7 +9,7 @@ function CryptoApp(): JSX.Element {
         <Stack.Navigator>
             <Stack.Screen
                 name="CryptoAppMainScreen"
-                component={CryptoAppMain}
+                component={PostAuthenticationNav}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
