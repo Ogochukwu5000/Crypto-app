@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 interface KeypadButtonProps {
     value: string;
@@ -24,6 +25,7 @@ function KeypadButton({ value, onPress, isHighlighted }: KeypadButtonProps): JSX
 function CryptoAppMain(): JSX.Element {
     const [selectedCrypto, setSelectedCrypto] = useState('bitcoin');
     const [amount, setAmount] = useState('0');
+    const navigation = useNavigation();
 
     const handleCryptoPress = (crypto: string) => {
         setSelectedCrypto(crypto);
@@ -58,6 +60,7 @@ function CryptoAppMain(): JSX.Element {
                     style={[styles.cryptoButton, selectedCrypto === 'ethereum' && styles.selectedCryptoButton]}
                     onPress={() => handleCryptoPress('ethereum')}
                 >
+                    <Image source={require('../../assets/Ethereum.png')} style={styles.cryptoButtonImage} />
                     <Text style={[styles.cryptoButtonText, selectedCrypto === 'ethereum' && styles.selectedCryptoButtonText]}>
                         Ethereum
                     </Text>
@@ -66,6 +69,7 @@ function CryptoAppMain(): JSX.Element {
                     style={[styles.cryptoButton, selectedCrypto === 'bitcoin' && styles.selectedCryptoButton]}
                     onPress={() => handleCryptoPress('bitcoin')}
                 >
+                    <Image source={require('../../assets/Bitcoin.png')} style={styles.cryptoButtonImage} />
                     <Text style={[styles.cryptoButtonText, selectedCrypto === 'bitcoin' && styles.selectedCryptoButtonText]}>
                         Bitcoin
                     </Text>
@@ -74,6 +78,7 @@ function CryptoAppMain(): JSX.Element {
                     style={[styles.cryptoButton, selectedCrypto === 'stellar' && styles.selectedCryptoButton]}
                     onPress={() => handleCryptoPress('stellar')}
                 >
+                    <Image source={require('../../assets/Stellar.png')} style={styles.cryptoButtonImage} />
                     <Text style={[styles.cryptoButtonText, selectedCrypto === 'stellar' && styles.selectedCryptoButtonText]}>
                         Stellar
                     </Text>
@@ -92,7 +97,9 @@ function CryptoAppMain(): JSX.Element {
                     0.00
                 </Text>
             </View>
-            <TouchableOpacity style={[styles.chooseRecipientContainer, isSmallScreen && styles.chooseRecipientContainerSmallScreen
+            <TouchableOpacity onPress={
+                () => navigation.navigate('ChooseRecipientScreen' as never)
+            } style={[styles.chooseRecipientContainer, isSmallScreen && styles.chooseRecipientContainerSmallScreen
             ]}>
                 <Text style={styles.chooseRecipientText}>
                     Choose Recipient
@@ -142,6 +149,10 @@ const styles = StyleSheet.create({
         margin: 10,
         borderRadius: 20,
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-evenly',
     },
     selectedCryptoButton: {
         backgroundColor: '#FFFFFF',
@@ -238,6 +249,11 @@ const styles = StyleSheet.create({
     },
     keypadButtonTextHighlighted: {
         color: '#FFFFFF',
+    },
+    cryptoButtonImage: {
+        marginRight: 5,
+        width: 20,
+        height: 20,
     },
 });
 
