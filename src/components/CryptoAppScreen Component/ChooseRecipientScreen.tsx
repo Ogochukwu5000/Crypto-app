@@ -9,6 +9,7 @@ import {
     KeyboardAvoidingView,
     Dimensions,
     TouchableOpacity,
+    FlatList,
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
@@ -16,6 +17,34 @@ import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
+
+type Recipient = {
+    id: string;
+    fullName: string;
+    cryptoTag: string;
+    profilePicture: string;
+};
+
+const recipients: Recipient[] = [
+    {
+        id: '1',
+        fullName: 'John Doe',
+        cryptoTag: 'jdoe',
+        profilePicture: 'https://ui-avatars.com/api/?name=John+Doe&color=fff&size=30&font-size=0.7',
+    },
+    {
+        id: '2',
+        fullName: 'Jane Smith',
+        cryptoTag: 'janySmitha',
+        profilePicture: 'https://ui-avatars.com/api/?name=Jane+Smith&color=fff&size=30&font-size=0.7',
+    },
+    {
+        id: '3',
+        fullName: 'Bob Johnson',
+        cryptoTag: 'BobJ',
+        profilePicture: 'https://ui-avatars.com/api/?name=Bob+Johnson&color=fff&size=30&font-size=0.7',
+    },
+];
 
 function ChooseRecipientScreen(): JSX.Element {
     const [cryptoTag, setCryptoTag] = useState('');
@@ -34,6 +63,20 @@ function ChooseRecipientScreen(): JSX.Element {
 
     const handleNext = () => {
     };
+
+    const renderItem = ({ item }: { item: Recipient }) => (
+        <TouchableOpacity style={styles.recipientItem}>
+            <Image
+                source={{ uri: item.profilePicture }}
+                style={styles.recipientProfilePicture}
+                resizeMode="contain"
+            />
+            <View style={styles.recipientInfo}>
+                <Text style={styles.recipientFullName}>{item.fullName}</Text>
+                <Text style={styles.recipientCryptoTag}>{item.cryptoTag}</Text>
+            </View>
+        </TouchableOpacity>
+    );
 
     return (
         <SafeAreaView style={styles.container}>
@@ -80,6 +123,12 @@ function ChooseRecipientScreen(): JSX.Element {
                         onBlur={handleBlur}
                     />
                 </View>
+                <FlatList
+                    data={recipients}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    style={styles.recipientList}
+                />
             </KeyboardAvoidingView>
         </SafeAreaView>
     );
@@ -174,6 +223,35 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         alignItems: 'flex-start',
         marginLeft: '5%',
+    },
+    recipientList: {
+        width: '100%',
+        marginTop: '5%',
+    },
+    recipientItem: {
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+    },
+    recipientProfilePicture: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        marginRight: 20,
+    },
+    recipientInfo: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    recipientFullName: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    recipientCryptoTag: {
+        fontSize: 14,
+        color: '#3D4C63',
     },
 });
 
