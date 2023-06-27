@@ -81,15 +81,15 @@ function ChooseCryptoTag(): JSX.Element {
                         <View style={styles.headerText}>
                             <Text
                                 style={[
-                                    styles.verificationHeader,
-                                    isSmallScreen && styles.smallScreenVerificationHeader,
+                                    styles.Header,
+                                    isSmallScreen && styles.smallScreenHeader,
                                 ]}>
                                 Choose a #Cryptotag
                             </Text>
                             <Text
                                 style={[
-                                    styles.verificationSubHeader,
-                                    isSmallScreen && styles.smallScreenVerificationSubHeader,
+                                    styles.SubHeader,
+                                    isSmallScreen && styles.smallScreenSubHeader,
                                 ]}>
                                 Here’s the fun part! show us what you’ve got, create your unique crypto tag :)
                             </Text>
@@ -97,22 +97,20 @@ function ChooseCryptoTag(): JSX.Element {
                     </View>
                     {/* Bottom half  log in modal */}
                     <KeyboardAvoidingView
-                        style={[styles.bottomHalfLoginModal, isFocused && styles.focusedInput]}>
-                        <View style={styles.emailInput}>
+                        style={[styles.bottomHalfModal, isFocused && styles.focusedInput]}>
+                        <View style={styles.cryptoTagInput}>
                             <TextInput
                                 style={styles.input}
                                 placeholder="Crypto Tag (e.g. #CryptoKing)"
                                 onChangeText={setCryptoTag}
                                 value={cryptoTag}
-                                // specify type
-
                                 placeholderTextColor={'#3D4C63'}
                                 onFocus={handleFocus}
                                 onSubmitEditing={handleBlur}
                             />
                         </View>
-                        <TouchableOpacity style={styles.resetButton} onPress={handleNext}>
-                            <Text style={styles.resetButtonText}>Next</Text>
+                        <TouchableOpacity style={styles.nextButton} onPress={handleNext}>
+                            <Text style={styles.nextButtonText}>Next</Text>
                         </TouchableOpacity>
                     </KeyboardAvoidingView>
                 </>
@@ -131,7 +129,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#3447F0',
         alignItems: 'center',
     },
-    bottomHalfLoginModal: {
+    bottomHalfModal: {
         backgroundColor: '#fff',
         width: '100%',
         height: '63%',
@@ -155,13 +153,13 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
 
-    emailInput: {
+    cryptoTagInput: {
         width: '90%',
         display: 'flex',
         marginTop: '5%',
     },
 
-    resetButton: {
+    nextButton: {
         backgroundColor: '#3447F0',
         width: 200,
         height: 50,
@@ -171,19 +169,19 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    resetButtonText: {
+    nextButtonText: {
         color: '#fff',
         fontSize: 20,
         fontWeight: 'bold',
     },
-    verificationHeader: {
+    Header: {
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold',
         marginLeft: '5%',
         width: '100%',
     },
-    smallScreenVerificationHeader: {
+    smallScreenHeader: {
         fontSize: 25,
     },
     image: {
@@ -201,14 +199,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: '3%',
     },
-    verificationSubHeader: {
+    SubHeader: {
         color: '#fff',
         fontSize: 15,
         width: '80%',
         marginTop: '2%',
         textAlign: 'center',
     },
-    smallScreenVerificationSubHeader: {
+    smallScreenSubHeader: {
         fontSize: 13,
         marginLeft: '3%',
         width: '70%',
