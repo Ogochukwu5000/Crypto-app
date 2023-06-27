@@ -215,7 +215,6 @@ const styles = StyleSheet.create({
     keypadContainer: {
         padding: 10,
         alignItems: 'center',
-        marginTop: 15,
     },
     keypadContainerSmallScreen: {
         marginTop: 0,
