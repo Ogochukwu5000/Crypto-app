@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../components/HomeScreen Component/HomeScreen';
-import CryptoApp from '../components/CryptoAppScreen Component/CryptoAppScreen';
 import Search from '../components/SearchScreen Component/SearchScreen';
 import Activity from '../components/ActivityScreen Component/ActivityScreen';
 import { SvgXml } from 'react-native-svg';
