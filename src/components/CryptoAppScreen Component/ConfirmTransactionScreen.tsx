@@ -7,17 +7,13 @@ import {
     Dimensions,
     TouchableOpacity,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../store/reducers';
 import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function ConfirmTransactionScreen(): JSX.Element {
-    const dispatch = useDispatch();
     const navigation = useNavigation();
-    const user = useSelector((state: RootState) => state.userReducer.user);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -35,15 +31,15 @@ function ConfirmTransactionScreen(): JSX.Element {
                 <View style={styles.headerText}>
                     <Text
                         style={[
-                            styles.verificationHeader,
-                            isSmallScreen && styles.smallScreenVerificationHeader,
+                            styles.Header,
+                            isSmallScreen && styles.smallScreenHeader,
                         ]}>
                         Send to Your Friend
                     </Text>
                     <Text
                         style={[
-                            styles.verificationSubHeader,
-                            isSmallScreen && styles.smallScreenVerificationSubHeader,
+                            styles.SubHeader,
+                            isSmallScreen && styles.smallScreenSubHeader,
                         ]}>
                         Confirm your transaction
                     </Text>
@@ -51,7 +47,7 @@ function ConfirmTransactionScreen(): JSX.Element {
             </View>
             {/* Bottom half modal */}
             <SafeAreaView
-                style={[styles.bottomHalfLoginModal]}
+                style={[styles.bottomHalfModal]}
             >
                 <View
                     style={[styles.recipientItem, isSmallScreen && styles.smallScreenRecipientItem]}
@@ -104,8 +100,8 @@ function ConfirmTransactionScreen(): JSX.Element {
                     </Text>
                 </View>
 
-                <TouchableOpacity style={[styles.loginButton, isSmallScreen && styles.smallScreenLoginButton]}>
-                    <Text style={styles.loginButtonText}>Confirm</Text>
+                <TouchableOpacity style={[styles.confirmButton, isSmallScreen && styles.smallScreenConfirmButton]}>
+                    <Text style={styles.confirmButtonText}>Confirm</Text>
                 </TouchableOpacity>
             </SafeAreaView>
         </SafeAreaView>
@@ -118,7 +114,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#3447F0',
         alignItems: 'center',
     },
-    bottomHalfLoginModal: {
+    bottomHalfModal: {
         backgroundColor: '#fff',
         width: '100%',
         height: '70%',
@@ -139,33 +135,19 @@ const styles = StyleSheet.create({
         borderColor: '#D8D8D8',
         fontSize: 20,
     },
-    emailInput: {
+    Input: {
         width: '90%',
         display: 'flex',
         marginTop: '5%',
     },
-    resetButton: {
-        backgroundColor: '#3447F0',
-        width: 200,
-        height: 50,
-        borderRadius: 25,
-        marginTop: '10%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    resetButtonText: {
-        color: '#fff',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    verificationHeader: {
+    Header: {
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold',
         marginLeft: '10%',
         width: '100%',
     },
-    smallScreenVerificationHeader: {
+    smallScreenHeader: {
         fontSize: 25,
     },
     image: {
@@ -183,14 +165,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: '3%',
     },
-    verificationSubHeader: {
+    SubHeader: {
         color: '#fff',
         fontSize: 15,
         width: '80%',
         marginTop: '2%',
         textAlign: 'center',
     },
-    smallScreenVerificationSubHeader: {
+    smallScreenSubHeader: {
         fontSize: 13,
         marginLeft: '3%',
         width: '70%',
@@ -290,7 +272,7 @@ const styles = StyleSheet.create({
         color: '#3D4C63',
         fontWeight: 'bold',
     },
-    loginButton: {
+    confirmButton: {
         backgroundColor: '#3447F0',
         width: 200,
         height: 50,
@@ -299,10 +281,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    smallScreenLoginButton: {
+    smallScreenConfirmButton: {
         marginTop: '5%',
     },
-    loginButtonText: {
+    confirmButtonText: {
         color: '#fff',
         fontSize: 20,
         fontWeight: 'bold',
