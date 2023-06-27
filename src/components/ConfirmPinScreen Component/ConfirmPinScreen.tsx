@@ -10,7 +10,7 @@ import {
     Animated,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
@@ -22,7 +22,6 @@ function ConfirmPin(): JSX.Element {
     const shakeAnimation = useRef(new Animated.Value(0)).current;
     const [isPinWrong, setIsPinWrong] = useState(false);
     const navigation = useNavigation();
-    const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.userReducer.user);
 
     const handlePinKeyPress = (digit: string) => {
