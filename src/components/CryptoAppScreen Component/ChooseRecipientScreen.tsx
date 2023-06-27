@@ -11,8 +11,6 @@ import {
     TouchableOpacity,
     FlatList,
 } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../store/reducers';
 import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
@@ -49,9 +47,7 @@ const recipients: Recipient[] = [
 function ChooseRecipientScreen(): JSX.Element {
     const [cryptoTag, setCryptoTag] = useState('');
     const [isFocused, setIsFocused] = useState(false);
-    const dispatch = useDispatch();
     const navigation = useNavigation();
-    const user = useSelector((state: RootState) => state.userReducer.user);
 
     const handleFocus = () => {
         setIsFocused(true);
@@ -59,9 +55,6 @@ function ChooseRecipientScreen(): JSX.Element {
 
     const handleBlur = () => {
         setIsFocused(false);
-    };
-
-    const handleNext = () => {
     };
 
     const renderItem = ({ item }: { item: Recipient }) => (
@@ -99,24 +92,24 @@ function ChooseRecipientScreen(): JSX.Element {
                 <View style={styles.headerText}>
                     <Text
                         style={[
-                            styles.verificationHeader,
-                            isSmallScreen && styles.smallScreenVerificationHeader,
+                            styles.Header,
+                            isSmallScreen && styles.smallScreenHeader,
                         ]}>
                         Choose Recipient
                     </Text>
                     <Text
                         style={[
-                            styles.verificationSubHeader,
-                            isSmallScreen && styles.smallScreenVerificationSubHeader,
+                            styles.SubHeader,
+                            isSmallScreen && styles.smallScreenSubHeader,
                         ]}>
                         0.0096BTC ($1,655 USD)
                     </Text>
                 </View>
             </View>
             <KeyboardAvoidingView
-                style={[styles.bottomHalfLoginModal]}
+                style={[styles.bottomHalfModal]}
             >
-                <View style={styles.emailInput}>
+                <View style={styles.Input}>
                     <TextInput
                         style={styles.input}
                         placeholder="Enter crypto tag or name"
@@ -144,7 +137,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#3447F0',
         alignItems: 'center',
     },
-    bottomHalfLoginModal: {
+    bottomHalfModal: {
         backgroundColor: '#fff',
         width: '100%',
         height: '85%',
@@ -165,33 +158,19 @@ const styles = StyleSheet.create({
         borderColor: '#D8D8D8',
         fontSize: 20,
     },
-    emailInput: {
+    Input: {
         width: '90%',
         display: 'flex',
         marginTop: '5%',
     },
-    resetButton: {
-        backgroundColor: '#3447F0',
-        width: 200,
-        height: 50,
-        borderRadius: 25,
-        marginTop: '10%',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    resetButtonText: {
-        color: '#fff',
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    verificationHeader: {
+    Header: {
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold',
         marginLeft: '13%',
         width: '100%',
     },
-    smallScreenVerificationHeader: {
+    smallScreenHeader: {
         fontSize: 25,
     },
     image: {
@@ -209,14 +188,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: '3%',
     },
-    verificationSubHeader: {
+    SubHeader: {
         color: '#fff',
         fontSize: 15,
         width: '80%',
         marginTop: '2%',
         textAlign: 'center',
     },
-    smallScreenVerificationSubHeader: {
+    smallScreenSubHeader: {
         fontSize: 13,
         marginLeft: '3%',
         width: '70%',
