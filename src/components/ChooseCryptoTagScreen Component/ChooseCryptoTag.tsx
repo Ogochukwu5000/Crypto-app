@@ -44,7 +44,7 @@ function ChooseCryptoTag(): JSX.Element {
             })
             .then((response) => {
                 if (response.data.cryptoTag) {
-                    dispatch({ type: 'SIGNUP', payload: { cryptoTag: !cryptoTag.startsWith('#') ? '#' + cryptoTag : cryptoTag } });
+                    dispatch({ type: 'SIGNUP', payload: { cryptoTag: cryptoTag } });
                     setIsLoading(true);
                     setTimeout(() => {
                         setIsLoading(false); // hide loading screen
