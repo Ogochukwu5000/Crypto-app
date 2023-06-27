@@ -101,7 +101,7 @@ function ChooseCryptoTag(): JSX.Element {
                         <View style={styles.cryptoTagInput}>
                             <TextInput
                                 style={styles.input}
-                                placeholder="Crypto Tag (e.g. #CryptoKing)"
+                                placeholder="Crypto Tag (e.g. CryptoKing)"
                                 onChangeText={setCryptoTag}
                                 value={cryptoTag}
                                 placeholderTextColor={'#3D4C63'}
