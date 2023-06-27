@@ -6,18 +6,15 @@ import {
   StyleSheet,
   View,
   Dimensions,
-  Linking,
   Alert,
   LayoutAnimation,
   LogBox
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import { useNavigation } from '@react-navigation/native';
 import Loading from '../LoadingScreen Component/LoadingScreen';
-import Toast from 'react-native-toast-message';
 import { StackActions } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
@@ -97,16 +94,6 @@ function CheckEmailScreen(): JSX.Element {
               resizeMode="contain"
             />
             <TouchableOpacity
-              // onPress={() => {
-              //     axios.post('http://10.0.0.174:8000/user/sendverification', {
-              //         email: user?.email,
-              //     }).then((response) => {
-              //         console.log('Response: ', response.data);
-              //     }).catch((error) => {
-              //         console.log('Error: ', error);
-              //     });
-              //     handleOpenEmailApp();
-              // }}
               onPress={handleEnterCode}
               style={[
                 styles.resetButton,
