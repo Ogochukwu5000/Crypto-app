@@ -13,7 +13,7 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
@@ -26,7 +26,6 @@ function CreateNewPassword(): JSX.Element {
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [passwordConfirmHidden, setPasswordConfirmHidden] = useState(true);
   const navigation = useNavigation();
-  const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.userReducer.user);
 
   const handleFocus = () => {
