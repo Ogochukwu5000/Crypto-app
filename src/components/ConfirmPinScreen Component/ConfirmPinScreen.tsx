@@ -101,15 +101,15 @@ function ConfirmPin(): JSX.Element {
                 <View style={styles.headerText}>
                     <Text
                         style={[
-                            styles.verificationHeader,
-                            isSmallScreen && styles.smallScreenVerificationHeader,
+                            styles.Header,
+                            isSmallScreen && styles.smallScreenHeader,
                         ]}>
                         Confirm PIN
                     </Text>
                     <Text
                         style={[
-                            styles.verificationSubHeader,
-                            isSmallScreen && styles.smallScreenVerificationSubHeader,
+                            styles.SubHeader,
+                            isSmallScreen && styles.smallScreenSubHeader,
                         ]}>
                         Repeat a PIN code to continue
                     </Text>
@@ -213,14 +213,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#3447F0',
         alignItems: 'center',
     },
-    verificationHeader: {
+    Header: {
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold',
         marginLeft: '20%',
         width: '100%',
     },
-    smallScreenVerificationHeader: {
+    smallScreenHeader: {
         fontSize: 25,
         marginLeft: '23%',
     },
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: '3%',
     },
-    verificationSubHeader: {
+    SubHeader: {
         color: '#fff',
         fontSize: 15,
         marginLeft: '1%',
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
         marginTop: '2%',
         textAlign: 'center',
     },
-    smallScreenVerificationSubHeader: {
+    smallScreenSubHeader: {
         fontSize: 13,
         marginLeft: '1%',
     },
