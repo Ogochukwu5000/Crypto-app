@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import Loading from '../LoadingScreen Component/LoadingScreen';
 
@@ -41,7 +41,7 @@ function LoginScreen(): JSX.Element {
 
     axios.post('http://10.0.0.174:8000/user/login', {
       email: isEmail ? emailOrCtag : '',
-      crypto_tag: isCryptoTag ? emailOrCtag.startsWith("#") ? emailOrCtag : "#" + emailOrCtag : '',
+      crypto_tag: isCryptoTag ? emailOrCtag : '',
       password,
     }).then((response) => {
       if (response.status) {
