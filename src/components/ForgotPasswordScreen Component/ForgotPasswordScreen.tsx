@@ -91,7 +91,7 @@ function ForgotPassword(): JSX.Element {
               styles.verificationSubHeader,
               isSmallScreen && styles.smallScreenVerificationSubHeader,
             ]}>
-            Enter your registrated email address to receive password reset instruction
+            Enter your registered email address to receive password reset instruction
           </Text>
         </View>
       </View>
