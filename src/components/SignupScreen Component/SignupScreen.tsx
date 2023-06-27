@@ -71,7 +71,7 @@ function SignupScreen(): JSX.Element {
     return (
         <SafeAreaView style={styles.container}>
             {/* Image */}
-            <Text style={styles.welcomeHeader}>Create Account</Text>
+            <Text style={styles.Header}>Create Account</Text>
             <Image
                 source={require('../../assets/office.png')}
                 style={[styles.image, isSmallScreen && styles.smallScreenImage]}
@@ -79,8 +79,8 @@ function SignupScreen(): JSX.Element {
             />
             {/* Bottom half  log in modal */}
             <KeyboardAvoidingView
-                style={[styles.bottomHalfLoginModal, isSmallScreen && styles.isSmallBottomHalfLoginModal, isFocused && styles.focusedInput]}>
-                <View style={styles.emailInput}>
+                style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal, isFocused && styles.focusedInput]}>
+                <View style={styles.Input}>
                     <TextInput
                         style={styles.input}
                         placeholder="First Name"
@@ -91,7 +91,7 @@ function SignupScreen(): JSX.Element {
                         onSubmitEditing={handleBlur}
                     />
                 </View>
-                <View style={styles.emailInput}>
+                <View style={styles.Input}>
                     <TextInput
                         style={styles.input}
                         placeholder="Last Name"
@@ -102,7 +102,7 @@ function SignupScreen(): JSX.Element {
                         onSubmitEditing={handleBlur}
                     />
                 </View>
-                <View style={styles.emailInput}>
+                <View style={styles.Input}>
                     <TextInput
                         style={styles.input}
                         placeholder="Email address"
@@ -141,16 +141,16 @@ function SignupScreen(): JSX.Element {
                         }
                     </TouchableOpacity>
                 </View>
-                <View style={[styles.loginFooter, isSmallScreen && styles.isSmallScreenLoginFooter]}>
-                    <TouchableOpacity style={styles.loginButton} onPress={handleSignup}>
-                        <Text style={styles.loginButtonText}>Let Get Started</Text>
+                <View style={[styles.Footer, isSmallScreen && styles.isSmallScreenFooter]}>
+                    <TouchableOpacity style={styles.getStartedButton} onPress={handleSignup}>
+                        <Text style={styles.getStartedButtonText}>Let Get Started</Text>
                     </TouchableOpacity>
                     {/* Dont have an account sign up */}
-                    <TouchableOpacity style={styles.signUpButton} onPress={() => {
+                    <TouchableOpacity style={styles.loginButton} onPress={() => {
                         navigation.navigate('Login' as never);
                     }}>
-                        <Text style={styles.signUpButtonText}>Already have an account?</Text>
-                        <Text style={styles.signUpLinkText}> Login</Text>
+                        <Text style={styles.loginButtonText}>Already have an account?</Text>
+                        <Text style={styles.loginLinkText}> Login</Text>
                     </TouchableOpacity>
                 </View>
             </KeyboardAvoidingView>
@@ -176,12 +176,12 @@ const styles = StyleSheet.create({
         marginTop: '8%',
     },
 
-    welcomeHeader: {
+    Header: {
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold',
     },
-    bottomHalfLoginModal: {
+    bottomHalfModal: {
         backgroundColor: '#fff',
         width: '100%',
         height: '75%',
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
 
-    isSmallBottomHalfLoginModal: {
+    isSmallBottomHalfModal: {
         height: '80%',
     },
 
@@ -209,7 +209,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
     },
 
-    emailInput: {
+    Input: {
         width: '90%',
         display: 'flex',
         marginTop: '5%',
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
     },
 
-    loginButton: {
+    getStartedButton: {
         backgroundColor: '#3447F0',
         width: 200,
         height: 50,
@@ -250,32 +250,32 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    loginButtonText: {
+    getStartedButtonText: {
         color: '#fff',
         fontSize: 20,
         fontWeight: 'bold',
     },
 
-    loginFooter: {
+    Footer: {
         marginTop: '10%',
     },
 
-    isSmallScreenLoginFooter: {
+    isSmallScreenFooter: {
         marginTop: '2%',
 
     },
 
-    signUpButton: {
+    loginButton: {
         flexDirection: 'row',
         alignItems: 'center',
         backgroundColor: 'transparent',
     },
-    signUpButtonText: {
+    loginButtonText: {
         color: '#3D4C63',
         fontSize: 16,
         textAlign: 'center',
     },
-    signUpLinkText: {
+    loginLinkText: {
         color: '#3447F0',
         fontSize: 16,
         textAlign: 'center',
