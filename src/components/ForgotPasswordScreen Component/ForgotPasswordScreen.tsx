@@ -13,8 +13,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../../../store/reducers';
+import { useDispatch } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -81,15 +80,15 @@ function ForgotPassword(): JSX.Element {
         <View style={styles.headerText}>
           <Text
             style={[
-              styles.verificationHeader,
-              isSmallScreen && styles.smallScreenVerificationHeader,
+              styles.Header,
+              isSmallScreen && styles.smallScreenHeader,
             ]}>
             Forgot Password
           </Text>
           <Text
             style={[
-              styles.verificationSubHeader,
-              isSmallScreen && styles.smallScreenVerificationSubHeader,
+              styles.SubHeader,
+              isSmallScreen && styles.smallScreenSubHeader,
             ]}>
             Enter your registered email address to receive password reset instruction
           </Text>
@@ -97,7 +96,7 @@ function ForgotPassword(): JSX.Element {
       </View>
       {/* Bottom half  log in modal */}
       <KeyboardAvoidingView
-        style={[styles.bottomHalfLoginModal, isFocused && styles.focusedInput]}>
+        style={[styles.bottomHalfModal, isFocused && styles.focusedInput]}>
         <View style={styles.emailInput}>
           <TextInput
             style={styles.input}
@@ -126,7 +125,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3447F0',
     alignItems: 'center',
   },
-  bottomHalfLoginModal: {
+  bottomHalfModal: {
     backgroundColor: '#fff',
     width: '100%',
     height: '63%',
@@ -171,14 +170,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
   },
-  verificationHeader: {
+  Header: {
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold',
     marginLeft: '13%',
     width: '100%',
   },
-  smallScreenVerificationHeader: {
+  smallScreenHeader: {
     fontSize: 25,
   },
   image: {
@@ -196,7 +195,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginLeft: '5%',
   },
-  verificationSubHeader: {
+  SubHeader: {
     color: '#fff',
     fontSize: 15,
     marginLeft: '3%',
@@ -204,7 +203,7 @@ const styles = StyleSheet.create({
     marginTop: '2%',
     textAlign: 'center',
   },
-  smallScreenVerificationSubHeader: {
+  smallScreenSubHeader: {
     fontSize: 13,
     marginLeft: '1%',
   },
