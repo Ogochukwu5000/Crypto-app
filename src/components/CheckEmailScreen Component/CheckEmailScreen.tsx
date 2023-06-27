@@ -96,10 +96,10 @@ function CheckEmailScreen(): JSX.Element {
             <TouchableOpacity
               onPress={handleEnterCode}
               style={[
-                styles.resetButton,
-                isSmallScreen && styles.smallScreenResetButton,
+                styles.EnterCodeButton,
+                isSmallScreen && styles.smallScreenEnterCodeButton,
               ]}>
-              <Text style={styles.resetButtonText}>Enter Code</Text>
+              <Text style={styles.enterCodeButtonText}>Enter Code</Text>
             </TouchableOpacity>
           </>
         ) : (
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  resetButton: {
+  EnterCodeButton: {
     backgroundColor: '#fff',
     width: 200,
     height: 50,
@@ -129,13 +129,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 
-  resetButtonText: {
+  enterCodeButtonText: {
     color: '#347AF0',
     fontSize: 20,
     fontWeight: 'bold',
   },
 
-  smallScreenResetButton: {
+  smallScreenEnterCodeButton: {
     marginTop: '20%',
   },
   checkScreenHeader: {
