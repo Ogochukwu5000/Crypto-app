@@ -54,7 +54,7 @@ function ConfirmTransactionScreen(): JSX.Element {
                 style={[styles.bottomHalfLoginModal]}
             >
                 <View
-                    style={styles.recipientItem}
+                    style={[styles.recipientItem, isSmallScreen && styles.smallScreenRecipientItem]}
                 // onPress={() => {
                 //     navigation.navigate('ConfirmTransactionScreen' as never);
                 // }}
@@ -71,7 +71,7 @@ function ConfirmTransactionScreen(): JSX.Element {
 
                 </View>
                 {/* add a horizonal dotted line */}
-                <View style={styles.dottedLine} />
+                <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
 
                 <Image
                     source={require("../../assets/emoji.png")}
@@ -84,7 +84,7 @@ function ConfirmTransactionScreen(): JSX.Element {
 
 
                 {/* add a horizonal dotted line */}
-                <View style={styles.dottedLine} />
+                <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
 
                 <View style={styles.amountInBtc}>
                     <Text style={styles.amountInBtcText}>
@@ -104,7 +104,7 @@ function ConfirmTransactionScreen(): JSX.Element {
                     </Text>
                 </View>
 
-                <TouchableOpacity style={styles.loginButton}>
+                <TouchableOpacity style={[styles.loginButton, isSmallScreen && styles.smallScreenLoginButton]}>
                     <Text style={styles.loginButtonText}>Confirm</Text>
                 </TouchableOpacity>
             </SafeAreaView>
@@ -214,6 +214,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         marginTop: 50,
     },
+    smallScreenRecipientItem: {
+        marginTop: 20,
+    },
     recipientProfilePicture: {
         width: 50,
         height: 50,
@@ -237,6 +240,9 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: '#D8D8D8',
         marginTop: '8%',
+    },
+    smallScreenDottedLines: {
+        marginTop: '3%',
     },
     emoji: {
         width: 60,
@@ -292,6 +298,9 @@ const styles = StyleSheet.create({
         marginTop: '10%',
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    smallScreenLoginButton: {
+        marginTop: '5%',
     },
     loginButtonText: {
         color: '#fff',
