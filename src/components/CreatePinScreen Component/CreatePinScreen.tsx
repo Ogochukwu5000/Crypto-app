@@ -10,8 +10,7 @@ import {
     Animated,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../store/reducers';
+import { useDispatch } from 'react-redux';
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
@@ -22,9 +21,6 @@ function CreatePin(): JSX.Element {
     const [isPinWrong, setIsPinWrong] = useState(false);
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const user = useSelector((state: RootState) => state.userReducer.user);
-
-    console.log('user: ', user);
 
     const handlePinKeyPress = (digit: string) => {
         if (digit === 'X') {
@@ -99,15 +95,15 @@ function CreatePin(): JSX.Element {
                     <View style={styles.headerText}>
                         <Text
                             style={[
-                                styles.verificationHeader,
-                                isSmallScreen && styles.smallScreenVerificationHeader,
+                                styles.Header,
+                                isSmallScreen && styles.smallScreenHeader,
                             ]}>
                             Create a PIN
                         </Text>
                         <Text
                             style={[
-                                styles.verificationSubHeader,
-                                isSmallScreen && styles.smallScreenVerificationSubHeader,
+                                styles.SubHeader,
+                                isSmallScreen && styles.smallScreenSubHeader,
                             ]}>
                             Enhance the security of your account by creating a PIN code
                         </Text>
@@ -212,14 +208,14 @@ const styles = StyleSheet.create({
         backgroundColor: '#3447F0',
         alignItems: 'center',
     },
-    verificationHeader: {
+    Header: {
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold',
         marginLeft: '20%',
         width: '100%',
     },
-    smallScreenVerificationHeader: {
+    smallScreenHeader: {
         fontSize: 25,
     },
     image: {
@@ -237,7 +233,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: '3%',
     },
-    verificationSubHeader: {
+    SubHeader: {
         color: '#fff',
         fontSize: 15,
         marginLeft: '2%',
@@ -245,7 +241,7 @@ const styles = StyleSheet.create({
         marginTop: '2%',
         textAlign: 'center',
     },
-    smallScreenVerificationSubHeader: {
+    smallScreenSubHeader: {
         fontSize: 13,
         marginLeft: '1%',
     },
