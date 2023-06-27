@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Text,
     Image,
@@ -15,7 +15,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import axios from 'axios';
-import Toast from 'react-native-toast-message';
 import { useNavigation } from '@react-navigation/native';
 
 
