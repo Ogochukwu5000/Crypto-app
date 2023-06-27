@@ -65,7 +65,12 @@ function ChooseRecipientScreen(): JSX.Element {
     };
 
     const renderItem = ({ item }: { item: Recipient }) => (
-        <TouchableOpacity style={styles.recipientItem}>
+        <TouchableOpacity
+            style={styles.recipientItem}
+            onPress={() => {
+                navigation.navigate('ConfirmTransactionScreen' as never);
+            }}
+        >
             <Image
                 source={{ uri: item.profilePicture }}
                 style={styles.recipientProfilePicture}
@@ -108,7 +113,6 @@ function ChooseRecipientScreen(): JSX.Element {
                     </Text>
                 </View>
             </View>
-            {/* Bottom half  log in modal */}
             <KeyboardAvoidingView
                 style={[styles.bottomHalfLoginModal]}
             >
