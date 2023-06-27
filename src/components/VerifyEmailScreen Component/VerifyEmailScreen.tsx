@@ -6,7 +6,6 @@ import {
     StyleSheet,
     View,
     Dimensions,
-    Linking,
     Alert,
     LayoutAnimation,
     LogBox
@@ -17,7 +16,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import { useNavigation } from '@react-navigation/native';
 import Loading from '../LoadingScreen Component/LoadingScreen';
-import Toast from 'react-native-toast-message';
 import { StackActions } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
@@ -109,22 +107,12 @@ function VerifyEmailScreen(): JSX.Element {
                             resizeMode="contain"
                         />
                         <TouchableOpacity
-                            // onPress={() => {
-                            //     axios.post('http://10.0.0.174:8000/user/sendverification', {
-                            //         email: user?.email,
-                            //     }).then((response) => {
-                            //         console.log('Response: ', response.data);
-                            //     }).catch((error) => {
-                            //         console.log('Error: ', error);
-                            //     });
-                            //     handleOpenEmailApp();
-                            // }}
                             onPress={handleEnterCode}
                             style={[
-                                styles.resetButton,
-                                isSmallScreen && styles.smallScreenResetButton,
+                                styles.enterCodeButton,
+                                isSmallScreen && styles.smallScreenEnterCodeButton,
                             ]}>
-                            <Text style={styles.resetButtonText}>Enter Code</Text>
+                            <Text style={styles.enterCodeButtonText}>Enter Code</Text>
                         </TouchableOpacity>
                     </>
                 ) : (
@@ -144,7 +132,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    resetButton: {
+    enterCodeButton: {
         backgroundColor: '#fff',
         width: 200,
         height: 50,
@@ -154,13 +142,13 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
     },
 
-    resetButtonText: {
+    enterCodeButtonText: {
         color: '#347AF0',
         fontSize: 20,
         fontWeight: 'bold',
     },
 
-    smallScreenResetButton: {
+    smallScreenEnterCodeButton: {
         marginTop: '20%',
     },
     checkScreenHeader: {
