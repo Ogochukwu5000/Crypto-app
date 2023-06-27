@@ -24,7 +24,7 @@ const initialUserState: UserState = {
         password: '',
         cryptoTag: '',
         pin: '',
-        authenticated: true,
+        authenticated: false,
         token: '',
         otp: '',
     },
