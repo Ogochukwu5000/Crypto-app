@@ -99,8 +99,8 @@ function CreateNewPassword(): JSX.Element {
       </View>
       {/* Bottom half  log in modal */}
       <KeyboardAvoidingView
-        style={[styles.bottomHalfLoginModal, isFocused && styles.focusedInput]}>
-        <View style={styles.emailInput}>
+        style={[styles.bottomHalfModal, isFocused && styles.focusedInput]}>
+        <View style={styles.Input}>
           <View style={styles.passwordInput}>
             <TextInput
               style={styles.input}
@@ -152,7 +152,7 @@ function CreateNewPassword(): JSX.Element {
             </TouchableOpacity>
           </View>
         </View>
-        <TouchableOpacity style={styles.resetButton} onPress={handleCreateNewPassword}>
+        <TouchableOpacity style={styles.submitButton} onPress={handleCreateNewPassword}>
           <Text style={styles.submitButtonText}>Submit</Text>
         </TouchableOpacity>
       </KeyboardAvoidingView>
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3447F0',
     alignItems: 'center',
   },
-  bottomHalfLoginModal: {
+  bottomHalfModal: {
     backgroundColor: '#fff',
     width: '100%',
     height: '63%',
@@ -190,13 +190,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 
-  emailInput: {
+  Input: {
     width: '90%',
     display: 'flex',
     marginTop: '5%',
   },
 
-  resetButton: {
+  submitButton: {
     backgroundColor: '#3447F0',
     width: 200,
     height: 50,
