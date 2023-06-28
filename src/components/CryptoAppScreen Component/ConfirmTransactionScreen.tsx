@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
         color: '#3D4C63',
     },
     dottedLine: {
-        width: '100%',
+        width: '90%',
         height: 1,
         backgroundColor: '#D8D8D8',
         marginTop: '8%',
