@@ -1,16 +1,5 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet, Dimensions, SafeAreaView, Text, Image } from 'react-native';
-import {
-    BallIndicator,
-    BarIndicator,
-    DotIndicator,
-    MaterialIndicator,
-    PacmanIndicator,
-    PulseIndicator,
-    SkypeIndicator,
-    UIActivityIndicator,
-    WaveIndicator,
-} from 'react-native-indicators';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store/reducers';
@@ -31,7 +20,7 @@ function Welcome(): JSX.Element {
             crypto_tag: user?.cryptoTag,
         }).then((response) => {
             console.log('Response: ', response.data);
-            dispatch({ type: 'AUTHENTICATE' });
+                dispatch({ type: 'AUTHENTICATE' });
         }
         ).catch((error) => {
             console.log('Error: ', error);
