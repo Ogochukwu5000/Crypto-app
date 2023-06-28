@@ -58,7 +58,7 @@ function ChooseCryptoTag(): JSX.Element {
             })
             .catch((error) => {
                 console.log(error);
-                Alert.alert('Error', 'Something went wrong. Please try again.');
+                Alert.alert('Error', 'Crypto Tag already exists.');
             })
     };
 
