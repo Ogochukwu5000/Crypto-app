@@ -100,7 +100,9 @@ function ConfirmTransactionScreen(): JSX.Element {
                     </Text>
                 </View>
 
-                <TouchableOpacity style={[styles.confirmButton, isSmallScreen && styles.smallScreenConfirmButton]}>
+                <TouchableOpacity onPress={()=>{
+                    navigation.navigate('TransactionDetails' as never);
+                }} style={[styles.confirmButton, isSmallScreen && styles.smallScreenConfirmButton]}>
                     <Text style={styles.confirmButtonText}>Confirm</Text>
                 </TouchableOpacity>
             </SafeAreaView>
