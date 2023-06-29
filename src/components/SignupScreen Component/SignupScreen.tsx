@@ -9,11 +9,13 @@ import {
     KeyboardAvoidingView,
     Dimensions,
     Alert,
+    ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
+import axios from 'axios';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -25,6 +27,7 @@ function SignupScreen(): JSX.Element {
     const [password, setPassword] = useState('');
     const [passwordHidden, setPasswordHidden] = useState(true);
     const [isFocused, setIsFocused] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
@@ -41,6 +44,50 @@ function SignupScreen(): JSX.Element {
     };
 
     const user = useSelector((state: RootState) => state.userReducer.user);
+    const checkEmail = async (email: string): Promise<boolean> => {
+        try {
+            const response = await axios.post('http://10.0.0.174:8000/user/check-email', {
+                email: email,
+            });
+            return response.data.status;
+        } catch (error) {
+            console.log(error);
+            return false;
+        }
+    };
+
+    const handleSignup = async () => {
+        setIsLoading(true);
+
+        if (password && password.length < 6) {
+            Alert.alert('Error', 'Password must be at least 6 characters long.');
+            setIsLoading(false);
+            return;
+        }
+
+        if (!firstName || !lastName || !email || !password) {
+            Alert.alert('Error', 'Please fill out all fields.');
+            setIsLoading(false);
+            return;
+        }
+
+        try {
+            const emailExists = await checkEmail(email);
+            if (!emailExists) {
+                Alert.alert('Error', 'Email already exists.');
+                setIsLoading(false);
+                return;
+            }
+
+            dispatch({ type: 'SIGNUP', payload: { firstName, lastName, email, password } });
+            navigation.navigate('ChooseCryptoTag' as never);
+        } catch (error) {
+            console.log(error);
+            Alert.alert('Error', 'An error occurred while checking the email.');
+        }
+
+        setIsLoading(false);
+    };
 
     useEffect(() => {
         if (user) {
@@ -50,23 +97,6 @@ function SignupScreen(): JSX.Element {
             setPassword(user.password);
         }
     }, [user]);
-
-    const handleSignup = () => {
-        if (password.length < 6) {
-            Alert.alert('Error', 'Password must be at least 6 characters long.');
-        }
-
-        if (!firstName || !lastName || !email || !password) {
-            Alert.alert('Error', 'Please fill out all fields.');
-        }
-
-        if (firstName && lastName && email && password) {
-            dispatch({ type: 'SIGNUP', payload: { firstName, lastName, email, password } });
-            navigation.navigate('ChooseCryptoTag' as never);
-        }
-
-    };
-
 
     return (
         <SafeAreaView style={styles.container}>
@@ -143,7 +173,7 @@ function SignupScreen(): JSX.Element {
                 </View>
                 <View style={[styles.Footer, isSmallScreen && styles.isSmallScreenFooter]}>
                     <TouchableOpacity style={styles.getStartedButton} onPress={handleSignup}>
-                        <Text style={styles.getStartedButtonText}>Let Get Started</Text>
+                        <Text style={styles.getStartedButtonText}>Let's Get Started</Text>
                     </TouchableOpacity>
                     {/* Dont have an account sign up */}
                     <TouchableOpacity style={styles.loginButton} onPress={() => {
@@ -152,6 +182,9 @@ function SignupScreen(): JSX.Element {
                         <Text style={styles.loginButtonText}>Already have an account?</Text>
                         <Text style={styles.loginLinkText}> Login</Text>
                     </TouchableOpacity>
+                </View>
+                <View style={{ flex: 1, justifyContent: 'center', position: "absolute" }}>
+                    {isLoading && <ActivityIndicator size="large" color="#3447F0" />}
                 </View>
             </KeyboardAvoidingView>
         </SafeAreaView >
@@ -248,6 +281,7 @@ const styles = StyleSheet.create({
         marginTop: '10%',
         alignItems: 'center',
         justifyContent: 'center',
+        marginLeft: '7%',
     },
 
     getStartedButtonText: {
