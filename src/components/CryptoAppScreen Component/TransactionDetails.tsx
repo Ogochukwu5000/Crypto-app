@@ -41,6 +41,16 @@ function TransactionDetails(): JSX.Element {
                     />
                     <Text style={styles.sentText}>Sent</Text>
                 </View>
+                <View style={styles.timeContainer}>
+                    <View style={styles.date}>
+                        <Text style={styles.dateLabel}>Date</Text>
+                        <Text style={styles.dateValue}>Aug 19, 2019</Text>
+                    </View>
+                    <View style={styles.time}>
+                        <Text style={styles.timeLabel}>Time</Text>
+                        <Text style={styles.timeValue}>10:30 AM</Text>
+                    </View>
+                </View>
             </SafeAreaView>
         </SafeAreaView>
     );
@@ -106,6 +116,29 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: '91%',
     },
+    timeContainer: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        marginTop: '25%',
+    },
+    dateLabel: {
+        color: "#B5BBC9"
+    },
+    timeLabel: {
+        color: "#B5BBC9"
+    },
+    dateValue: {
+        color: "#000",
+        fontWeight: '600',
+        fontSize: 15,
+    },
+    timeValue: {
+        color: "#000",
+        fontWeight: '600',
+        fontSize: 15,
+    }
 });
 
 export default TransactionDetails;
