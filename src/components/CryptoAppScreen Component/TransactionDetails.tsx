@@ -41,7 +41,8 @@ function TransactionDetails(): JSX.Element {
                     />
                     <Text style={styles.sentText}>Sent</Text>
                 </View>
-                <View style={styles.timeContainer}>
+                <View style={[styles.timeContainer, isSmallScreen && styles.smallScreenTimeContainer
+                ]}>
                     <View>
                         <Text style={styles.dateLabel}>Date</Text>
                         <Text style={styles.dateValue}>Aug 19, 2019</Text>
@@ -136,7 +137,7 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
     smallScreenBottomHalfModal: {
-        height: "85%"
+        height: "88%"
     },
     Header: {
         color: '#fff',
@@ -189,6 +190,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         marginTop: '20%',
     },
+    smallScreenTimeContainer: {
+        marginTop: '15%',
+    },
     dateLabel: {
         color: "#B5BBC9"
     },
@@ -227,7 +231,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     amountInBtcValue: {
-        fontSize: 20,
+        fontSize: isSmallScreen ? 15 : 25,
         color: '#3D4C63',
         fontWeight: 'bold',
     },
@@ -244,7 +248,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     amountInUsdValue: {
-        fontSize: 20,
+        fontSize: isSmallScreen ? 15 : 25,
         color: '#3D4C63',
         fontWeight: 'bold',
     },
@@ -261,7 +265,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     statusValue: {
-        fontSize: 20,
+        fontSize: isSmallScreen ? 15 : 25,
         color: '#347AF0',
         fontWeight: 'bold',
     },
@@ -278,7 +282,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     transactionIdValue: {
-        fontSize: 20,
+        fontSize: isSmallScreen ? 15 : 25,
         color: '#3D4C63',
         fontWeight: 'bold',
     },
@@ -295,7 +299,7 @@ const styles = StyleSheet.create({
         color: '#B5BBC9',
         fontWeight: 'bold',
         marginLeft: '10%',
-        marginTop: '3%',
+        marginTop: isSmallScreen ? '3%' : '0%',
         alignSelf: 'flex-start',
     },
     recipientItem: {
@@ -303,7 +307,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingVertical: 10,
         paddingHorizontal: 20,
-        marginTop: 10,
+        marginTop: !isSmallScreen ? 10 : 0,
         marginLeft: '10%',
         width: '100%',
     },
@@ -311,8 +315,8 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     recipientProfilePicture: {
-        width: 50,
-        height: 50,
+        width: isSmallScreen ? 40 : 50,
+        height: isSmallScreen ? 40 : 50,
         borderRadius: 25,
         marginRight: 20,
     },
@@ -331,9 +335,9 @@ const styles = StyleSheet.create({
     senderItem: {
         display: 'flex',
         flexDirection: 'row',
-        paddingVertical: 10,
+        // paddingVertical: 10,
         paddingHorizontal: 20,
-        marginTop: 10,
+        marginTop: isSmallScreen ? 10 : 3,
         marginLeft: '10%',
         width: '100%',
     },
@@ -341,8 +345,8 @@ const styles = StyleSheet.create({
         marginTop: 5,
     },
     senderProfilePicture: {
-        width: 50,
-        height: 50,
+        width: isSmallScreen ? 40 : 50,
+        height: isSmallScreen ? 40 : 50,
         borderRadius: 25,
         marginRight: 20,
     },
