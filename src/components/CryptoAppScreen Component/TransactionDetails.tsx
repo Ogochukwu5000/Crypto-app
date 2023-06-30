@@ -51,6 +51,7 @@ function TransactionDetails(): JSX.Element {
                         <Text style={styles.timeValue}>10:30 AM</Text>
                     </View>
                 </View>
+                <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
             </SafeAreaView>
         </SafeAreaView>
     );
@@ -138,7 +139,16 @@ const styles = StyleSheet.create({
         color: "#000",
         fontWeight: '600',
         fontSize: 15,
-    }
+    },
+    dottedLine: {
+        width: '90%',
+        height: 1,
+        backgroundColor: '#D8D8D8',
+        marginTop: '8%',
+    },
+    smallScreenDottedLines: {
+        marginTop: '3%',
+    },
 });
 
 export default TransactionDetails;
