@@ -80,6 +80,36 @@ function TransactionDetails(): JSX.Element {
                     <Text style={styles.transactionIdLabel}>Transaction ID</Text>
                     <Text style={styles.transactionIdValue}>0x4c4...a7f</Text>
                 </View>
+                <Text style={styles.fromLabel}>From</Text>
+                <View
+                    style={[styles.senderItem, isSmallScreen && styles.smallScreenSenderItem]}
+                >
+                    <Image
+                        source={{ uri: `https://ui-avatars.com/api/?name=John+Doe&color=fff&size=30&font-size=0.7` }}
+                        style={styles.senderProfilePicture}
+                        resizeMode="contain"
+                    />
+                    <View style={styles.senderInfo}>
+                        <Text style={styles.senderCryptoTag}>{`jdoe`}</Text>
+                        <Text style={styles.senderFullName}>{`John Doe (You)`}</Text>
+                    </View>
+
+                </View>
+                <Text style={styles.toLabel}>To</Text>
+                <View
+                    style={[styles.recipientItem, isSmallScreen && styles.smallScreenRecipientItem]}
+                >
+                    <Image
+                        source={{ uri: `https://ui-avatars.com/api/?name=John+Doe&color=fff&size=30&font-size=0.7` }}
+                        style={styles.recipientProfilePicture}
+                        resizeMode="contain"
+                    />
+                    <View style={styles.recipientInfo}>
+                        <Text style={styles.recipientCryptoTag}>{`jdoe`}</Text>
+                        <Text style={styles.recipientFullName}>{`John Doe`}</Text>
+                    </View>
+
+                </View>
             </SafeAreaView>
         </SafeAreaView>
     );
@@ -247,6 +277,82 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#3D4C63',
         fontWeight: 'bold',
+    },
+    fromLabel: {
+        fontSize: 15,
+        color: '#B5BBC9',
+        fontWeight: 'bold',
+        marginLeft: '10%',
+        marginTop: '3%',
+        alignSelf: 'flex-start',
+    },
+    toLabel: {
+        fontSize: 15,
+        color: '#B5BBC9',
+        fontWeight: 'bold',
+        marginLeft: '10%',
+        marginTop: '3%',
+        alignSelf: 'flex-start',
+    },
+    recipientItem: {
+        display: 'flex',
+        flexDirection: 'row',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        marginTop: 10,
+        marginLeft: '10%',
+        width: '100%',
+    },
+    smallScreenRecipientItem: {
+        marginTop: 5,
+    },
+    recipientProfilePicture: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        marginRight: 20,
+    },
+    recipientInfo: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    recipientFullName: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    recipientCryptoTag: {
+        fontSize: 14,
+        color: '#3D4C63',
+    },
+    senderItem: {
+        display: 'flex',
+        flexDirection: 'row',
+        paddingVertical: 10,
+        paddingHorizontal: 20,
+        marginTop: 10,
+        marginLeft: '10%',
+        width: '100%',
+    },
+    smallScreenSenderItem: {
+        marginTop: 5,
+    },
+    senderProfilePicture: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        marginRight: 20,
+    },
+    senderInfo: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    senderFullName: {
+        fontSize: 18,
+        fontWeight: 'bold',
+    },
+    senderCryptoTag: {
+        fontSize: 14,
+        color: '#3D4C63',
     },
 });
 
