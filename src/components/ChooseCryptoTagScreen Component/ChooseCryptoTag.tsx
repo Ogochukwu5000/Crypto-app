@@ -84,7 +84,7 @@ function ChooseCryptoTag(): JSX.Element {
                                     styles.Header,
                                     isSmallScreen && styles.smallScreenHeader,
                                 ]}>
-                                Choose a #Cryptotag
+                                Choose a Cryptotag
                             </Text>
                             <Text
                                 style={[
