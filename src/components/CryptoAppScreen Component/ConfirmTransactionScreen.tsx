@@ -87,7 +87,7 @@ function ConfirmTransactionScreen(): JSX.Element {
                         Amount
                     </Text>
                     <Text style={styles.amountInBtcValue}>
-                        0.0001
+                        0.0001 BTC
                     </Text>
                 </View>
 
