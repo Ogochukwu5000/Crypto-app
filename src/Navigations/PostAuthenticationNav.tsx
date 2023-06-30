@@ -137,6 +137,7 @@ function PostAuthenticationNav(): JSX.Element {
       headerShown: false,
       tabBarStyle: {
         backgroundColor: `${route.name === 'cryptoapp' ? '#3447F0' : '#FFFFFF'}`,
+        borderTopWidth: 0,
       },
       tabBarActiveTintColor: `${route.name === 'cryptoapp' ? '#3447F0' : '#FFFFFF'}`,
       tabBarInactiveTintColor: `${route.name === 'cryptoapp' ? '#3447F0' : '#FFFFFF'}`,
