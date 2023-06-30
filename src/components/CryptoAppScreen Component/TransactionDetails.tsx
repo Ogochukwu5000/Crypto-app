@@ -42,11 +42,11 @@ function TransactionDetails(): JSX.Element {
                     <Text style={styles.sentText}>Sent</Text>
                 </View>
                 <View style={styles.timeContainer}>
-                    <View style={styles.date}>
+                    <View>
                         <Text style={styles.dateLabel}>Date</Text>
                         <Text style={styles.dateValue}>Aug 19, 2019</Text>
                     </View>
-                    <View style={styles.time}>
+                    <View>
                         <Text style={styles.timeLabel}>Time</Text>
                         <Text style={styles.timeValue}>10:30 AM</Text>
                     </View>
