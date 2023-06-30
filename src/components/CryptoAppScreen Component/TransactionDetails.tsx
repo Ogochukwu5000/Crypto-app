@@ -31,7 +31,7 @@ function TransactionDetails(): JSX.Element {
             </View>
             {/* Bottom half modal */}
             <SafeAreaView
-                style={[styles.bottomHalfModal]}
+                style={[styles.bottomHalfModal, isSmallScreen && styles.smallScreenBottomHalfModal]}
             >
                 <View style={styles.transactionHeader}>
                     <Image
@@ -72,6 +72,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
         bottom: 0,
+    },
+    smallScreenBottomHalfModal: {
+        height: "85%"
     },
     Header: {
         color: '#fff',
