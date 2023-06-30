@@ -108,8 +108,12 @@ function TransactionDetails(): JSX.Element {
                         <Text style={styles.recipientCryptoTag}>{`jdoe`}</Text>
                         <Text style={styles.recipientFullName}>{`John Doe`}</Text>
                     </View>
-
                 </View>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate('CryptoAppMainScreen' as never);
+                }} style={[styles.backButton, isSmallScreen && styles.smallScreenBackButton]}>
+                    <Text style={styles.backButtonText}>Back</Text>
+                </TouchableOpacity>
             </SafeAreaView>
         </SafeAreaView>
     );
@@ -353,6 +357,23 @@ const styles = StyleSheet.create({
     senderCryptoTag: {
         fontSize: 14,
         color: '#3D4C63',
+    },
+    backButton: {
+        backgroundColor: '#3447F0',
+        width: 200,
+        height: 50,
+        borderRadius: 25,
+        marginTop: '5%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    smallScreenBackButton: {
+        marginTop: '5%',
+    },
+    backButtonText: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 });
 
