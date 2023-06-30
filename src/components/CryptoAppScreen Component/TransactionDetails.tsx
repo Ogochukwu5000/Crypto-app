@@ -76,6 +76,10 @@ function TransactionDetails(): JSX.Element {
                     <Text style={styles.statusValue}>Transaction Confirmed</Text>
                 </View>
                 <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
+                <View style={styles.transactionIdContainer}>
+                    <Text style={styles.transactionIdLabel}>Transaction ID</Text>
+                    <Text style={styles.transactionIdValue}>0x4c4...a7f</Text>
+                </View>
             </SafeAreaView>
         </SafeAreaView>
     );
@@ -225,6 +229,23 @@ const styles = StyleSheet.create({
     statusValue: {
         fontSize: 20,
         color: '#347AF0',
+        fontWeight: 'bold',
+    },
+    transactionIdContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignSelf: 'flex-start',
+        marginLeft: '10%',
+        marginTop: '3%',
+    },
+    transactionIdLabel: {
+        fontSize: 15,
+        color: '#B5BBC9',
+        fontWeight: 'bold',
+    },
+    transactionIdValue: {
+        fontSize: 20,
+        color: '#3D4C63',
         fontWeight: 'bold',
     },
 });
