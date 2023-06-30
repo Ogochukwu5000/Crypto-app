@@ -52,6 +52,30 @@ function TransactionDetails(): JSX.Element {
                     </View>
                 </View>
                 <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
+                <View style={styles.amountInBtc}>
+                    <Text style={styles.amountInBtcText}>
+                        Amount
+                    </Text>
+                    <Text style={styles.amountInBtcValue}>
+                        0.0001 BTC
+                    </Text>
+                </View>
+
+                <View style={styles.amountInUsd}>
+                    <Text style={styles.amountInUsdText}>
+                        Amount($)
+                    </Text>
+                    <Text style={styles.amountInUsdValue}>
+                        $5.00
+                    </Text>
+                </View>
+
+                {/* Status: transaction confirmed */}
+                <View style={styles.statusContainer}>
+                    <Text style={styles.statusLabel}>Status</Text>
+                    <Text style={styles.statusValue}>Transaction Confirmed</Text>
+                </View>
+                <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
             </SafeAreaView>
         </SafeAreaView>
     );
@@ -151,6 +175,57 @@ const styles = StyleSheet.create({
     },
     smallScreenDottedLines: {
         marginTop: '3%',
+    },
+    amountInBtc: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignSelf: 'flex-start',
+        marginLeft: '10%',
+        marginTop: '3%',
+    },
+    amountInBtcText: {
+        fontSize: 15,
+        color: '#B5BBC9',
+        fontWeight: 'bold',
+    },
+    amountInBtcValue: {
+        fontSize: 20,
+        color: '#3D4C63',
+        fontWeight: 'bold',
+    },
+    amountInUsd: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignSelf: 'flex-start',
+        marginLeft: '10%',
+        marginTop: '3%',
+    },
+    amountInUsdText: {
+        fontSize: 15,
+        color: '#B5BBC9',
+        fontWeight: 'bold',
+    },
+    amountInUsdValue: {
+        fontSize: 20,
+        color: '#3D4C63',
+        fontWeight: 'bold',
+    },
+    statusContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignSelf: 'flex-start',
+        marginLeft: '10%',
+        marginTop: '3%',
+    },
+    statusLabel: {
+        fontSize: 15,
+        color: '#B5BBC9',
+        fontWeight: 'bold',
+    },
+    statusValue: {
+        fontSize: 20,
+        color: '#347AF0',
+        fontWeight: 'bold',
     },
 });
 
