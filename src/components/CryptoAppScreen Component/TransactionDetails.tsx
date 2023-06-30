@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-evenly',
-        marginTop: '25%',
+        marginTop: '20%',
     },
     dateLabel: {
         color: "#B5BBC9"
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
         width: '90%',
         height: 1,
         backgroundColor: '#D8D8D8',
-        marginTop: '8%',
+        marginTop: '5%',
     },
     smallScreenDottedLines: {
         marginTop: '3%',
