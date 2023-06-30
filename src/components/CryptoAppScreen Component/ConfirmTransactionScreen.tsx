@@ -51,9 +51,6 @@ function ConfirmTransactionScreen(): JSX.Element {
             >
                 <View
                     style={[styles.recipientItem, isSmallScreen && styles.smallScreenRecipientItem]}
-                // onPress={() => {
-                //     navigation.navigate('ConfirmTransactionScreen' as never);
-                // }}
                 >
                     <Image
                         source={{ uri: `https://ui-avatars.com/api/?name=John+Doe&color=fff&size=30&font-size=0.7` }}
