@@ -29,8 +29,8 @@ function OnboardingScreen4(): JSX.Element {
                     resizeMode="contain"
                     style={{ marginTop: 40 }}
                 />
-                <Text style={{ fontSize: !isSmallScreen ? 45 : 40, fontWeight: '600', marginTop: !isSmallScreen ? 45 : 30, textAlign: "center" }}>A One Stop Shop For All Your Wallets.</Text>
-                <Text style={{ fontSize: 20, fontWeight: '300', marginTop: !isSmallScreen ? 30 : 20, textAlign: "center", width: "80%" }}>
+                <Text style={{ fontSize: !isSmallScreen ? 45 : 41, fontWeight: '600', marginTop: !isSmallScreen ? 45 : 30, textAlign: "center" }}>A One Stop Shop For All Your Wallets.</Text>
+                <Text style={{ fontSize: 20, fontWeight: '300', marginTop: !isSmallScreen ? 30 : 30, textAlign: "center", width: "80%" }}>
                     Store all your wallet in crypto app and make transaction seamlessly, yes we’re serious!</Text>
                 <TouchableOpacity style={styles.nextButton} onPress={() => {
                     navigation.navigate('OnboardingScreen4' as never);
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
         width: 200,
         height: 50,
         borderRadius: 25,
-        marginTop: !isSmallScreen ? '15%' : '5%',
+        marginTop: !isSmallScreen ? '15%' : '10%',
         alignItems: 'center',
         justifyContent: 'center',
     },
