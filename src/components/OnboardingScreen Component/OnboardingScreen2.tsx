@@ -5,14 +5,16 @@ import {
     SafeAreaView,
     StyleSheet,
     View,
-    TouchableOpacity, 
+    TouchableOpacity,
     Dimensions
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
-const isSmallScreen = width < 400; 
+const isSmallScreen = width < 400;
 
 function OnboardingScreen2(): JSX.Element {
+    const navigation = useNavigation();
     return (
         <SafeAreaView style={styles.container}>
             <TouchableOpacity style={styles.headerContainer}><Text style={styles.Header}>Skip</Text></TouchableOpacity>
@@ -27,9 +29,11 @@ function OnboardingScreen2(): JSX.Element {
                     resizeMode="contain"
                     style={{ marginTop: 40 }}
                 />
-                <Text style={{ fontSize: !isSmallScreen ?45: 40, fontWeight: '600', marginTop: !isSmallScreen ? 45 : 30, textAlign: "center" }}>Create Your Unique Crypto Tag</Text>
+                <Text style={{ fontSize: !isSmallScreen ? 45 : 40, fontWeight: '600', marginTop: !isSmallScreen ? 45 : 30, textAlign: "center" }}>Create Your Unique Crypto Tag</Text>
                 <Text style={{ fontSize: 20, fontWeight: '300', marginTop: 30, textAlign: "center", width: "80%" }}>Connect with people and send crypto anywhere with your unique Crypto tag.</Text>
-                <TouchableOpacity style={styles.nextButton}>
+                <TouchableOpacity style={styles.nextButton} onPress={() => {
+                    navigation.navigate('OnboardingScreen3' as never);
+                }}>
                     <Text style={styles.NextButtonText}>Next</Text>
                 </TouchableOpacity>
             </View>
