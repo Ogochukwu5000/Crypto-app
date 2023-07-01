@@ -5,13 +5,17 @@ import OnboardingScreen2 from '../components/OnboardingScreen Component/Onboardi
 import OnboardingScreen3 from '../components/OnboardingScreen Component/OnboardingScreen3';
 import OnboardingScreen4 from '../components/OnboardingScreen Component/OnboardingScreen4';
 
-function GettingStarted(): JSX.Element {
+type GettingStartedProps = {
+    setGettingStarted: (value: boolean) => void;
+};
+
+function GettingStarted({ setGettingStarted }: GettingStartedProps): JSX.Element {
     const Stack = createStackNavigator();
     return (
         <Stack.Navigator>
             <Stack.Screen
                 name="OnboardingScreen1"
-                component={OnboardingScreen1}
+                component={() => <OnboardingScreen1 />}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
@@ -26,11 +30,11 @@ function GettingStarted(): JSX.Element {
             />
             <Stack.Screen
                 name="OnboardingScreen4"
-                component={OnboardingScreen4}
+                component={() => <OnboardingScreen4 setGettingStarted={setGettingStarted} />}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>
-    )
+    );
 }
 
 export default GettingStarted;
