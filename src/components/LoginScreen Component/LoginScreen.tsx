@@ -88,7 +88,7 @@ function LoginScreen(): JSX.Element {
       {
         !isLoading ?
           (<>
-            <Text style={styles.welcomeHeader}>Welcome Back!</Text>
+            <Text style={styles.welcomeHeader}>Welcome!</Text>
             <Image
               source={require('../../assets/social.png')}
               style={styles.image}
