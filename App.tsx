@@ -29,13 +29,15 @@ function App(): JSX.Element {
     };
 
     checkFirstTime();
-  }, []);
+  }, [
+    showGettingStarted,
+  ]);
 
   return (
     <PersistGate persistor={persistor}>
       <Provider store={store}>
         <NavigationContainer>
-          {showGettingStarted ? <GettingStarted /> : <Main />}
+          {showGettingStarted ? <GettingStarted setGettingStarted={setShowGettingStarted}/> : <Main />}
         </NavigationContainer>
       </Provider>
     </PersistGate>
