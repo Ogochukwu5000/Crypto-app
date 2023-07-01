@@ -10,6 +10,7 @@ interface User {
     authenticated: boolean;
     token: string;
     otp: string;
+    firstTime: boolean;
 }
 
 interface UserState {
@@ -27,6 +28,7 @@ const initialUserState: UserState = {
         authenticated: false,
         token: '',
         otp: '',
+        firstTime: true,
     },
 };
 
@@ -64,6 +66,14 @@ function userReducer(state = initialUserState, action: any) {
                     ...state.user,
                     otp: action.payload.otp,
                     email: action.payload.email,
+                }
+            };
+        case 'SET_FIRST_TIME':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    firstTime: false,
                 }
             };
         default:
