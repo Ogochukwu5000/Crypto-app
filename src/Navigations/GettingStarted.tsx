@@ -15,17 +15,17 @@ function GettingStarted({ setGettingStarted }: GettingStartedProps): JSX.Element
         <Stack.Navigator>
             <Stack.Screen
                 name="OnboardingScreen1"
-                component={() => <OnboardingScreen1 />}
+                component={() => <OnboardingScreen1 setGettingStarted={setGettingStarted} />}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
                 name="OnboardingScreen2"
-                component={OnboardingScreen2}
+                component={ () => <OnboardingScreen2 setGettingStarted={setGettingStarted} />}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
                 name="OnboardingScreen3"
-                component={OnboardingScreen3}
+                component={() => <OnboardingScreen3 setGettingStarted={setGettingStarted} />}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
