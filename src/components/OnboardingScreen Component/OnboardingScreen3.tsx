@@ -30,7 +30,7 @@ function OnboardingScreen3(): JSX.Element {
                     style={{ marginTop: 40 }}
                 />
                 <Text style={{ fontSize: !isSmallScreen ? 45 : 40, fontWeight: '600', marginTop: !isSmallScreen ? 45 : 30, textAlign: "center" }}>Goodbye To Long Wallet Address</Text>
-                <Text style={{ fontSize: 20, fontWeight: '300', marginTop: 30, textAlign: "center", width: "80%" }}>Say goodbye to long wallet addresses and hello to your unique Crypto tag the future of transactions!</Text>
+                <Text style={{ fontSize: 20, fontWeight: '300', marginTop: !isSmallScreen ? 30 : 20, textAlign: "center", width: "80%" }}>Say goodbye to long wallet addresses and hello to your unique Crypto tag the future of transactions!</Text>
                 <TouchableOpacity style={styles.nextButton} onPress={() => {
                     navigation.navigate('OnboardingScreen4' as never);
                 }}>
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '90%',
-        height: '30%',
+        height: !isSmallScreen ? '30%' : '27%',
     },
     Header: {
         color: '#fff',
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
         width: 200,
         height: 50,
         borderRadius: 25,
-        marginTop: !isSmallScreen ? '15%' : '10%',
+        marginTop: !isSmallScreen ? '15%' : '5%',
         alignItems: 'center',
         justifyContent: 'center',
     },
