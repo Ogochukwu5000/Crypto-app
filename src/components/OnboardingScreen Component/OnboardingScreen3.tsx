@@ -9,15 +9,21 @@ import {
     Dimensions
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400;
 
-function OnboardingScreen3(): JSX.Element {
+function OnboardingScreen3({ setGettingStarted }: { setGettingStarted: (value: boolean) => void }): JSX.Element {
     const navigation = useNavigation();
+    //change firstTime value to false
+    const changeFirstTimeValue = async () => {
+        await AsyncStorage.setItem('firstTime', 'false');
+        setGettingStarted(false);
+    };
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableOpacity style={styles.headerContainer}><Text style={styles.Header}>Skip</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.headerContainer} onPress={changeFirstTimeValue}><Text style={styles.Header}>Skip</Text></TouchableOpacity>
             <Image
                 source={require('../../assets/login.png')}
                 style={styles.image}
