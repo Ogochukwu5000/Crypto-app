@@ -9,15 +9,20 @@ import {
     Dimensions
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400;
 
-function OnboardingScreen4(): JSX.Element {
-    const navigation = useNavigation();
+function OnboardingScreen4({ setGettingStarted }: { setGettingStarted: (value: boolean) => void }): JSX.Element {
+    //change firstTime value to false
+    const changeFirstTimeValue = async () => {
+        await AsyncStorage.setItem('firstTime', 'false');
+        setGettingStarted(false);
+    };
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableOpacity style={styles.headerContainer}><Text style={styles.Header}>Skip</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.headerContainer} onPress={changeFirstTimeValue}><Text style={styles.Header}>Skip</Text></TouchableOpacity>
             <Image
                 source={require('../../assets/idea.png')}
                 style={styles.image}
@@ -32,9 +37,7 @@ function OnboardingScreen4(): JSX.Element {
                 <Text style={{ fontSize: !isSmallScreen ? 45 : 41, fontWeight: '600', marginTop: !isSmallScreen ? 45 : 30, textAlign: "center" }}>A One Stop Shop For All Your Wallets.</Text>
                 <Text style={{ fontSize: 20, fontWeight: '300', marginTop: !isSmallScreen ? 30 : 30, textAlign: "center", width: "80%" }}>
                     Store all your wallet in crypto app and make transaction seamlessly, yes we’re serious!</Text>
-                <TouchableOpacity style={styles.nextButton} onPress={() => {
-                    navigation.navigate('OnboardingScreen4' as never);
-                }}>
+                <TouchableOpacity style={styles.nextButton} onPress={changeFirstTimeValue}>
                     <Text style={styles.NextButtonText}>Lets GO!</Text>
                 </TouchableOpacity>
             </View>
