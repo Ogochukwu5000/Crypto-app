@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Text,
     Image,
@@ -46,16 +46,9 @@ const recipients: Recipient[] = [
 
 function ChooseRecipientScreen(): JSX.Element {
     const [cryptoTag, setCryptoTag] = useState('');
-    const [isFocused, setIsFocused] = useState(false);
     const navigation = useNavigation();
 
-    const handleFocus = () => {
-        setIsFocused(true);
-    };
 
-    const handleBlur = () => {
-        setIsFocused(false);
-    };
 
     const renderItem = ({ item }: { item: Recipient }) => (
         <TouchableOpacity
@@ -116,8 +109,6 @@ function ChooseRecipientScreen(): JSX.Element {
                         onChangeText={setCryptoTag}
                         value={cryptoTag}
                         placeholderTextColor={'#3D4C63'}
-                        onFocus={handleFocus}
-                        onBlur={handleBlur}
                     />
                 </View>
                 <FlatList
