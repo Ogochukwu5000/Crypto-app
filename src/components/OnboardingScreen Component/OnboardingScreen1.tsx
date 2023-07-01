@@ -5,10 +5,17 @@ import {
     SafeAreaView,
     StyleSheet,
     View,
-    TouchableOpacity
+    TouchableOpacity,
+    Dimensions
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+
+const { width } = Dimensions.get('window');
+const isSmallScreen = width < 400;
 
 function OnboardingScreen1(): JSX.Element {
+    const navigation = useNavigation();
     return (
         <SafeAreaView style={styles.container}>
             <TouchableOpacity style={styles.headerContainer}><Text style={styles.Header}>Skip</Text></TouchableOpacity>
@@ -25,7 +32,9 @@ function OnboardingScreen1(): JSX.Element {
                 />
                 <Text style={{ fontSize: 45, fontWeight: '600', marginTop: 45, textAlign: "center" }}>Welcome to CryptoApp</Text>
                 <Text style={{ fontSize: 20, fontWeight: '300', marginTop: 30, textAlign: "center", width: "80%" }}>Buy, send and receive crypto the cool way with Crypto app!</Text>
-                <TouchableOpacity style={styles.nextButton}>
+                <TouchableOpacity style={styles.nextButton} onPress={() => {
+                    navigation.navigate('OnboardingScreen2' as never);
+                }}>
                     <Text style={styles.NextButtonText}>Next</Text>
                 </TouchableOpacity>
             </View>
@@ -67,7 +76,7 @@ const styles = StyleSheet.create({
         width: 200,
         height: 50,
         borderRadius: 25,
-        marginTop: '15%',
+        marginTop: !isSmallScreen ? '15%' : '10%',
         alignItems: 'center',
         justifyContent: 'center',
     },

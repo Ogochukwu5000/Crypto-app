@@ -5,8 +5,12 @@ import {
     SafeAreaView,
     StyleSheet,
     View,
-    TouchableOpacity
+    TouchableOpacity, 
+    Dimensions
 } from 'react-native';
+
+const { width } = Dimensions.get('window');
+const isSmallScreen = width < 400; 
 
 function OnboardingScreen2(): JSX.Element {
     return (
@@ -23,7 +27,7 @@ function OnboardingScreen2(): JSX.Element {
                     resizeMode="contain"
                     style={{ marginTop: 40 }}
                 />
-                <Text style={{ fontSize: 45, fontWeight: '600', marginTop: 45, textAlign: "center" }}>Create Your Unique Crypto Tag</Text>
+                <Text style={{ fontSize: !isSmallScreen ?45: 40, fontWeight: '600', marginTop: !isSmallScreen ? 45 : 30, textAlign: "center" }}>Create Your Unique Crypto Tag</Text>
                 <Text style={{ fontSize: 20, fontWeight: '300', marginTop: 30, textAlign: "center", width: "80%" }}>Connect with people and send crypto anywhere with your unique Crypto tag.</Text>
                 <TouchableOpacity style={styles.nextButton}>
                     <Text style={styles.NextButtonText}>Next</Text>
@@ -67,7 +71,7 @@ const styles = StyleSheet.create({
         width: 200,
         height: 50,
         borderRadius: 25,
-        marginTop: '15%',
+        marginTop: !isSmallScreen ? '15%' : '10%',
         alignItems: 'center',
         justifyContent: 'center',
     },
