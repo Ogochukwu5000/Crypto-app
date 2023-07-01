@@ -1,13 +1,17 @@
 import React from 'react';
-import { Text, View, SafeAreaView } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import ActivityMain from './ActivityMainScreen';
 
 function Activity(): JSX.Element {
+    const Stack = createStackNavigator();
     return (
-        <SafeAreaView>
-            <View>
-                <Text>This is the activity screen</Text>
-            </View>
-        </SafeAreaView>
+        <Stack.Navigator>
+            <Stack.Screen
+                name="ActivityMainScreen"
+                component={ActivityMain}
+                options={{ headerShown: false }}
+            />
+        </Stack.Navigator>
     );
 }
 
