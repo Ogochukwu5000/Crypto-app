@@ -25,7 +25,7 @@ function OnboardingScreen2(): JSX.Element {
             />
             <View style={[styles.bottomHalfModal]}>
                 <Image
-                    source={require('../../assets/step1.png')}
+                    source={require('../../assets/step2.png')}
                     resizeMode="contain"
                     style={{ marginTop: 40 }}
                 />
