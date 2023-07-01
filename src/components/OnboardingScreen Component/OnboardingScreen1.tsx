@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
         marginTop: '15%',
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: '7%',
     },
 
     NextButtonText: {
