@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Main from './Main';
 import { NavigationContainer } from '@react-navigation/native';
 import { Provider } from 'react-redux';
@@ -9,13 +9,33 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import GettingStarted from "./src/Navigations/GettingStarted"
 
 function App(): JSX.Element {
+  useEffect(() => {
+    const checkFirstTime = async () => {
+      const firstTimeValue = await AsyncStorage.getItem('firstTime');
+      if (firstTimeValue === null || firstTimeValue === undefined) {
+        await AsyncStorage.setItem('firstTime', 'true');
+      }
+    };
+
+    checkFirstTime();
+  }, []);
+
+  const [showGettingStarted, setShowGettingStarted] = React.useState(false);
+
+  useEffect(() => {
+    const checkFirstTime = async () => {
+      const firstTimeValue = await AsyncStorage.getItem('firstTime');
+      setShowGettingStarted(firstTimeValue === 'true');
+    };
+
+    checkFirstTime();
+  }, []);
+
   return (
     <PersistGate persistor={persistor}>
       <Provider store={store}>
         <NavigationContainer>
-          {
-            AsyncStorage.getItem('firstTime') === null ? <GettingStarted /> : <Main />
-          }
+          {showGettingStarted ? <GettingStarted /> : <Main />}
         </NavigationContainer>
       </Provider>
     </PersistGate>
