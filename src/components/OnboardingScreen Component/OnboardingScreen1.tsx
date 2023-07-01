@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     image: {
         width: '90%',
         height: '30%',
-        marginTop: '8%',
     },
     Header: {
         color: '#fff',
