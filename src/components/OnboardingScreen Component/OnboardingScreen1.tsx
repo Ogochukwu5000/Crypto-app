@@ -18,6 +18,16 @@ function OnboardingScreen1(): JSX.Element {
                 resizeMode="contain"
             />
             <View style={[styles.bottomHalfModal]}>
+                <Image
+                    source={require('../../assets/step1.png')}
+                    resizeMode="contain"
+                    style={{ marginTop: 40 }}
+                />
+                <Text style={{ fontSize: 45, fontWeight: '600', marginTop: 45, textAlign: "center" }}>Welcome to CryptoApp</Text>
+                <Text style={{ fontSize: 20, fontWeight: '300', marginTop: 30, textAlign: "center", width: "80%" }}>Buy, send and receive crypto the cool way with Crypto app!</Text>
+                <TouchableOpacity style={styles.nextButton}>
+                    <Text style={styles.NextButtonText}>Next</Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView>
     );
@@ -51,6 +61,22 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: 'absolute',
         bottom: 0,
+    },
+    nextButton: {
+        backgroundColor: '#3447F0',
+        width: 200,
+        height: 50,
+        borderRadius: 25,
+        marginTop: '15%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginLeft: '7%',
+    },
+
+    NextButtonText: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 });
 
