@@ -282,7 +282,7 @@ const styles = StyleSheet.create({
         color: '#B5BBC9',
         fontWeight: 'bold',
         marginLeft: '10%',
-        marginTop: '3%',
+        marginTop: isSmallScreen ? '3%' : '10%',
         alignSelf: 'flex-start',
     },
     toLabel: {
@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
         color: '#B5BBC9',
         fontWeight: 'bold',
         marginLeft: '10%',
-        marginTop: isSmallScreen ? '3%' : '0%',
+        marginTop: isSmallScreen ? '3%' : '10%',
         alignSelf: 'flex-start',
     },
     recipientItem: {
@@ -298,7 +298,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingVertical: 10,
         paddingHorizontal: 20,
-        marginTop: !isSmallScreen ? 10 : 0,
         marginLeft: '10%',
         width: '100%',
     },
@@ -327,12 +326,12 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'row',
         paddingHorizontal: 20,
-        marginTop: isSmallScreen ? 10 : 3,
+        marginTop: 10,
         marginLeft: '10%',
         width: '100%',
     },
     smallScreenSenderItem: {
-        marginTop: 5,
+        marginTop: 10,
     },
     senderProfilePicture: {
         width: isSmallScreen ? 40 : 50,
