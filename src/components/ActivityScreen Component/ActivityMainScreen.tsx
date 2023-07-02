@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        width: '90%',
+        width: '95%',
         height: 80,
         backgroundColor: '#EDF1F9',
         borderRadius: 50,
