@@ -63,6 +63,27 @@ function Profile(): JSX.Element {
                 <Text style={styles.settingsText}>
                     Settings
                 </Text>
+                <TouchableOpacity style={styles.profileItemContainer}>
+                    <Text style={styles.profileItemText}>Security</Text>
+                    <Image
+                        source={require('../../assets/arrow.png')}
+                        style={styles.arrow}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.profileItemContainer}>
+                    <Text style={styles.profileItemText}>Help & Support</Text>
+                    <Image
+                        source={require('../../assets/arrow.png')}
+                        style={styles.arrow}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.profileItemContainer}>
+                    <Text style={styles.profileItemText}>Logout</Text>
+                    <Image
+                        source={require('../../assets/arrow.png')}
+                        style={styles.arrow}
+                    />
+                </TouchableOpacity>
             </SafeAreaView>
         </SafeAreaView>
     );
@@ -152,6 +173,7 @@ const styles = StyleSheet.create({
     fullName: {
         fontSize: 20,
         fontWeight: '500',
+        marginBottom: isSmallScreen ? '0%' : '5%',
     },
     profileItemContainer: {
         width: '85%',
@@ -177,7 +199,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         color: '#485068',
         marginTop: '3%',
-        textAlign: "left", 
+        textAlign: "left",
         width: "80%",
     },
 });
