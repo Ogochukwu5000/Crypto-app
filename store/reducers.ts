@@ -76,6 +76,15 @@ function userReducer(state = initialUserState, action: any) {
                     firstTime: false,
                 }
             };
+        case 'LOGOUT':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    authenticated: false,
+                    token: '',
+                }
+            };
         default:
             return state;
     }
