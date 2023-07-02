@@ -1,13 +1,17 @@
 import React from 'react';
-import { Text, View, SafeAreaView } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import Discover from './DiscoverScreen';
 
 function Search(): JSX.Element {
+    const Stack = createStackNavigator();
     return (
-        <SafeAreaView>
-            <View>
-                <Text>This is the search screen</Text>
-            </View>
-        </SafeAreaView>
+        <Stack.Navigator>
+            <Stack.Screen
+                name="DiscoverScreen"
+                component={Discover}
+                options={{ headerShown: false }}
+            />
+        </Stack.Navigator>
     );
 }
 
