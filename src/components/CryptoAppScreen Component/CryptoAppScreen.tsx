@@ -5,6 +5,7 @@ import PostAuthenticationNav from '../../Navigations/PostAuthenticationNav';
 import ConfirmTransactionScreen from './ConfirmTransactionScreen';
 import TransactionDetails from './TransactionDetails';
 import RecipientsAmount from './RecipientsAmount';
+import Profile from './Profile';
 
 function CryptoApp(): JSX.Element {
     const Stack = createStackNavigator();
@@ -33,6 +34,11 @@ function CryptoApp(): JSX.Element {
             <Stack.Screen
                 name="RecipientsAmount"
                 component={RecipientsAmount}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="Profile"
+                component={Profile}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>
