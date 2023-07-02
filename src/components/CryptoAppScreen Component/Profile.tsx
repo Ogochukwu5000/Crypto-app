@@ -89,7 +89,11 @@ function Profile(): JSX.Element {
                 <Text style={styles.settingsText}>
                     Settings
                 </Text>
-                <TouchableOpacity style={styles.profileItemContainer}>
+                <TouchableOpacity style={styles.profileItemContainer} onPress={
+                    () => {
+                        navigation.navigate('Security' as never);
+                    }
+                }>
                     <Text style={styles.profileItemText}>Security</Text>
                     <Image
                         source={require('../../assets/arrow.png')}
