@@ -52,9 +52,29 @@ function RecipientsAmount(): JSX.Element {
 
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableOpacity style={styles.profileImage}>
+            {/* <TouchableOpacity style={styles.profileImage}>
                 <Image source={require('../../assets/profile.png')} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <View style={styles.header}>
+                <TouchableOpacity onPress={() => {
+                    navigation.goBack();
+                }}>
+                    <Image
+                        source={require('../../assets/back.png')}
+                        style={styles.backButton}
+                        resizeMode="contain"
+                    />
+                </TouchableOpacity>
+                <View style={styles.headerText}>
+                    <Text
+                        style={[
+                            styles.Header,
+                            isSmallScreen && styles.smallScreenHeader,
+                        ]}>
+                        Alex McCady
+                    </Text>
+                </View>
+            </View>
             <ScrollView horizontal={true} style={styles.cryptoButtonContainer} showsHorizontalScrollIndicator={false}>
                 <TouchableOpacity
                     style={[styles.cryptoButton, selectedCrypto === 'ethereum' && styles.selectedCryptoButton]}
@@ -139,22 +159,46 @@ const styles = StyleSheet.create({
         backgroundColor: '#3447F0',
         flex: 1,
     },
-    profileImage: {
-        alignItems: 'flex-end',
-        padding: 10,
-        paddingRight: 20,
+    Header: {
+        color: '#fff',
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginLeft: '13%',
+        width: '100%',
+    },
+    smallScreenHeader: {
+        fontSize: 25,
+    },
+    headerText: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        marginLeft: '5%',
+    },
+    header: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: '3%',
+    },
+    backButton: {
+        width: 30,
+        height: 30,
     },
     cryptoButton: {
         width: 150,
         padding: 10,
         margin: 10,
+        marginTop: 20,
         borderRadius: 20,
         backgroundColor: 'rgba(255, 255, 255, 0.3)',
         display: 'flex',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-evenly',
-        height: 50,
+        height: 40,
     },
     selectedCryptoButton: {
         backgroundColor: '#FFFFFF',
@@ -172,7 +216,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     cryptoAvailableContainer: {
-        padding: isSmallScreen ? 20 : 5,
+        padding: isSmallScreen ? 27 : 10,
         alignItems: 'center',
     },
     cryptoAvailableText: {
@@ -189,6 +233,7 @@ const styles = StyleSheet.create({
         color: '#FFFFFF',
         fontSize: 60,
         fontWeight: 'bold',
+        marginBottom: 10,
     },
     cryptoToSend: {
         color: '#B5BBC9',
