@@ -1,0 +1,118 @@
+import {
+    Text,
+    Image,
+    SafeAreaView,
+    StyleSheet,
+    View,
+    Dimensions,
+    TouchableOpacity,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+const { width } = Dimensions.get('window');
+const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
+
+function Profile(): JSX.Element {
+    const navigation = useNavigation();
+
+    return (
+        <SafeAreaView style={styles.container}>
+            {/* Image */}
+            <View style={styles.header}>
+                <TouchableOpacity style={styles.headerText} onPress={
+                    () => {
+                        navigation.goBack();
+                    }
+                }>
+                    <Image
+                        source={require('../../assets/back.png')}
+                        style={styles.backImage}
+                    />
+                </TouchableOpacity>
+            </View>
+            {/* Bottom half modal */}
+            <SafeAreaView
+                style={[styles.bottomHalfModal, isSmallScreen && styles.smallScreenBottomHalfModal]}
+            >
+                <View style={styles.profileHeader}>
+                    <Image
+                        // source={require('../../assets/Oval.png')}
+                        source={{uri: "https://pbs.twimg.com/profile_images/1645598180111728643/Twg6kxMT_400x400.jpg"}}
+                        style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                        resizeMode="contain"
+                    />
+                </View>
+            </SafeAreaView>
+        </SafeAreaView>
+    );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#3447F0',
+        alignItems: 'center',
+    },
+    bottomHalfModal: {
+        backgroundColor: '#fff',
+        width: '100%',
+        height: '90%',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        alignItems: 'center',
+        position: 'absolute',
+        bottom: 0,
+    },
+    smallScreenBottomHalfModal: {
+        height: "88%"
+    },
+    Header: {
+        color: '#fff',
+        fontSize: 30,
+        fontWeight: 'bold',
+        marginLeft: '10%',
+        width: '100%',
+    },
+    smallScreenHeader: {
+        fontSize: 25,
+    },
+    header: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginLeft: '3%',
+    },
+    headerText: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        marginLeft: '5%',
+    },
+    image: {
+        width: 150,
+        height: 150,
+        borderRadius: 100,
+        borderWidth: 5,
+        borderColor: '#F0F0F0',
+    },
+    smallScreenImage: {
+        width: 60,
+    },
+    profileHeader: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: '200%',
+        marginLeft: '5%',
+        position: 'absolute',
+        bottom: '95%',
+    },
+    backImage: {
+        width: 30,
+        height: 50,
+    }
+});
+
+export default Profile;
