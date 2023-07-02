@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     FlatList,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 type Transaction = {
     id: string;
@@ -46,9 +47,11 @@ const transactions: Transaction[] = [
 ];
 
 function ActivityMain(): JSX.Element {
-
+    const navigation = useNavigation();
     const renderItem = ({ item }: { item: Transaction }) => (
-        <TouchableOpacity style={styles.transactionContainer}>
+        <TouchableOpacity style={styles.transactionContainer} onPress={() => {
+            navigation.navigate('ActivityTransactionDetails' as never);
+        }}>
             <View style={styles.transactionImage}>
                 <Image
                     source={item.image}
