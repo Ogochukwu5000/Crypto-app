@@ -24,6 +24,7 @@ function Security(): JSX.Element {
                         resizeMode="contain"
                     />
                 </TouchableOpacity>
+
                 <View style={styles.headerText}>
                     <Text
                         style={[
@@ -34,6 +35,11 @@ function Security(): JSX.Element {
                     </Text>
                 </View>
             </View>
+            <Image
+                source={require('../../assets/security.png')}
+                style={[styles.image, isSmallScreen && styles.smallScreenSecurityImage]}
+                
+            />
             {/* Bottom half  log in modal */}
             <KeyboardAvoidingView
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
@@ -49,10 +55,24 @@ const styles = StyleSheet.create({
         backgroundColor: '#3447F0',
         alignItems: 'center',
     },
+    image: {
+        // width: '90%',
+        // height: '30%',
+        // marginTop: '8%',
+        marginTop: '10%',
+    },
+    smallScreenImage: {
+        width: 30,
+        height: 80,
+    },
+    smallScreenSecurityImage: {
+        width: 300,
+        height: 100,
+    },
     bottomHalfModal: {
         backgroundColor: '#fff',
         width: '100%',
-        height: '85%',
+        height: '67%',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         alignItems: 'center',
@@ -60,7 +80,7 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
     isSmallBottomHalfModal: {
-        height: '80%',
+        height: '65%',
     },
     header: {
         width: '100%',
@@ -68,14 +88,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginLeft: '3%',
-    },
-    image: {
-        width: 30,
-        height: 100,
-    },
-    smallScreenImage: {
-        width: 30,
-        height: 80,
     },
     Header: {
         color: '#fff',
