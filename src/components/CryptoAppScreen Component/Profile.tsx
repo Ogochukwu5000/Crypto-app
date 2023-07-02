@@ -68,7 +68,11 @@ function Profile(): JSX.Element {
                     <Text style={styles.cryptoTag}>Hmoney</Text>
                     <Text style={styles.fullName}>Haruna Oseni</Text>
                 </View>
-                <TouchableOpacity style={styles.profileItemContainer}>
+                <TouchableOpacity style={styles.profileItemContainer} onPress={
+                    () => {
+                        navigation.navigate('PersonalInformation' as never);
+                    }
+                }>
                     <Text style={styles.profileItemText}>Personal Information</Text>
                     <Image
                         source={require('../../assets/arrow.png')}
