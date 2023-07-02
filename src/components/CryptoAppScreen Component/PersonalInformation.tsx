@@ -10,8 +10,6 @@ import {
     Dimensions,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/reducers';
 import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
@@ -28,9 +26,6 @@ function PersonalInformation(): JSX.Element {
     const handleBlur = () => {
         setIsFocused(false);
     };
-
-    const user = useSelector((state: RootState) => state.userReducer.user);
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -67,8 +62,6 @@ function PersonalInformation(): JSX.Element {
                     <TextInput
                         style={styles.input}
                         placeholder="First Name"
-                        // onChangeText={setFirstName}
-                        // value={firstName}
                         placeholderTextColor={'#3D4C63'}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
@@ -78,8 +71,6 @@ function PersonalInformation(): JSX.Element {
                     <TextInput
                         style={styles.input}
                         placeholder="Last Name"
-                        // onChangeText={setFirstName}
-                        // value={firstName}
                         placeholderTextColor={'#3D4C63'}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
@@ -89,8 +80,6 @@ function PersonalInformation(): JSX.Element {
                     <TextInput
                         style={styles.input}
                         placeholder="Crypto Tag"
-                        // onChangeText={setFirstName}
-                        // value={firstName}
                         placeholderTextColor={'#3D4C63'}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
@@ -100,8 +89,6 @@ function PersonalInformation(): JSX.Element {
                     <TextInput
                         style={styles.input}
                         placeholder="Bio (Why do you love crypto ?)"
-                        // onChangeText={setFirstName}
-                        // value={firstName}
                         placeholderTextColor={'#3D4C63'}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
