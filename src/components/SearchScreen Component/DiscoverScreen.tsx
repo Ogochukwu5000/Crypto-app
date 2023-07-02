@@ -54,7 +54,7 @@ function Discover(): JSX.Element {
         <TouchableOpacity
             style={styles.recipientItem}
             onPress={() => {
-                navigation.navigate('ConfirmTransactionScreen' as never);
+                navigation.navigate('RecipientsAmount' as never);
             }}
         >
             <Image
