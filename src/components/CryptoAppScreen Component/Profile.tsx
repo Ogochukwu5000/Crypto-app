@@ -46,8 +46,12 @@ function Profile(): JSX.Element {
                     <Text style={styles.cryptoTag}>Hmoney</Text>
                     <Text style={styles.fullName}>Haruna Oseni</Text>
                 </View>
-                <TouchableOpacity style={styles.personalInformation}>
-                    <Text style={styles.personalInformationText}>Personal Information</Text>
+                <TouchableOpacity style={styles.profileItemContainer}>
+                    <Text style={styles.profileItemText}>Personal Information</Text>
+                    <Image
+                        source={require('../../assets/arrow.png')}
+                        style={styles.arrow}
+                    />
                 </TouchableOpacity>
             </SafeAreaView>
         </SafeAreaView>
@@ -139,7 +143,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '500',
     },
-    personalInformation: {
+    profileItemContainer: {
         width: '85%',
         display: 'flex',
         alignItems: 'flex-start',
@@ -147,10 +151,16 @@ const styles = StyleSheet.create({
         backgroundColor: '#F0F0F0',
         padding: 20,
         borderRadius: 25,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
     },
-    personalInformationText: {
+    profileItemText: {
         fontSize: 20,
         fontWeight: '500',
+    },
+    arrow: {
+        width: 20,
+        height: 20,
     },
 });
 
