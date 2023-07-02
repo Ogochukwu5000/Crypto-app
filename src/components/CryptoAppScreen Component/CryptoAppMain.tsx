@@ -52,7 +52,9 @@ function CryptoAppMain(): JSX.Element {
 
     return (
         <SafeAreaView style={styles.container}>
-            <TouchableOpacity style={styles.profileImage}>
+            <TouchableOpacity style={styles.profileImage} onPress={() => {
+                navigation.navigate('Profile' as never);
+            }}>
                 <Image source={require('../../assets/profile.png')} />
             </TouchableOpacity>
             <ScrollView horizontal={true} style={styles.cryptoButtonContainer} showsHorizontalScrollIndicator={false}>
