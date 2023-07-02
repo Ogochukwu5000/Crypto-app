@@ -53,6 +53,16 @@ function Profile(): JSX.Element {
                         style={styles.arrow}
                     />
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.profileItemContainer}>
+                    <Text style={styles.profileItemText}>Connect Wallet</Text>
+                    <Image
+                        source={require('../../assets/arrow.png')}
+                        style={styles.arrow}
+                    />
+                </TouchableOpacity>
+                <Text style={styles.settingsText}>
+                    Settings
+                </Text>
             </SafeAreaView>
         </SafeAreaView>
     );
@@ -126,7 +136,7 @@ const styles = StyleSheet.create({
     },
     backImage: {
         width: 30,
-        height: 50,
+        height: 30,
     },
     nameContainer: {
         width: '100%',
@@ -147,7 +157,7 @@ const styles = StyleSheet.create({
         width: '85%',
         display: 'flex',
         alignItems: 'flex-start',
-        marginTop: '10%',
+        marginTop: '5%',
         backgroundColor: '#F0F0F0',
         padding: 20,
         borderRadius: 25,
@@ -161,6 +171,14 @@ const styles = StyleSheet.create({
     arrow: {
         width: 20,
         height: 20,
+    },
+    settingsText: {
+        fontSize: 15,
+        fontWeight: '500',
+        color: '#485068',
+        marginTop: '3%',
+        textAlign: "left", 
+        width: "80%",
     },
 });
 
