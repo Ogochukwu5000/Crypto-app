@@ -4,6 +4,7 @@ import ChooseRecipientScreen from './ChooseRecipientScreen';
 import PostAuthenticationNav from '../../Navigations/PostAuthenticationNav';
 import ConfirmTransactionScreen from './ConfirmTransactionScreen';
 import TransactionDetails from './TransactionDetails';
+import RecipientsAmount from './RecipientsAmount';
 
 function CryptoApp(): JSX.Element {
     const Stack = createStackNavigator();
@@ -27,6 +28,11 @@ function CryptoApp(): JSX.Element {
             <Stack.Screen
                 name="TransactionDetails"
                 component={TransactionDetails}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="RecipientsAmount"
+                component={RecipientsAmount}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>
