@@ -102,7 +102,11 @@ const styles = StyleSheet.create({
         borderColor: '#F0F0F0',
     },
     smallScreenImage: {
-        width: 60,
+        width: 120,
+        height: 120,
+        borderRadius: 100,
+        borderWidth: 5,
+        borderColor: '#F0F0F0',
     },
     profileHeader: {
         width: '100%',
