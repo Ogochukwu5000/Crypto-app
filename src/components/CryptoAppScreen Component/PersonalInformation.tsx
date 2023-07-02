@@ -12,12 +12,14 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function PersonalInformation(): JSX.Element {
     const [isFocused, setIsFocused] = useState(false);
+    const navigation = useNavigation();
 
     const handleFocus = () => {
         setIsFocused(true);
@@ -32,7 +34,9 @@ function PersonalInformation(): JSX.Element {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={
+                    () => navigation.goBack()
+                }>
                     <Image
                         source={require('../../assets/back.png')}
                         style={[styles.image, isSmallScreen && styles.smallScreenImage]}
@@ -85,6 +89,17 @@ function PersonalInformation(): JSX.Element {
                     <TextInput
                         style={styles.input}
                         placeholder="Crypto Tag"
+                        // onChangeText={setFirstName}
+                        // value={firstName}
+                        placeholderTextColor={'#3D4C63'}
+                        onFocus={handleFocus}
+                        onSubmitEditing={handleBlur}
+                    />
+                </View>
+                <View style={styles.Input}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Bio (Why do you love crypto ?)"
                         // onChangeText={setFirstName}
                         // value={firstName}
                         placeholderTextColor={'#3D4C63'}
