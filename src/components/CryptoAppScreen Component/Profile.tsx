@@ -46,6 +46,9 @@ function Profile(): JSX.Element {
                     <Text style={styles.cryptoTag}>Hmoney</Text>
                     <Text style={styles.fullName}>Haruna Oseni</Text>
                 </View>
+                <TouchableOpacity style={styles.personalInformation}>
+                    <Text style={styles.personalInformationText}>Personal Information</Text>
+                </TouchableOpacity>
             </SafeAreaView>
         </SafeAreaView>
     );
@@ -133,6 +136,19 @@ const styles = StyleSheet.create({
         color: "#485068"
     },
     fullName: {
+        fontSize: 20,
+        fontWeight: '500',
+    },
+    personalInformation: {
+        width: '85%',
+        display: 'flex',
+        alignItems: 'flex-start',
+        marginTop: '10%',
+        backgroundColor: '#F0F0F0',
+        padding: 20,
+        borderRadius: 25,
+    },
+    personalInformationText: {
         fontSize: 20,
         fontWeight: '500',
     },
