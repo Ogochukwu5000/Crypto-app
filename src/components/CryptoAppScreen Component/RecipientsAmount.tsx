@@ -119,9 +119,9 @@ function RecipientsAmount(): JSX.Element {
             </View>
             <TouchableOpacity onPress={
                 () => navigation.navigate('ConfirmTransactionScreen' as never)
-            } style={[styles.chooseRecipientContainer, isSmallScreen && styles.chooseRecipientContainerSmallScreen
+            } style={[styles.continueContainer, isSmallScreen && styles.continueContainerSmallScreen
             ]}>
-                <Text style={styles.chooseRecipientText}>
+                <Text style={styles.continueText}>
                     Continue
                 </Text>
             </TouchableOpacity>
@@ -239,7 +239,7 @@ const styles = StyleSheet.create({
         color: '#B5BBC9',
         fontSize: 18,
     },
-    chooseRecipientContainer: {
+    continueContainer: {
         padding: 10,
         alignItems: 'center',
         borderWidth: 2,
@@ -250,10 +250,10 @@ const styles = StyleSheet.create({
         marginBottom: 5,
         marginTop: 20,
     },
-    chooseRecipientContainerSmallScreen: {
+    continueContainerSmallScreen: {
         marginTop: 0,
     },
-    chooseRecipientText: {
+    continueText: {
         color: '#FFFFFF',
         fontSize: 18,
         fontWeight: '500',
