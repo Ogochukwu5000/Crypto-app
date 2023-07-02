@@ -37,10 +37,14 @@ function Profile(): JSX.Element {
                 <View style={styles.profileHeader}>
                     <Image
                         // source={require('../../assets/Oval.png')}
-                        source={{uri: "https://pbs.twimg.com/profile_images/1645598180111728643/Twg6kxMT_400x400.jpg"}}
+                        source={{ uri: "https://pbs.twimg.com/profile_images/1645598180111728643/Twg6kxMT_400x400.jpg" }}
                         style={[styles.image, isSmallScreen && styles.smallScreenImage]}
                         resizeMode="contain"
                     />
+                </View>
+                <View style={styles.nameContainer}>
+                    <Text style={styles.cryptoTag}>Hmoney</Text>
+                    <Text style={styles.fullName}>Haruna Oseni</Text>
                 </View>
             </SafeAreaView>
         </SafeAreaView>
@@ -112,7 +116,22 @@ const styles = StyleSheet.create({
     backImage: {
         width: 30,
         height: 50,
-    }
+    },
+    nameContainer: {
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        marginTop: '19%',
+    },
+    cryptoTag: {
+        fontSize: 14,
+        fontWeight: '500',
+        color: "#485068"
+    },
+    fullName: {
+        fontSize: 20,
+        fontWeight: '500',
+    },
 });
 
 export default Profile;
