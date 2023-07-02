@@ -6,6 +6,7 @@ import ConfirmTransactionScreen from './ConfirmTransactionScreen';
 import TransactionDetails from './TransactionDetails';
 import RecipientsAmount from './RecipientsAmount';
 import Profile from './Profile';
+import PersonalInformation from './PersonalInformation';
 
 function CryptoApp(): JSX.Element {
     const Stack = createStackNavigator();
@@ -41,6 +42,12 @@ function CryptoApp(): JSX.Element {
                 component={Profile}
                 options={{ headerShown: false }}
             />
+            <Stack.Screen
+                name="PersonalInformation"
+                component={PersonalInformation}
+                options={{ headerShown: false }}
+            />
+
         </Stack.Navigator>
     );
 }
