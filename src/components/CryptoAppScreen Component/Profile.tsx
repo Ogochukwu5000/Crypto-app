@@ -6,15 +6,37 @@ import {
     View,
     Dimensions,
     TouchableOpacity,
+    Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function Profile(): JSX.Element {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
 
+    const handleLogout = () => {
+        Alert.alert(
+            'Logout',
+            'Are you sure you want to log out?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK',
+                    onPress: () => {
+                        dispatch({ type: 'LOGOUT' });
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    };
     return (
         <SafeAreaView style={styles.container}>
             {/* Image */}
@@ -77,7 +99,7 @@ function Profile(): JSX.Element {
                         style={styles.arrow}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.profileItemContainer}>
+                <TouchableOpacity style={styles.profileItemContainer} onPress={handleLogout}>
                     <Text style={styles.profileItemText}>Logout</Text>
                     <Image
                         source={require('../../assets/arrow.png')}
