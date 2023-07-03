@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Text,
     Image,
@@ -16,6 +16,18 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 
 function Wallet(): JSX.Element {
     const navigation = useNavigation();
+    const [selectedWallet, setSelectedWallet] = useState('');
+
+    const wallets = [
+        { name: 'Metamask', symbol: '0x89.....', image: require('../../assets/metamask.png') },
+        { name: 'Coinbase Wallet', symbol: '0x83.....', image: require('../../assets/coinbase.png') },
+        // { name: 'Trust Wallet', symbol: '0x86.....', image: require('../../assets/trust.png') },
+    ];
+
+    const handleWalletSelection = (symbol: string) => {
+        setSelectedWallet(symbol);
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -50,7 +62,32 @@ function Wallet(): JSX.Element {
             {/* Bottom half  log in modal */}
             <KeyboardAvoidingView
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
-
+                <View style={styles.walletList}>
+                    {wallets.map((wallet) => (
+                        <TouchableOpacity
+                            key={wallet.symbol}
+                            style={[
+                                styles.walletItem,
+                                selectedWallet === wallet.symbol && styles.selectedWalletItem,
+                            ]}
+                            onPress={() => handleWalletSelection(wallet.symbol)}>
+                            <Image
+                                source={wallet.image}
+                                style={styles.walletImage}
+                            />
+                            <View style={styles.walletInfo}>
+                                <Text style={styles.walletName}>{wallet.name}</Text>
+                                <Text style={styles.walletSymbol}>{wallet.symbol}</Text>
+                            </View>
+                            {selectedWallet === wallet.symbol && (
+                                <Image
+                                    source={require('../../assets/checkmark.png')}
+                                    style={styles.checkmark}
+                                />
+                            )}
+                        </TouchableOpacity>
+                    ))}
+                </View>
             </KeyboardAvoidingView>
         </SafeAreaView >
     );
@@ -119,6 +156,48 @@ const styles = StyleSheet.create({
         fontSize: 13,
         marginLeft: '3%',
         width: '70%',
+    },
+    walletList: {
+        width: '100%',
+        marginTop: '10%',
+        paddingHorizontal: '5%',
+    },
+    walletItem: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 20,
+        borderBottomWidth: 1,
+        borderBottomColor: '#E5E5E5',
+        backgroundColor: '#F0F0F0',
+        padding: 20,
+        borderRadius: 25,
+        marginBottom: 20,
+        height: 80,
+    },
+    selectedWalletItem: {
+        backgroundColor: '#F0F0F0',
+    },
+    walletImage: {
+        width: 40,
+        height: 40,
+        marginRight: 10,
+    },
+    walletInfo: {
+        flex: 1,
+    },
+    walletName: {
+        fontSize: 20,
+        fontWeight: '500',
+    },
+    walletSymbol: {
+        fontSize: 14,
+        color: '#666',
+    },
+    checkmark: {
+        width: 30,
+        height: 30,
+        marginLeft: 'auto',
+        
     },
 });
 
