@@ -17,7 +17,7 @@ import Wallet from './Wallet';
 function CryptoApp(): JSX.Element {
     const Stack = createStackNavigator();
     return (
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName="CryptoAppMainScreen">
             <Stack.Screen
                 name="CryptoAppMainScreen"
                 component={PostAuthenticationNav}
