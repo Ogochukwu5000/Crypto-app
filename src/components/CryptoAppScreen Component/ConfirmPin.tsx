@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
-function CreatePin(): JSX.Element {
+function ConfirmPin(): JSX.Element {
     const [pin, setPin] = useState('');
     const [pinCount, setPinCount] = useState(0);
     const shakeAnimation = useRef(new Animated.Value(0)).current;
@@ -320,4 +320,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default CreatePin;
+export default ConfirmPin;
