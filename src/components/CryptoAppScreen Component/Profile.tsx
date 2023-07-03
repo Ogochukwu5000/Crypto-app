@@ -89,7 +89,11 @@ function Profile(): JSX.Element {
                         style={styles.arrow}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.profileItemContainer}>
+                <TouchableOpacity style={styles.profileItemContainer} onPress={
+                    () => {
+                        navigation.navigate('ConnectWallet' as never);
+                    }
+                }>
                     <Text style={styles.profileItemText}>Connect Wallet</Text>
                     <Image
                         source={require('../../assets/arrow.png')}
