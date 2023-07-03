@@ -3,6 +3,7 @@ import { View, StyleSheet, Dimensions, SafeAreaView, Text, Image } from 'react-n
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store/reducers';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -10,6 +11,7 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function Welcome(): JSX.Element {
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.userReducer.user);
+    const navigation = useNavigation();
     useEffect(() => {
         axios.post('http://10.0.0.174:8000/user/register', {
             email: user?.email,
@@ -20,13 +22,16 @@ function Welcome(): JSX.Element {
             crypto_tag: user?.cryptoTag,
         }).then((response) => {
             console.log('Response: ', response.data);
-                dispatch({ type: 'AUTHENTICATE' });
+            dispatch({ type: 'AUTHENTICATE' });
+            navigation.navigate('CryptoAppMainScreen' as never);
         }
         ).catch((error) => {
-            console.log('Error: ', error);
+            console.log('Error: ', error.response.data);
         }
         );
     }, []);
+
+    console.log('User: ', user);
 
     return (
         <SafeAreaView style={styles.container}>
