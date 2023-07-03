@@ -6,12 +6,9 @@ import {
     StyleSheet,
     View,
     TextInput,
-    KeyboardAvoidingView,
     Dimensions,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/reducers';
 import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
@@ -46,8 +43,6 @@ function ChangePassword(): JSX.Element {
     const handleBlur = () => {
         setIsFocused(false);
     };
-
-    const user = useSelector((state: RootState) => state.userReducer.user);
 
     return (
         <SafeAreaView style={styles.container}>
