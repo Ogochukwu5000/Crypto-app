@@ -12,6 +12,7 @@ import ChangePassword from './ChangePassword';
 import CurrentPin from './CurrentPin';
 import CreatePin from './CreatePin';
 import ConfirmPin from './ConfirmPin';
+import Wallet from './Wallet';
 
 function CryptoApp(): JSX.Element {
     const Stack = createStackNavigator();
@@ -75,6 +76,11 @@ function CryptoApp(): JSX.Element {
             <Stack.Screen
                 name="ConfirmPin"
                 component={ConfirmPin}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="ConnectWallet"
+                component={Wallet}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>
