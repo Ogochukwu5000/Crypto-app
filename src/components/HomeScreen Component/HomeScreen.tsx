@@ -30,7 +30,7 @@ function Home(): JSX.Element {
                             styles.Header,
                             isSmallScreen && styles.smallScreenHeader,
                         ]}>
-                        Cryptofolio
+                        Bitcoin
                     </Text>
                 </View>
             </View>
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold',
-        marginLeft: '15%',
+        marginLeft: '23%',
         width: '100%',
     },
     headerText: {
