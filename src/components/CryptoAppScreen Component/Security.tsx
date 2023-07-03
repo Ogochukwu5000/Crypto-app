@@ -55,6 +55,17 @@ function Security(): JSX.Element {
                         style={[styles.arrow, { marginLeft: 'auto' }]}
                     />
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.profileItemContainer} onPress={
+                    () => {
+                        navigation.navigate('' as never);
+                    }
+                }>
+                    <Text style={styles.profileItemText}>Change PIN</Text>
+                    <Image
+                        source={require('../../assets/arrow.png')}
+                        style={[styles.arrow, { marginLeft: 'auto' }]}
+                    />
+                </TouchableOpacity>
             </View>
         </SafeAreaView >
     );
