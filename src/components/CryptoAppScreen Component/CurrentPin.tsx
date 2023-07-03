@@ -68,17 +68,6 @@ function CurrentPin(): JSX.Element {
         });
     };
 
-    const handlePinSubmit = () => {
-        dispatch({ type: 'SIGNUP', payload: { pin } });
-        navigation.navigate('ConfirmPin' as never);
-    };
-
-    useEffect(() => {
-        if (pin.length === 4) {
-            handlePinSubmit();
-        }
-    }, [pin]);
-
     return (
         <SafeAreaView style={styles.container}>
             <>
