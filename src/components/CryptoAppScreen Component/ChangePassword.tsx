@@ -18,6 +18,24 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 
 function ChangePassword(): JSX.Element {
     const [isFocused, setIsFocused] = useState(false);
+    const [password, setPassword] = useState('');
+    const [passwordHidden, setPasswordHidden] = useState(true);
+    const [newPassword, setNewPassword] = useState('');
+    const [newPasswordHidden, setNewPasswordHidden] = useState(true);
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [confirmPasswordHidden, setConfirmPasswordHidden] = useState(true);
+
+    const togglePasswordHidden = () => {
+        setPasswordHidden(!passwordHidden);
+    };
+
+    const toggleNewPasswordHidden = () => {
+        setNewPasswordHidden(!newPasswordHidden);
+    };
+
+    const toggleConfirmPasswordHidden = () => {
+        setConfirmPasswordHidden(!confirmPasswordHidden);
+    };
 
     const handleFocus = () => {
         setIsFocused(true);
@@ -50,10 +68,84 @@ function ChangePassword(): JSX.Element {
                 </View>
             </View>
             {/* Bottom half  log in modal */}
-            <KeyboardAvoidingView
+            <View
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal, isFocused && styles.focusedInput]}>
-
-            </KeyboardAvoidingView>
+                <View style={styles.passwordInput}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Current Password"
+                        onChangeText={setPassword}
+                        value={password}
+                        keyboardType="default"
+                        placeholderTextColor={'#3D4C63'}
+                        secureTextEntry={passwordHidden}
+                        onFocus={handleFocus}
+                        onSubmitEditing={handleBlur}
+                    />
+                    <TouchableOpacity
+                        style={styles.passwordEye}
+                        onPress={togglePasswordHidden}>
+                        {
+                            // if password is hidden show text "show" else show text "hide"
+                            passwordHidden ? (
+                                <Text style={styles.passwordEyeText}>Show</Text>
+                            ) : (
+                                <Text style={styles.passwordEyeText}>Hide</Text>
+                            )
+                        }
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.passwordInput}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="New Password"
+                        onChangeText={setNewPassword}
+                        value={newPassword}
+                        keyboardType="default"
+                        placeholderTextColor={'#3D4C63'}
+                        secureTextEntry={newPasswordHidden}
+                        onFocus={handleFocus}
+                        onSubmitEditing={handleBlur}
+                    />
+                    <TouchableOpacity
+                        style={styles.passwordEye}
+                        onPress={toggleNewPasswordHidden}>
+                        {
+                            // if password is hidden show text "show" else show text "hide"
+                            newPasswordHidden ? (
+                                <Text style={styles.passwordEyeText}>Show</Text>
+                            ) : (
+                                <Text style={styles.passwordEyeText}>Hide</Text>
+                            )
+                        }
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.passwordInput}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Confirm Password"
+                        onChangeText={setConfirmPassword}
+                        value={confirmPassword}
+                        keyboardType="default"
+                        placeholderTextColor={'#3D4C63'}
+                        secureTextEntry={confirmPasswordHidden}
+                        onFocus={handleFocus}
+                        onSubmitEditing={handleBlur}
+                    />
+                    <TouchableOpacity
+                        style={styles.passwordEye}
+                        onPress={toggleConfirmPasswordHidden}>
+                        {
+                            // if password is hidden show text "show" else show text "hide"
+                            confirmPasswordHidden ? (
+                                <Text style={styles.passwordEyeText}>Show</Text>
+                            ) : (
+                                <Text style={styles.passwordEyeText}>Hide</Text>
+                            )
+                        }
+                    </TouchableOpacity>
+                </View>
+            </View>
         </SafeAreaView >
     );
 }
@@ -111,6 +203,28 @@ const styles = StyleSheet.create({
     },
     smallScreenHeader: {
         fontSize: 25,
+    },
+    passwordInput: {
+        width: '90%',
+        display: 'flex',
+        marginTop: '5%',
+    },
+
+    passwordEye: {
+        position: 'relative',
+    },
+
+    passwordEyeText: {
+        color: '#3D4C63',
+        zIndex: 100000,
+    },
+    input: {
+        width: '100%',
+        height: 50,
+        marginTop: '5%',
+        borderBottomWidth: 1,
+        borderColor: '#D8D8D8',
+        fontSize: 20,
     },
 });
 
