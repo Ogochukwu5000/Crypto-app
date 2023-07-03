@@ -16,7 +16,7 @@ function PreAuthenticationNav(): JSX.Element {
   const Stack = createStackNavigator();
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName='Login'>
       <Stack.Screen
         name="Login"
         component={LoginScreen}
