@@ -31,6 +31,7 @@ function Profile(): JSX.Element {
                     text: 'OK',
                     onPress: () => {
                         dispatch({ type: 'LOGOUT' });
+                        navigation.navigate('Login' as never);
                     },
                 },
             ],
