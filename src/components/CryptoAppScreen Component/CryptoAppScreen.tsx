@@ -8,6 +8,7 @@ import RecipientsAmount from './RecipientsAmount';
 import Profile from './Profile';
 import PersonalInformation from './PersonalInformation';
 import Security from './Security';
+import ChangePassword from './ChangePassword';
 
 function CryptoApp(): JSX.Element {
     const Stack = createStackNavigator();
@@ -51,6 +52,11 @@ function CryptoApp(): JSX.Element {
             <Stack.Screen
                 name="Security"
                 component={Security}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="ChangePassword"
+                component={ChangePassword}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>
