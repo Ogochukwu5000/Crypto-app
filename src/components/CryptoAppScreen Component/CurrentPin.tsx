@@ -98,14 +98,14 @@ function CurrentPin(): JSX.Element {
                                 styles.Header,
                                 isSmallScreen && styles.smallScreenHeader,
                             ]}>
-                            Create a PIN
+                            Current PIN
                         </Text>
                         <Text
                             style={[
                                 styles.SubHeader,
                                 isSmallScreen && styles.smallScreenSubHeader,
                             ]}>
-                            Enhance the security of your account by creating a PIN code
+                            Please enter your current  pin to proceed
                         </Text>
                     </View>
                 </View>
