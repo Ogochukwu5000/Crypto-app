@@ -9,15 +9,21 @@ import {
     Dimensions,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function Wallet(): JSX.Element {
+    const navigation = useNavigation();
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={
+                    () => {
+                        navigation.goBack();
+                    }
+                }>
                     <Image
                         source={require('../../assets/back.png')}
                         style={[styles.image, isSmallScreen && styles.smallScreenImage]}
