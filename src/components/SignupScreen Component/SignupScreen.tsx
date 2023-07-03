@@ -91,10 +91,10 @@ function SignupScreen(): JSX.Element {
 
     useEffect(() => {
         if (user) {
-            setFirstName(user.firstName);
-            setLastName(user.lastName);
-            setEmail(user.email);
-            setPassword(user.password);
+            setFirstName("");
+            setLastName("");
+            setEmail("");
+            setPassword("");
         }
     }, [user]);
 
