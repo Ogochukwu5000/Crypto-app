@@ -9,16 +9,11 @@ import {
     Dimensions,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function Wallet(): JSX.Element {
-
-    const user = useSelector((state: RootState) => state.userReducer.user);
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
