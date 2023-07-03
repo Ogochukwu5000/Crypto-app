@@ -48,7 +48,7 @@ function ChangePassword(): JSX.Element {
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={
-                    () => navigation.navigate('Profile' as never)
+                    () => navigation.navigate('Security' as never)
                 }>
                     <Image
                         source={require('../../assets/back.png')}
