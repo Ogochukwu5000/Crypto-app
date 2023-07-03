@@ -30,14 +30,14 @@ function Wallet(): JSX.Element {
                             styles.Header,
                             isSmallScreen && styles.smallScreenHeader,
                         ]}>
-                        Personal Information
+                        Wallets
                     </Text>
                     <Text
                         style={[
                             styles.SubHeader,
                             isSmallScreen && styles.smallScreenSubHeader,
                         ]}>
-                        We would love to know you more, we think you’re amazing so why not tell us a bit about yourself :)
+                        Connect your wallet and enjoy the best of cryptoapp
                     </Text>
                 </View>
             </View>
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold',
-        marginLeft: '5%',
+        marginLeft: '25%',
         width: '100%',
     },
     headerText: {
