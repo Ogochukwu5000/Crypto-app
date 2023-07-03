@@ -12,11 +12,13 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function ChangePassword(): JSX.Element {
+    const navigation = useNavigation();
     const [isFocused, setIsFocused] = useState(false);
     const [password, setPassword] = useState('');
     const [passwordHidden, setPasswordHidden] = useState(true);
@@ -50,7 +52,9 @@ function ChangePassword(): JSX.Element {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={
+                    () => navigation.navigate('Profile' as never)
+                }>
                     <Image
                         source={require('../../assets/back.png')}
                         style={[styles.image, isSmallScreen && styles.smallScreenImage]}
