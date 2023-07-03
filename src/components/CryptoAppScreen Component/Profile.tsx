@@ -37,6 +37,16 @@ function Profile(): JSX.Element {
             { cancelable: false }
         );
     };
+
+    // function that alerts users of contact and email as soon as they click on Help & Support
+    const alertUser = () => {
+        Alert.alert(
+            'Contact Us',
+            'Email: hoseni@cryptoapplabs.com Contact: +1 832 757 8493',
+            [{ text: 'OK' }],
+            { cancelable: false }
+        );
+    };
     return (
         <SafeAreaView style={styles.container}>
             {/* Image */}
@@ -100,7 +110,7 @@ function Profile(): JSX.Element {
                         style={styles.arrow}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.profileItemContainer}>
+                <TouchableOpacity style={styles.profileItemContainer} onPress={alertUser}>
                     <Text style={styles.profileItemText}>Help & Support</Text>
                     <Image
                         source={require('../../assets/arrow.png')}
