@@ -18,7 +18,9 @@ function Security(): JSX.Element {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={
+                    () => navigation.goBack()
+                }>
                     <Image
                         source={require('../../assets/back.png')}
                         style={[styles.image, isSmallScreen && styles.smallScreenImage]}
