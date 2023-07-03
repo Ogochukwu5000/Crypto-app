@@ -5,15 +5,16 @@ import {
     SafeAreaView,
     StyleSheet,
     View,
-    KeyboardAvoidingView,
     Dimensions,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function Security(): JSX.Element {
+    const navigation = useNavigation();
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -38,13 +39,23 @@ function Security(): JSX.Element {
             <Image
                 source={require('../../assets/security.png')}
                 style={[styles.image, isSmallScreen && styles.smallScreenSecurityImage]}
-                
+
             />
             {/* Bottom half  log in modal */}
-            <KeyboardAvoidingView
+            <View
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
-
-            </KeyboardAvoidingView>
+                <TouchableOpacity style={styles.profileItemContainer} onPress={
+                    () => {
+                        navigation.navigate('' as never);
+                    }
+                }>
+                    <Text style={styles.profileItemText}>Change Password</Text>
+                    <Image
+                        source={require('../../assets/arrow.png')}
+                        style={[styles.arrow, { marginLeft: 'auto' }]}
+                    />
+                </TouchableOpacity>
+            </View>
         </SafeAreaView >
     );
 }
@@ -105,6 +116,25 @@ const styles = StyleSheet.create({
     },
     smallScreenHeader: {
         fontSize: 25,
+    },
+    profileItemContainer: {
+        width: '90%',
+        display: 'flex',
+        alignItems: 'flex-start',
+        marginTop: '8%',
+        backgroundColor: '#F0F0F0',
+        padding: 25,
+        borderRadius: 25,
+        flexDirection: 'row',
+        justifyContent: 'flex-end',
+    },
+    profileItemText: {
+        fontSize: 20,
+        fontWeight: '500',
+    },
+    arrow: {
+        width: 20,
+        height: 20,
     },
 });
 
