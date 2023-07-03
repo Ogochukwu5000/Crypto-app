@@ -59,7 +59,7 @@ function Security(): JSX.Element {
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.profileItemContainer} onPress={
                     () => {
-                        navigation.navigate('' as never);
+                        navigation.navigate('CurrentPin' as never);
                     }
                 }>
                     <Text style={styles.profileItemText}>Change PIN</Text>
