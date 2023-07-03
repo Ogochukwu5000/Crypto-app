@@ -48,7 +48,7 @@ function Security(): JSX.Element {
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
                 <TouchableOpacity style={styles.profileItemContainer} onPress={
                     () => {
-                        navigation.navigate('' as never);
+                        navigation.navigate('ChangePassword' as never);
                     }
                 }>
                     <Text style={styles.profileItemText}>Change Password</Text>
