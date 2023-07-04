@@ -114,7 +114,7 @@ function PostAuthenticationNav(): JSX.Element {
           tabBarLabel: () => null,
           tabBarIcon: ({ focused, color, size }) => {
             const svgXmlData = focused ? homeSvgFocusedBlack : homeSvgNotFocused;
-            return <SvgXml xml={svgXmlData} width={40} height={70} fill={color} />;
+            return <SvgXml xml={svgXmlData} width={35} height={70} fill={color} />;
           },
         }}
       />
@@ -123,7 +123,7 @@ function PostAuthenticationNav(): JSX.Element {
           tabBarLabel: () => null,
           tabBarIcon: ({ focused, color, size }) => {
             const svgXmlData = focused ? cryptoAppSvgFocused : cryptoAppSvgNotFocused;
-            return <SvgXml xml={svgXmlData} width={50} height={70} fill={color} />;
+            return <SvgXml xml={svgXmlData} width={40} height={70} fill={color} />;
           },
         }
       } name="cryptoapp" component={CryptoAppMain} />
@@ -131,14 +131,14 @@ function PostAuthenticationNav(): JSX.Element {
         tabBarLabel: () => null,
         tabBarIcon: ({ focused, color, size }) => {
           const svgXmlData = focused ? searchSvgFocusedBlack : searchSvgNotFocused;
-          return <SvgXml xml={svgXmlData} width={30} height={70} fill={color} />;
+          return <SvgXml xml={svgXmlData} width={27} height={70} fill={color} />;
         }
       }} name="Search" component={Search} />
       <Tab.Screen options={{
         tabBarLabel: () => null,
         tabBarIcon: ({ focused, color, size }) => {
           const svgXmlData = focused ? activitySvgFocusedBlack : activitySvgNotFocused;
-          return <SvgXml xml={svgXmlData} width={40} height={70} fill={color} />;
+          return <SvgXml xml={svgXmlData} width={33} height={70} fill={color} />;
         }
       }} name="Activity" component={Activity} />
     </Tab.Navigator>
