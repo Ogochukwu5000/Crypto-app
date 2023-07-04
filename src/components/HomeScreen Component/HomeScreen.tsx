@@ -17,13 +17,6 @@ function Home(): JSX.Element {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity>
-                    <Image
-                        source={require('../../assets/back.png')}
-                        style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-                        resizeMode="contain"
-                    />
-                </TouchableOpacity>
                 <View style={styles.headerText}>
                     <Text
                         style={[
@@ -69,19 +62,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginLeft: '3%',
     },
-    image: {
-        width: 30,
-        height: 50,
-    },
-    smallScreenImage: {
-        width: 30,
-        height: 80,
-    },
     Header: {
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold',
-        marginLeft: '23%',
+        marginLeft: '30%',
         width: '100%',
     },
     headerText: {
