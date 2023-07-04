@@ -1,19 +1,19 @@
 import React from 'react';
 import {
     Text,
-    Image,
     SafeAreaView,
     StyleSheet,
     View,
     KeyboardAvoidingView,
     Dimensions,
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import CoinDetailedScreen from './CoinDetailedScreen';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function Home(): JSX.Element {
+    const coinId = 'bitcoin';
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -27,6 +27,8 @@ function Home(): JSX.Element {
                     </Text>
                 </View>
             </View>
+            <CoinDetailedScreen coinId={coinId}
+             />
             {/* Bottom half  log in modal */}
             <KeyboardAvoidingView
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
