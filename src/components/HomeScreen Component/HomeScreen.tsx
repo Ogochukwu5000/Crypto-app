@@ -17,18 +17,9 @@ function Home(): JSX.Element {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <View style={styles.headerText}>
-                    <Text
-                        style={[
-                            styles.Header,
-                            isSmallScreen && styles.smallScreenHeader,
-                        ]}>
-                        Bitcoin
-                    </Text>
-                </View>
             </View>
             <CoinDetailedScreen coinId={coinId}
-             />
+            />
             {/* Bottom half  log in modal */}
             <KeyboardAvoidingView
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
@@ -47,7 +38,7 @@ const styles = StyleSheet.create({
     bottomHalfModal: {
         backgroundColor: '#fff',
         width: '100%',
-        height: '50%',
+        height: '52%',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         alignItems: 'center',
@@ -63,6 +54,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginLeft: '3%',
+        marginTop: '3%',
     },
     Header: {
         color: '#fff',
