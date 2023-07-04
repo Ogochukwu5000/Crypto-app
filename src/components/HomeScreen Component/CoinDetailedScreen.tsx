@@ -4,6 +4,9 @@ import {
     Text,
     Dimensions,
     ActivityIndicator,
+    ScrollView,
+    RefreshControl,
+    SafeAreaView,
 } from "react-native";
 import styles from "./styles";
 import { LineChart } from "react-native-wagmi-charts";
@@ -40,10 +43,10 @@ interface CandleChartData {
 }
 
 const filterDaysArray = [
-    { filterDay: "1", filterText: "Day" },
-    { filterDay: "7", filterText: "Week" },
-    { filterDay: "30", filterText: "Month" },
-    { filterDay: "365", filterText: "Year" },
+    { filterDay: "1", filterText: "1D" },
+    { filterDay: "7", filterText: "1W" },
+    { filterDay: "30", filterText: "1M" },
+    { filterDay: "365", filterText: "1Y" },
     { filterDay: "max", filterText: "All" },
 ];
 
@@ -53,6 +56,7 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
     const [coinCandleChartData, setCoinCandleChartData] = useState<CandleChartData | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [selectedRange, setSelectedRange] = useState<string>("1");
+    const [refreshing, setRefreshing] = useState<boolean>(false);
     const memoOnSelectedRangeChange = useCallback((range: string) => onSelectedRangeChange(range), []);
 
     const fetchCoinData = async () => {
@@ -60,8 +64,8 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
         try {
             const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`);
             setCoin(response.data);
-        } catch (e) {
-            console.log(e);
+        } catch (e: any) {
+            console.log(e.response.data);
         } finally {
             setLoading(false);
         }
@@ -91,10 +95,46 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
         fetchCandleStickChartData(selectedRangeValue);
     };
 
+    const onRefresh = useCallback(() => {
+        setRefreshing(true);
+        fetchCoinData();
+        fetchMarketCoinData(selectedRange);
+        fetchCandleStickChartData(selectedRange);
+        setRefreshing(false);
+    }, [selectedRange]);
+
     useEffect(() => {
         fetchCoinData();
         fetchMarketCoinData("1");
         fetchCandleStickChartData("1");
+
+        // Connect to WebSocket
+        const ws = new WebSocket("wss://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin");
+
+        // Handle WebSocket messages
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            const newPrice = data[0].current_price;
+            setCoin((prevCoin) => {
+                if (prevCoin) {
+                    return {
+                        ...prevCoin,
+                        market_data: {
+                            ...prevCoin.market_data,
+                            current_price: {
+                                usd: newPrice,
+                            },
+                        },
+                    };
+                }
+                return null;
+            });
+        };
+
+        // Close WebSocket on unmount
+        return () => {
+            ws.close();
+        };
     }, []);
 
     if (loading || !coin || !coinMarketData || !coinCandleChartData) {
@@ -131,52 +171,62 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
     };
 
     return (
-        <View style={{ paddingHorizontal: 10 }}>
-            <LineChart.Provider
-                data={prices.map(([timestamp, value]) => ({ timestamp, value }))}
-            >
-                <View style={styles.priceContainer}>
-                    <View>
-                        <Text style={styles.name}>{name}</Text>
-                        <LineChart.PriceText
-                            format={formatCurrency}
-                            style={styles.currentPrice}
-                        />
-                    </View>
-                    <View
-                        style={{
-                            // backgroundColor: percentageColor,
-                            paddingHorizontal: 3,
-                            paddingVertical: 8,
-                            borderRadius: 5,
-                            flexDirection: "row",
-                        }}
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={{ flex: 1 }}>
+                <ScrollView
+                    style={{ paddingHorizontal: 10 }}
+                    refreshControl={
+                        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+                    }
+                >
+                    <LineChart.Provider
+                        data={prices.map(([timestamp, value]) => ({ timestamp, value }))}
                     >
-                        {/* price_change_percentage_24h < 0 ? "caretdown" : "caretup" */}
-                        <Text style={[styles.priceChange, {
-                            color: percentageColor,
-                        }]}>
-                            {price_change_percentage_24h < 0 ? "↓" : "↑"} {price_change_percentage_24h?.toFixed(2)}%
-                        </Text>
-                    </View>
-                </View>
-                <LineChart height={screenWidth / 2} width={screenWidth}>
-                    <LineChart.Path color={chartColor} />
-                    <LineChart.CursorCrosshair color={chartColor} />
-                </LineChart>
-                <View style={styles.filtersContainer}>
-                    {filterDaysArray.map((day) => (
-                        <FilterComponent
-                            filterDay={day.filterDay}
-                            filterText={day.filterText}
-                            selectedRange={selectedRange}
-                            setSelectedRange={memoOnSelectedRangeChange}
-                            key={day.filterText}
-                        />
-                    ))}
-                </View>
-            </LineChart.Provider>
-        </View>
+                        <View style={styles.priceContainer}>
+                            <View>
+                                <Text style={styles.name}>{name}</Text>
+                                <LineChart.PriceText
+                                    format={formatCurrency}
+                                    style={styles.currentPrice}
+                                />
+                            </View>
+                            <View
+                                style={{
+                                    // backgroundColor: percentageColor,
+                                    paddingHorizontal: 3,
+                                    paddingVertical: 8,
+                                    borderRadius: 5,
+                                    flexDirection: "row",
+                                }}
+                            >
+                                {/* price_change_percentage_24h < 0 ? "caretdown" : "caretup" */}
+                                <Text style={[styles.priceChange, {
+                                    color: percentageColor,
+                                }]}>
+                                    {price_change_percentage_24h < 0 ? "↓" : "↑"} {price_change_percentage_24h?.toFixed(2)}%
+                                </Text>
+                            </View>
+                        </View>
+                        <LineChart height={screenWidth / 2} width={screenWidth}>
+                            <LineChart.Path color={chartColor} />
+                            <LineChart.CursorCrosshair color={chartColor} />
+                        </LineChart>
+                        <View style={styles.filtersContainer}>
+                            {filterDaysArray.map((day) => (
+                                <FilterComponent
+                                    filterDay={day.filterDay}
+                                    filterText={day.filterText}
+                                    selectedRange={selectedRange}
+                                    setSelectedRange={memoOnSelectedRangeChange}
+                                    key={day.filterText}
+                                />
+                            ))}
+                        </View>
+                    </LineChart.Provider>
+                </ScrollView>
+                {/* Add your modal component here */}
+            </View>
+        </SafeAreaView>
     );
 };
 
