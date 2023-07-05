@@ -2,11 +2,11 @@ import React, { useState, useEffect, useCallback } from "react";
 import {
     View,
     Text,
-    Dimensions,
     ActivityIndicator,
     ScrollView,
     RefreshControl,
     SafeAreaView,
+    Dimensions,
 } from "react-native";
 import styles from "./styles";
 import { LineChart } from "react-native-wagmi-charts";
@@ -49,6 +49,9 @@ const filterDaysArray = [
     { filterDay: "365", filterText: "1Y" },
     { filterDay: "max", filterText: "All" },
 ];
+
+const { width } = Dimensions.get('window');
+const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element => {
     const [coin, setCoin] = useState<Coin | null>(null);
@@ -207,7 +210,7 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
                                 </Text>
                             </View>
                         </View>
-                        <LineChart height={screenWidth / 2} width={screenWidth}>
+                        <LineChart height={!isSmallScreen ? screenWidth / 2 : screenWidth / 3.2} width={screenWidth}>
                             <LineChart.Path color={chartColor} />
                             <LineChart.CursorCrosshair color={chartColor} />
                         </LineChart>
