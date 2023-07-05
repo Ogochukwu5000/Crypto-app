@@ -7,6 +7,7 @@ import {
     Dimensions,
     TouchableOpacity,
     Image,
+    Alert,
 } from 'react-native';
 import CoinDetailedScreen from './CoinDetailedScreen';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -16,6 +17,36 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 
 function Home(): JSX.Element {
     const coinId = 'bitcoin';
+
+    const [address, setAddress] = useState('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa');
+    const [cryptoTag, setCryptoTag] = useState('BTC');
+
+    const handleReceivePress = () => {
+        Alert.alert(
+            'Receive',
+            `Address: ${address}\nCrypto Tag: ${cryptoTag}`,
+            [
+                {
+                    text: 'Copy Tag',
+                    onPress: () => {
+                        // TODO: Implement copy tag functionality
+                        
+                    },
+                },
+                {
+                    text: 'Copy Address',
+                    onPress: () => {
+                        // TODO: Implement copy address functionality
+                    },
+                },
+                {
+                    text: 'Thanks',
+                    onPress: () => {},
+                },
+            ]
+        );
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -30,7 +61,7 @@ function Home(): JSX.Element {
                         <Image source={require('../../assets/deposit.png')} />
                         <Text>Deposit</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={handleReceivePress}>
                         <Image source={require('../../assets/Receive.png')} />
                         <Text>Receive</Text>
                     </TouchableOpacity>
