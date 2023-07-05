@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-around',
         marginTop: '2%',
-        marginBottom: '3%',
+        marginBottom: '5%',
     },
     assetName: {
         fontSize: 16,
