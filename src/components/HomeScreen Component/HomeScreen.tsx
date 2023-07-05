@@ -62,13 +62,28 @@ function Home(): JSX.Element {
                             styles.assetTextContainer
                         }>
                             <Text style={styles.assetName}>Ethereum</Text>
-                            <Text style={styles.assetCryptoPrice}>0.8934 Eth</Text>
+                            <Text style={styles.assetCryptoPrice}>0.8934 ETH</Text>
                         </View>
                         <View style={
                             styles.assetTextContainer
                         }>
-                            <Text style={styles.assetPrice}>$ 5,000</Text>
-                            <Text style={styles.assetPercent}>+ 5.24%</Text>
+                            <Text style={styles.assetPrice}>$ 2,000</Text>
+                            <Text style={styles.assetPercent}>+ 2.44%</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.asset}>
+                        <Image style={styles.assetIcon} source={require('../../assets/Stellar.png')} />
+                        <View style={
+                            styles.assetTextContainer
+                        }>
+                            <Text style={styles.assetName}>Stellar</Text>
+                            <Text style={styles.assetCryptoPrice}>0.8934 XLM</Text>
+                        </View>
+                        <View style={
+                            styles.assetTextContainer
+                        }>
+                            <Text style={styles.assetPrice}>$ 3,450</Text>
+                            <Text style={styles.assetPercent}>+ 2.34%</Text>
                         </View>
                     </TouchableOpacity>
                 </ScrollView>
