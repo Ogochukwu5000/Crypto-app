@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Text,
     SafeAreaView,
     StyleSheet,
     View,
-    KeyboardAvoidingView,
     Dimensions,
+    TouchableOpacity,
+    Image,
 } from 'react-native';
 import CoinDetailedScreen from './CoinDetailedScreen';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -21,10 +23,56 @@ function Home(): JSX.Element {
             <CoinDetailedScreen coinId={coinId}
             />
             {/* Bottom half  log in modal */}
-            <KeyboardAvoidingView
+            <SafeAreaView
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
-
-            </KeyboardAvoidingView>
+                <View style={styles.buttonContainer}>
+                    <TouchableOpacity style={styles.button}>
+                        <Image source={require('../../assets/deposit.png')} />
+                        <Text>Deposit</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button}>
+                        <Image source={require('../../assets/Receive.png')} />
+                        <Text>Receive</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.button}>
+                        <Image source={require('../../assets/send.png')} />
+                        <Text>Send</Text>
+                    </TouchableOpacity>
+                </View>
+                <Text style={styles.assetText}>Asset</Text>
+                <ScrollView style={styles.assetContainer}>
+                    <TouchableOpacity style={styles.asset}>
+                        <Image style={styles.assetIcon} source={require('../../assets/Bitcoin.png')} />
+                        <View style={
+                            styles.assetTextContainer
+                        }>
+                            <Text style={styles.assetName}>Bitcoin</Text>
+                            <Text style={styles.assetCryptoPrice}>0.8934 BTC</Text>
+                        </View>
+                        <View style={
+                            styles.assetTextContainer
+                        }>
+                            <Text style={styles.assetPrice}>$ 5,000</Text>
+                            <Text style={styles.assetPercent}>+ 5.24%</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.asset}>
+                        <Image style={styles.assetIcon} source={require('../../assets/ethereumIcon.png')} />
+                        <View style={
+                            styles.assetTextContainer
+                        }>
+                            <Text style={styles.assetName}>Ethereum</Text>
+                            <Text style={styles.assetCryptoPrice}>0.8934 Eth</Text>
+                        </View>
+                        <View style={
+                            styles.assetTextContainer
+                        }>
+                            <Text style={styles.assetPrice}>$ 5,000</Text>
+                            <Text style={styles.assetPercent}>+ 5.24%</Text>
+                        </View>
+                    </TouchableOpacity>
+                </ScrollView>
+            </SafeAreaView>
         </SafeAreaView >
     );
 }
@@ -72,6 +120,69 @@ const styles = StyleSheet.create({
     },
     smallScreenHeader: {
         fontSize: 25,
+    },
+    buttonContainer: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: '5%',
+        justifyContent: 'space-around',
+    },
+    button: {
+        width: '20%',
+        backgroundColor: '#EDF1F9',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 15,
+        padding: 10,
+        gap: 3,
+    },
+    assetText: {
+        fontSize: 15,
+        fontWeight: '500',
+        marginTop: '2%',
+        display: 'flex',
+        alignItems: 'flex-start',
+        width: '85%',
+    },
+    assetContainer: {
+        width: '100%',
+        marginTop: '2%',
+    },
+    asset: {
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        marginTop: '2%',
+        marginBottom: '3%',
+    },
+    assetName: {
+        fontSize: 16,
+        fontWeight: '500',
+    },
+    assetCryptoPrice: {
+        fontSize: 15,
+        fontWeight: '300',
+    },
+    assetPrice: {
+        fontSize: 16,
+        fontWeight: '500',
+    },
+    assetPercent: {
+        fontSize: 15,
+        fontWeight: '400',
+        color: '#00BFA6',
+    },
+    assetTextContainer: {
+        display: 'flex',
+        gap: 5,
+    },
+    assetIcon: {
+        width: 40,
+        height: 40,
     },
 });
 
