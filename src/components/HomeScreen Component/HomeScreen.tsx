@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         bottom: 0,
     },
     isSmallBottomHalfModal: {
-        height: '80%',
+        height: '55%',
     },
     header: {
         width: '100%',
