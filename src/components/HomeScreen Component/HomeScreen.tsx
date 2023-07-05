@@ -23,7 +23,7 @@ function Home(): JSX.Element {
             <CoinDetailedScreen coinId={coinId}
             />
             {/* Bottom half  log in modal */}
-            <SafeAreaView
+            <View
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button}>
@@ -72,7 +72,7 @@ function Home(): JSX.Element {
                         </View>
                     </TouchableOpacity>
                 </ScrollView>
-            </SafeAreaView>
+            </View>
         </SafeAreaView >
     );
 }
