@@ -13,8 +13,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../../store/reducers';
+import { useDispatch } from 'react-redux';
 import axios from 'axios';
 
 const { width } = Dimensions.get('window');
@@ -43,7 +42,6 @@ function SignupScreen(): JSX.Element {
         setPasswordHidden(!passwordHidden);
     };
 
-    const user = useSelector((state: RootState) => state.userReducer.user);
     const checkEmail = async (email: string): Promise<boolean> => {
         try {
             const response = await axios.post('http://10.0.0.174:8000/user/check-email', {
