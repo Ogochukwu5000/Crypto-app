@@ -44,8 +44,8 @@ function LoginScreen(): JSX.Element {
       crypto_tag: isCryptoTag ? emailOrCtag : '',
       password,
     }).then((response) => {
-      if (response.status) {
-        console.log('Response: ', response.data);
+      if (response.data.status) {
+        //console.log('Response: ', response.data);
         setIsLoading(true);
         setTimeout(() => {
           setIsLoading(false);
