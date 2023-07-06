@@ -64,23 +64,23 @@ function CryptoApp(): JSX.Element {
                 options={{ headerShown: false }}
             />
             <Stack.Screen
+                name="ConnectWallet"
+                component={Wallet}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
                 name="CurrentPin"
                 component={CurrentPin}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
-                name="CreatePin"
+                name="CreatePinProfile"
                 component={CreatePin}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
-                name="ConfirmPin"
+                name="ConfirmPinProfile"
                 component={ConfirmPin}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="ConnectWallet"
-                component={Wallet}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>
