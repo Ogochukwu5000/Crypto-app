@@ -40,7 +40,7 @@ function LoginScreen(): JSX.Element {
     }
 
     axios.post('http://10.0.0.174:8000/user/login', {
-      email: isEmail ? emailOrCtag : '',
+      email: isEmail ? emailOrCtag.toLowerCase : '',
       crypto_tag: isCryptoTag ? emailOrCtag : '',
       password,
     }).then((response) => {
