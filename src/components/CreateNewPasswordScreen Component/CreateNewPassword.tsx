@@ -55,13 +55,13 @@ function CreateNewPassword(): JSX.Element {
       password,
       email: user?.email,
     }).then((response) => {
-      if (response.status) {
-        console.log('Response: ', response.data);
+      if (response.data.status) {
+        //console.log('Response: ', response.data);
         Alert.alert('Success', 'Password reset successfully');
         navigation.navigate('Login' as never);
       }
     }).catch((error) => {
-      console.log(error.response);
+      //console.log(error.response);
       Alert.alert('Error', 'Something went wrong try again, pretty please');
     }
     );
