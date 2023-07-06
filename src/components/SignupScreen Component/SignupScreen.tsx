@@ -58,19 +58,19 @@ function SignupScreen(): JSX.Element {
 
     const handleSignup = async () => {
         setIsLoading(true);
-
+    
         if (password && password.length < 6) {
             Alert.alert('Error', 'Password must be at least 6 characters long.');
             setIsLoading(false);
             return;
         }
-
+    
         if (!firstName || !lastName || !email || !password) {
             Alert.alert('Error', 'Please fill out all fields.');
             setIsLoading(false);
             return;
         }
-
+    
         try {
             const emailExists = await checkEmail(email);
             if (!emailExists) {
@@ -78,26 +78,17 @@ function SignupScreen(): JSX.Element {
                 setIsLoading(false);
                 return;
             }
-
+    
             dispatch({ type: 'SIGNUP', payload: { firstName, lastName, email, password } });
             navigation.navigate('ChooseCryptoTag' as never);
         } catch (error) {
             console.log(error);
             Alert.alert('Error', 'An error occurred while checking the email.');
+        } finally {
+            setIsLoading(false);
         }
-
-        setIsLoading(false);
     };
-
-    useEffect(() => {
-        if (user) {
-            setFirstName("");
-            setLastName("");
-            setEmail("");
-            setPassword("");
-        }
-    }, [user]);
-
+    
     return (
         <SafeAreaView style={styles.container}>
             {/* Image */}
@@ -172,8 +163,12 @@ function SignupScreen(): JSX.Element {
                     </TouchableOpacity>
                 </View>
                 <View style={[styles.Footer, isSmallScreen && styles.isSmallScreenFooter]}>
-                    <TouchableOpacity style={styles.getStartedButton} onPress={handleSignup}>
-                        <Text style={styles.getStartedButtonText}>Let's Get Started</Text>
+                    <TouchableOpacity style={styles.getStartedButton} onPress={handleSignup} disabled={isLoading}>
+                        {isLoading ? (
+                            <ActivityIndicator size="large" color="#fff" />
+                        ) : (
+                            <Text style={styles.getStartedButtonText}>Let's Get Started</Text>
+                        )}
                     </TouchableOpacity>
                     {/* Dont have an account sign up */}
                     <TouchableOpacity style={styles.loginButton} onPress={() => {
@@ -183,9 +178,11 @@ function SignupScreen(): JSX.Element {
                         <Text style={styles.loginLinkText}> Login</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={{ flex: 1, justifyContent: 'center', position: "absolute" }}>
-                    {isLoading && <ActivityIndicator size="large" color="#3447F0" />}
-                </View>
+                {isLoading && (
+                    <View style={styles.loadingOverlay}>
+                        {/* <ActivityIndicator size="large" color="#3447F0" /> */}
+                    </View>
+                )}
             </KeyboardAvoidingView>
         </SafeAreaView >
     );
@@ -313,6 +310,12 @@ const styles = StyleSheet.create({
         color: '#3447F0',
         fontSize: 16,
         textAlign: 'center',
+    },
+    loadingOverlay: {
+        ...StyleSheet.absoluteFillObject,
+        // backgroundColor: 'rgba(255,255,255,0.8)',
+        // alignItems: 'center',
+        // justifyContent: 'center',
     },
 });
 
