@@ -39,7 +39,7 @@ function Welcome(): JSX.Element {
     useEffect(() => {
         setTimeout(() => {
             registerUser();
-        }, 2000); // Wait for 2 seconds before registering the user
+        }, 2500); // Wait for 2 seconds before registering the user
     }, []);
 
     console.log('User: ', user);
@@ -47,14 +47,22 @@ function Welcome(): JSX.Element {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>
-                <Image
-                    source={require('../../assets/check.png')}
-                    style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-                    resizeMode="contain"
-                />
-                <Text style={styles.text}>Welcome to Crypto App!</Text>
+                {
+                    !isLoading ? (
+                        <>
+                            <Image
+                                source={require('../../assets/check.png')}
+                                style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                                resizeMode="contain"
+                            />
+                            <Text style={styles.text}>Welcome to Crypto App!</Text>
+                        </>
+                    ) :
+                        (
+                            <Loading />
+                        )
+                }
             </View>
-            {isLoading && <Loading />}
         </SafeAreaView>
     );
 }
