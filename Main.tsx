@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import PreAuthenticationNav from './src/Navigations/PreAuthenticationNav';
 import { useSelector } from 'react-redux';
@@ -7,6 +7,11 @@ import CryptoApp from './src/components/CryptoAppScreen Component/CryptoAppScree
 
 function Main(): JSX.Element {
   const user = useSelector((state: RootState) => state.userReducer.user);
+
+  useEffect(() => {
+    console.log('User: ', user);
+  }, [user?.authenticated]);
+
   return (
     <View style={styles.container}>
       {user?.authenticated ? <CryptoApp /> : <PreAuthenticationNav />}
