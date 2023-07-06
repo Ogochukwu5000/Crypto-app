@@ -56,19 +56,19 @@ function SignupScreen(): JSX.Element {
 
     const handleSignup = async () => {
         setIsLoading(true);
-    
+
         if (password && password.length < 6) {
             Alert.alert('Error', 'Password must be at least 6 characters long.');
             setIsLoading(false);
             return;
         }
-    
+
         if (!firstName || !lastName || !email || !password) {
             Alert.alert('Error', 'Please fill out all fields.');
             setIsLoading(false);
             return;
         }
-    
+
         try {
             const emailExists = await checkEmail(email);
             if (!emailExists) {
@@ -76,8 +76,13 @@ function SignupScreen(): JSX.Element {
                 setIsLoading(false);
                 return;
             }
-    
-            dispatch({ type: 'SIGNUP', payload: { firstName, lastName, email, password } });
+
+            dispatch({
+                type: 'SIGNUP', payload: {
+                    firstName, lastName, email: email.toLowerCase()
+                    , password
+                }
+            });
             navigation.navigate('ChooseCryptoTag' as never);
         } catch (error) {
             console.log(error);
@@ -86,7 +91,7 @@ function SignupScreen(): JSX.Element {
             setIsLoading(false);
         }
     };
-    
+
     return (
         <SafeAreaView style={styles.container}>
             {/* Image */}
