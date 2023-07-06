@@ -42,7 +42,7 @@ function ForgotPassword(): JSX.Element {
 
     axios
       .post('http://10.0.0.174:8000/user/forgot-password', {
-        email,
+        email: email.toLowerCase(),
       }).
       then((response) => {
         if (response.data.status) {
