@@ -21,7 +21,7 @@ function Welcome(): JSX.Element {
             pin: user?.pin,
             crypto_tag: user?.cryptoTag,
         }).then((response) => {
-            console.log('Response: ', response.data);
+            //console.log('Response: ', response.data);
             dispatch({ type: 'AUTHENTICATE' });
             navigation.navigate('CryptoAppMainScreen' as never);
         }
