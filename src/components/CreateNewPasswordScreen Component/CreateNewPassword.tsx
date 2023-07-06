@@ -59,6 +59,8 @@ function CreateNewPassword(): JSX.Element {
         //console.log('Response: ', response.data);
         Alert.alert('Success', 'Password reset successfully');
         navigation.navigate('Login' as never);
+      } else {
+        Alert.alert('Error', response.data.message);
       }
     }).catch((error) => {
       //console.log(error.response);
