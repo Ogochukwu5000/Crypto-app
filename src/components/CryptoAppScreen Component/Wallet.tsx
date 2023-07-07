@@ -7,6 +7,7 @@ import {
     View,
     KeyboardAvoidingView,
     Dimensions,
+    Alert,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -19,13 +20,30 @@ function Wallet(): JSX.Element {
     const [selectedWallet, setSelectedWallet] = useState('');
 
     const wallets = [
-        { name: 'Metamask', symbol: '0x89.....', image: require('../../assets/metamask.png') },
-        { name: 'Coinbase Wallet', symbol: '0x83.....', image: require('../../assets/coinbase.png') },
-        // { name: 'Trust Wallet', symbol: '0x86.....', image: require('../../assets/trust.png') },
+        { name: 'Metamask', address: '', image: require('../../assets/metamask.png') },
+        { name: 'Coinbase Wallet', address: '', image: require('../../assets/coinbase.png') },
+        { name: 'Wallet Connect', address: '', image: require('../../assets/WalletConnect.png') },
     ];
 
-    const handleWalletSelection = (symbol: string) => {
-        setSelectedWallet(symbol);
+    const handleWalletSelection = (name: any) => {
+        if (name !== selectedWallet) {
+            const confirmMessage = `Are you sure you want to connect with ${name} Wallet?`;
+            Alert.alert(
+                'Confirm Wallet Selection',
+                confirmMessage,
+                [
+                    {
+                        text: 'Cancel',
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'OK',
+                        onPress: () => setSelectedWallet(name),
+                    },
+                ],
+                { cancelable: false }
+            );
+        }
     };
 
     return (
@@ -65,21 +83,21 @@ function Wallet(): JSX.Element {
                 <View style={styles.walletList}>
                     {wallets.map((wallet) => (
                         <TouchableOpacity
-                            key={wallet.symbol}
+                            key={wallet.name}
                             style={[
                                 styles.walletItem,
-                                selectedWallet === wallet.symbol && styles.selectedWalletItem,
+                                selectedWallet === wallet.name && styles.selectedWalletItem,
                             ]}
-                            onPress={() => handleWalletSelection(wallet.symbol)}>
+                            onPress={() => handleWalletSelection(wallet.name)}>
                             <Image
                                 source={wallet.image}
                                 style={styles.walletImage}
                             />
                             <View style={styles.walletInfo}>
                                 <Text style={styles.walletName}>{wallet.name}</Text>
-                                <Text style={styles.walletSymbol}>{wallet.symbol}</Text>
+                                {/* <Text style={styles.walletSymbol}>{wallet.symbol}</Text> */}
                             </View>
-                            {selectedWallet === wallet.symbol && (
+                            {selectedWallet === wallet.name && (
                                 <Image
                                     source={require('../../assets/checkmark.png')}
                                     style={styles.checkmark}
@@ -197,7 +215,7 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         marginLeft: 'auto',
-        
+
     },
 });
 
