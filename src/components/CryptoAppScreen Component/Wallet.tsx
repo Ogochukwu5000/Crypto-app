@@ -27,9 +27,9 @@ function Wallet(): JSX.Element {
 
     const handleWalletSelection = (name: any) => {
         if (name !== selectedWallet) {
-            const confirmMessage = `Are you sure you want to connect with ${name} Wallet?`;
+            const confirmMessage = `Are you sure you want to connect with ${name}?`;
             Alert.alert(
-                'Confirm Wallet Selection',
+                `${name}`,
                 confirmMessage,
                 [
                     {
