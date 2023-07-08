@@ -283,8 +283,17 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: '500',
     },
-    disconnectButton: {},
-    disconnectButtonText: {},
+    disconnectButton: {
+        backgroundColor: 'red',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 10,
+    },
+    disconnectButtonText: {
+        color: '#fff',
+        fontSize: 15,
+        fontWeight: '500',
+    },
 });
 
 export default Wallet;
