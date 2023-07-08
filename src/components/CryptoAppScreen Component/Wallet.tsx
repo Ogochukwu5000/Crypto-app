@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { WalletConnectModal, useWalletConnectModal } from '@walletconnect/modal-react-native';
+
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -18,6 +20,25 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function Wallet(): JSX.Element {
     const navigation = useNavigation();
     const [selectedWallet, setSelectedWallet] = useState('');
+    const projectId = '68a720495e3c0321e66a2ecca9dd75db';
+    const { isOpen, open, close, provider, isConnected, address } = useWalletConnectModal();
+
+    const providerMetadata = {
+        name: 'Crypto App',
+        description: 'Crypto App is a decentralized application that allows you send and receive crypto with your crypto tag.',
+        url: 'https://cryptoapplabs.com/',
+        icons: [require("../../assets/App logo.png")],
+        redirect: {
+            native: 'cryptoapp://',
+            universal: 'https://cryptoapplabs.com/',
+        }
+    };
+
+    console.log('Address: ', address);
+    console.log('IsConnected: ', isConnected);
+    // console.log('Provider: ', provider?.disconnect());
+
+
 
     const wallets = [
         { name: 'Metamask', address: '', image: require('../../assets/metamask.png') },
@@ -38,22 +59,65 @@ function Wallet(): JSX.Element {
                     },
                     {
                         text: 'OK',
-                        onPress: () => setSelectedWallet(name),
+                        onPress: () => {
+                            setSelectedWallet(name);
+                            if (name === 'Wallet Connect') {
+                                open();
+                            }
+                        },
                     },
                 ],
                 { cancelable: false }
             );
+        } else {
+            setSelectedWallet('');
+        }
+    };
+
+    const renderWalletButton = (wallet: any) => {
+        if (wallet.name === 'Wallet Connect') {
+            if (isConnected) {
+                return (
+                    <TouchableOpacity
+                        style={styles.disconnectButton}
+                        onPress={() => provider?.disconnect()}>
+                        <Text style={styles.disconnectButtonText}>Disconnect</Text>
+                    </TouchableOpacity>
+                );
+            } else {
+                return (
+                    <TouchableOpacity
+                        style={styles.connectButton}
+                        onPress={() => handleWalletSelection(wallet.name)}>
+                        <Text style={styles.connectButtonText}>Connect</Text>
+                    </TouchableOpacity>
+                );
+            }
+        } else {
+            if (selectedWallet === wallet.name) {
+                return (
+                    <TouchableOpacity
+                        style={styles.disconnectButton}
+                        onPress={() => setSelectedWallet('')}>
+                        <Text style={styles.disconnectButtonText}>Disconnect</Text>
+                    </TouchableOpacity>
+                );
+            } else {
+                return (
+                    <TouchableOpacity
+                        style={styles.connectButton}
+                        onPress={() => handleWalletSelection(wallet.name)}>
+                        <Text style={styles.connectButtonText}>Connect</Text>
+                    </TouchableOpacity>
+                );
+            }
         }
     };
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={
-                    () => {
-                        navigation.goBack();
-                    }
-                }>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Image
                         source={require('../../assets/back.png')}
                         style={[styles.image, isSmallScreen && styles.smallScreenImage]}
@@ -79,35 +143,32 @@ function Wallet(): JSX.Element {
             </View>
             {/* Bottom half  log in modal */}
             <KeyboardAvoidingView
-                style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
+                style={[
+                    styles.bottomHalfModal,
+                    isSmallScreen && styles.isSmallBottomHalfModal,
+                ]}>
                 <View style={styles.walletList}>
                     {wallets.map((wallet) => (
-                        <TouchableOpacity
+                        <View
                             key={wallet.name}
                             style={[
                                 styles.walletItem,
                                 selectedWallet === wallet.name && styles.selectedWalletItem,
-                            ]}
-                            onPress={() => handleWalletSelection(wallet.name)}>
-                            <Image
-                                source={wallet.image}
-                                style={styles.walletImage}
-                            />
+                            ]}>
+                            <Image source={wallet.image} style={styles.walletImage} />
                             <View style={styles.walletInfo}>
                                 <Text style={styles.walletName}>{wallet.name}</Text>
-                                {/* <Text style={styles.walletSymbol}>{wallet.symbol}</Text> */}
                             </View>
-                            {selectedWallet === wallet.name && (
-                                <Image
-                                    source={require('../../assets/checkmark.png')}
-                                    style={styles.checkmark}
-                                />
-                            )}
-                        </TouchableOpacity>
+                            {renderWalletButton(wallet)}
+                        </View>
                     ))}
+                    <WalletConnectModal
+                        projectId={projectId}
+                        providerMetadata={providerMetadata}
+                    />
                 </View>
             </KeyboardAvoidingView>
-        </SafeAreaView >
+        </SafeAreaView>
     );
 }
 
@@ -211,12 +272,19 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#666',
     },
-    checkmark: {
-        width: 30,
-        height: 30,
-        marginLeft: 'auto',
-
+    connectButton: {
+        backgroundColor: '#3447F0',
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 10,
     },
+    connectButtonText: {
+        color: '#fff',
+        fontSize: 15,
+        fontWeight: '500',
+    },
+    disconnectButton: {},
+    disconnectButtonText: {},
 });
 
 export default Wallet;
