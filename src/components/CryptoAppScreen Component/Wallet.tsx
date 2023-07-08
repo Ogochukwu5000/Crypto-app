@@ -74,13 +74,40 @@ function Wallet(): JSX.Element {
         }
     };
 
+    const handleWalletDisconnect = (name: any) => {
+        //ask for confirmation
+        const confirmMessage = `Are you sure you want to disconnect from ${name}?`;
+        Alert.alert(
+            `${name}`,
+            confirmMessage,
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'OK',
+                    onPress: () => {
+                        setSelectedWallet('');
+                        if (name === 'Wallet Connect') {
+                            provider?.disconnect();
+                        }
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    };
+
     const renderWalletButton = (wallet: any) => {
         if (wallet.name === 'Wallet Connect') {
             if (isConnected) {
                 return (
                     <TouchableOpacity
                         style={styles.disconnectButton}
-                        onPress={() => provider?.disconnect()}>
+                        onPress={
+                            () => handleWalletDisconnect(wallet.name)
+                        }>
                         <Text style={styles.disconnectButtonText}>Disconnect</Text>
                     </TouchableOpacity>
                 );
@@ -98,7 +125,7 @@ function Wallet(): JSX.Element {
                 return (
                     <TouchableOpacity
                         style={styles.disconnectButton}
-                        onPress={() => setSelectedWallet('')}>
+                        onPress={() => handleWalletDisconnect(wallet.name)}>
                         <Text style={styles.disconnectButtonText}>Disconnect</Text>
                     </TouchableOpacity>
                 );
