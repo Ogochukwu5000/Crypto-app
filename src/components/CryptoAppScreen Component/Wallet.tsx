@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Text,
     Image,
@@ -12,7 +12,7 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { WalletConnectModal, useWalletConnectModal } from '@walletconnect/modal-react-native';
-
+import { TextEncoder, TextDecoder } from 'text-encoding';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -31,13 +31,14 @@ function Wallet(): JSX.Element {
         redirect: {
             native: 'cryptoapp://',
             universal: 'https://cryptoapplabs.com/',
-        }
+        },
+        textEncoder: new TextEncoder(),
+        textDecoder: new TextDecoder(),
     };
 
     console.log('Address: ', address);
     console.log('IsConnected: ', isConnected);
-    // console.log('Provider: ', provider?.disconnect());
-
+    console.log(provider?.session?.peer.metadata);
 
 
     const wallets = [
@@ -63,6 +64,9 @@ function Wallet(): JSX.Element {
                             setSelectedWallet(name);
                             if (name === 'Wallet Connect') {
                                 open();
+                                if (isConnected) {
+                                    close();
+                                }
                             }
                         },
                     },
@@ -75,7 +79,6 @@ function Wallet(): JSX.Element {
     };
 
     const handleWalletDisconnect = (name: any) => {
-        //ask for confirmation
         const confirmMessage = `Are you sure you want to disconnect from ${name}?`;
         Alert.alert(
             `${name}`,
@@ -120,7 +123,8 @@ function Wallet(): JSX.Element {
                     </TouchableOpacity>
                 );
             }
-        } else {
+        }
+        else {
             if (selectedWallet === wallet.name) {
                 return (
                     <TouchableOpacity
@@ -139,7 +143,9 @@ function Wallet(): JSX.Element {
                 );
             }
         }
+
     };
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -185,6 +191,7 @@ function Wallet(): JSX.Element {
                             <Image source={wallet.image} style={styles.walletImage} />
                             <View style={styles.walletInfo}>
                                 <Text style={styles.walletName}>{wallet.name}</Text>
+                                <Text>{isConnected ? provider?.session?.peer.metadata.name : ""}</Text>
                             </View>
                             {renderWalletButton(wallet)}
                         </View>
