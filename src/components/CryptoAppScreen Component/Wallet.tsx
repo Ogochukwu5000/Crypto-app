@@ -13,6 +13,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { WalletConnectModal, useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { TextEncoder, TextDecoder } from 'text-encoding';
+import { ethers } from 'ethers';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -38,12 +39,27 @@ function Wallet(): JSX.Element {
 
     console.log('Address: ', address);
     console.log('IsConnected: ', isConnected);
-    console.log(provider?.session?.peer.metadata);
 
+    // Request the balance
+    const getBalance = async () => {
+        try {
+            // Make the balance request
+            const balance = await provider?.request({
+                method: 'eth_getBalance',
+                params: [address, 'latest'],
+            });
+
+            console.log('Balance: ', balance);
+        } catch (error) {
+            console.error('Error getting balance:', error);
+        }
+    };
+
+    //getBalance();
 
     const wallets = [
-        { name: 'Metamask', address: '', image: require('../../assets/metamask.png') },
-        { name: 'Coinbase Wallet', address: '', image: require('../../assets/coinbase.png') },
+        // { name: 'Metamask', address: '', image: require('../../assets/metamask.png') },
+        // { name: 'Coinbase Wallet', address: '', image: require('../../assets/coinbase.png') },
         { name: 'Wallet Connect', address: '', image: require('../../assets/WalletConnect.png') },
     ];
 
@@ -191,7 +207,20 @@ function Wallet(): JSX.Element {
                             <Image source={wallet.image} style={styles.walletImage} />
                             <View style={styles.walletInfo}>
                                 <Text style={styles.walletName}>{wallet.name}</Text>
-                                <Text>{isConnected ? provider?.session?.peer.metadata.name : ""}</Text>
+                                {
+                                    isConnected ?
+                                        <Text style={{
+                                            color: 'green',
+                                            fontSize: 12,
+                                            fontWeight: 'bold',
+                                        }}>{provider?.session?.peer.metadata.name}</Text>
+                                        :
+                                        <Text style={{
+                                            color: 'red',
+                                            fontSize: 12,
+                                            fontWeight: 'bold',
+                                        }}>Not Connected</Text>
+                                }
                             </View>
                             {renderWalletButton(wallet)}
                         </View>
