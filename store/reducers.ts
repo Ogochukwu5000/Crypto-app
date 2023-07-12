@@ -114,9 +114,10 @@ function walletReducer(state = interfaceWalletState, action: any) {
         case 'SET_WALLET':
             return {
                 ...state,
-                provider: action.payload.provider,
-                isConnected: action.payload.isConnected,
-                address: action.payload.address,
+                wallet: {
+                    ...state.wallet,
+                    ...action.payload,
+                }
             };
         default:
             return state;
