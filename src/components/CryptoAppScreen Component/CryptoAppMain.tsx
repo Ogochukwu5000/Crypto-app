@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { UseSelector } from 'react-redux/es/hooks/useSelector';
 
 interface KeypadButtonProps {
     value: string;
