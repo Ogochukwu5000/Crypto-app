@@ -171,6 +171,14 @@ function Wallet(): JSX.Element {
                         setSelectedWallet('');
                         if (name === 'Wallet Connect') {
                             provider?.disconnect();
+                            dispatch({
+                                type: 'SET_WALLET',
+                                payload: {
+                                    provider: null,
+                                    address: '',
+                                    isConnected: false,
+                                }
+                            })
                             // clean up
                             close();
                         }
