@@ -13,6 +13,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { WalletConnectModal, useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { TextEncoder, TextDecoder } from 'text-encoding';
+import { useDispatch } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -21,7 +22,8 @@ function Wallet(): JSX.Element {
     const navigation = useNavigation();
     const [selectedWallet, setSelectedWallet] = useState('');
     const projectId = '68a720495e3c0321e66a2ecca9dd75db';
-    const { isOpen, open, close, provider, isConnected, address } = useWalletConnectModal();
+    const dispatch = useDispatch();
+    const { open, close, provider, isConnected, address } = useWalletConnectModal();
 
     const providerMetadata = {
         name: 'Crypto App',
@@ -132,6 +134,14 @@ function Wallet(): JSX.Element {
                             if (name === 'Wallet Connect') {
                                 open();
                                 if (isConnected) {
+                                    dispatch({
+                                        type: 'SET_WALLET',
+                                        payload: {
+                                            provider: provider,
+                                            address: address,
+                                            isConnected: isConnected,
+                                        }
+                                    })
                                     close();
                                 }
                             }
