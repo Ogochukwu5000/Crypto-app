@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/reducers';
+import { useWalletConnectModal } from '@walletconnect/modal-react-native';
+
 
 interface KeypadButtonProps {
     value: string;
@@ -28,7 +28,7 @@ function CryptoAppMain(): JSX.Element {
     const [selectedCrypto, setSelectedCrypto] = useState('bitcoin');
     const [amount, setAmount] = useState('0');
     const navigation = useNavigation();
-    const wallet = useSelector((state: RootState) => state.walletReducer.wallet);
+    const { provider, address } = useWalletConnectModal();
     const handleCryptoPress = (crypto: string) => {
         setSelectedCrypto(crypto);
     };
@@ -51,13 +51,6 @@ function CryptoAppMain(): JSX.Element {
             setAmount('0');
         }
     };
-
-    useEffect(() => {
-        if (wallet?.address) {
-            console.log('Wallet Address', wallet?.address);
-            console.log('Provider', wallet?.provider);
-        }
-    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
