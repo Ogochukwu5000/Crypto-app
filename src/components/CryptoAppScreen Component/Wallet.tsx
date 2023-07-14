@@ -13,7 +13,6 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { WalletConnectModal, useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { TextEncoder, TextDecoder } from 'text-encoding';
-import { useDispatch } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -22,7 +21,6 @@ function Wallet(): JSX.Element {
     const navigation = useNavigation();
     const [selectedWallet, setSelectedWallet] = useState('');
     const projectId = '68a720495e3c0321e66a2ecca9dd75db';
-    const dispatch = useDispatch();
     const { open, close, provider, isConnected, address } = useWalletConnectModal();
 
     const providerMetadata = {
@@ -39,9 +37,7 @@ function Wallet(): JSX.Element {
     };
 
     console.log('Address: ', address);
-    console.log('IsConnected: ', isConnected);
-
-
+    console.log('isConnected: ', isConnected);
 
     // Request the balance
     // const getBalance = async () => {
@@ -58,8 +54,8 @@ function Wallet(): JSX.Element {
     //     }
     // };
 
-    const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'; // USDT contract address
-    const usdcContractAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'; // USDC contract address
+    // const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'; // USDT contract address
+    // const usdcContractAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'; // USDC contract address
 
     // const getERC20Balance = async (tokenContractAddress: any, walletAddress: any) => {
     //     try {
@@ -134,14 +130,6 @@ function Wallet(): JSX.Element {
                             if (name === 'Wallet Connect') {
                                 open();
                                 if (isConnected) {
-                                    dispatch({
-                                        type: 'SET_WALLET',
-                                        payload: {
-                                            provider: provider,
-                                            address: address,
-                                            isConnected: isConnected,
-                                        }
-                                    })
                                     close();
                                 }
                             }
@@ -171,14 +159,6 @@ function Wallet(): JSX.Element {
                         setSelectedWallet('');
                         if (name === 'Wallet Connect') {
                             provider?.disconnect();
-                            dispatch({
-                                type: 'SET_WALLET',
-                                payload: {
-                                    provider: null,
-                                    address: '',
-                                    isConnected: false,
-                                }
-                            })
                             // clean up
                             close();
                         }
