@@ -90,47 +90,12 @@ function userReducer(state = initialUserState, action: any) {
     }
 }
 
-interface Wallet {
-    provider: null | any;
-    isConnected: boolean;
-    address: string;
-}
-
-
-interface WalletState {
-    wallet: Wallet;
-}
-
-const interfaceWalletState: WalletState = {
-    wallet: {
-        provider: null,
-        isConnected: false,
-        address: '',
-    },
-};
-
-function walletReducer(state = interfaceWalletState, action: any) {
-    switch (action.type) {
-        case 'SET_WALLET':
-            return {
-                ...state,
-                wallet: {
-                    ...state.wallet,
-                    ...action.payload,
-                }
-            };
-        default:
-            return state;
-    }
-};
 export interface RootState {
     userReducer: UserState;
-    walletReducer: WalletState;
 }
 
 const rootReducer = combineReducers({
     userReducer,
-    walletReducer,
 });
 
 export default rootReducer;
