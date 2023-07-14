@@ -73,18 +73,18 @@ function CryptoAppMain(): JSX.Element {
                     style={[styles.cryptoButton, selectedCrypto === 'bitcoin' && styles.selectedCryptoButton]}
                     onPress={() => handleCryptoPress('bitcoin')}
                 >
-                    <Image source={require('../../assets/Bitcoin.png')} style={styles.cryptoButtonImage} />
+                    <Image source={require('../../assets/Tether.png')} style={styles.cryptoButtonImage} />
                     <Text style={[styles.cryptoButtonText, selectedCrypto === 'bitcoin' && styles.selectedCryptoButtonText]}>
-                        Bitcoin
+                        Tether
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[styles.cryptoButton, selectedCrypto === 'stellar' && styles.selectedCryptoButton]}
                     onPress={() => handleCryptoPress('stellar')}
                 >
-                    <Image source={require('../../assets/Stellar.png')} style={styles.cryptoButtonImage} />
+                    <Image source={require('../../assets/usd-coin.png')} style={styles.cryptoButtonImage} />
                     <Text style={[styles.cryptoButtonText, selectedCrypto === 'stellar' && styles.selectedCryptoButtonText]}>
-                        Stellar
+                        USD Coin
                     </Text>
                 </TouchableOpacity>
             </ScrollView>
