@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useWalletConnectModal } from '@walletconnect/modal-react-native';
-import { ethers } from 'ethers';
+import { Alchemy, Network } from "alchemy-sdk";
+import axios from 'axios';
+import web3 from 'web3';
 
 
 interface KeypadButtonProps {
@@ -32,6 +34,21 @@ function CryptoAppMain(): JSX.Element {
     const { provider, address } = useWalletConnectModal();
     const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'; // USDT contract address
     const usdcContractAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'; // USDC contract address
+    const [ethBalance, setEthBalance] = useState<any>(null);
+    const [formattedEthBalance, setFormattedEthBalance] = useState<any>(null);
+    const [usdtBalance, setUsdtBalance] = useState('');
+    const [usdcBalance, setUsdcBalance] = useState('');
+    const settings = {
+        apiKey: "U9HkfdvfM9qNbYWbyeHxMsaG0jzgqp8E",
+        network: Network.ETH_MAINNET,
+    };
+    const alchemy = new Alchemy(settings);
+    const getEthBalance = async () => {
+        const balance = await alchemy.core.getBalance(address as any);
+        const formattedEthBalance = web3.utils.fromWei(balance as any, 'ether');
+        setEthBalance(formattedEthBalance);
+        console.log(formattedEthBalance);
+    };
     const handleCryptoPress = (crypto: string) => {
         setSelectedCrypto(crypto);
     };
@@ -55,33 +72,21 @@ function CryptoAppMain(): JSX.Element {
         }
     };
 
-    const getERC20Balance = async (tokenContractAddress: any, walletAddress: any) => {
-        try {
-            const balance = await provider?.request({
-                method: 'eth_call',
-                params: [
-                    {
-                        to: tokenContractAddress,
-                        data: `0x70a08231000000000000000000000000${walletAddress.slice(2)}`,
-                    },
-                    'latest',
-                ],
+    useEffect(() => {
+        getEthBalance();
+        axios
+            .get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
+            .then((response) => {
+                const ethPrice = response.data.ethereum.usd;
+                const usdBalance = ethBalance as any * ethPrice;
+
+                setFormattedEthBalance(usdBalance.toFixed(2));
+                console.log(usdBalance.toFixed(2));
+            })
+            .catch((error) => {
+                console.log(error);
             });
-
-            console.log(`Balance of ${tokenContractAddress}: ${balance}`);
-
-            //const balanceInWei = ethers.from(balance).toString();
-            // const balanceInEther = ethers.utils.formatEther(balanceInWei);
-
-            // console.log(`Balance of ${tokenContractAddress}: ${balanceInEther}`);
-        } catch (error) {
-            console.error(`Error getting balance of ${tokenContractAddress}:`, error);
-        }
-    };
-
-    // Call the function to get the balances
-    getERC20Balance(usdtContractAddress, address);
-    getERC20Balance(usdcContractAddress, address);
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -121,7 +126,9 @@ function CryptoAppMain(): JSX.Element {
             </ScrollView>
             <View style={styles.cryptoAvailableContainer}>
                 <Text style={styles.cryptoAvailableText}>
-                    4.7845 BTC Available
+                    {
+                        selectedCrypto === 'ethereum' ? `${formattedEthBalance} ETH Available` : selectedCrypto === 'tether' ? `${usdtBalance} USDT Available` : `${usdcBalance} USDC Available`
+                    }
                 </Text>
             </View>
             <View style={styles.cryptoToSendContainer}>
