@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Text,
     Image,
@@ -38,73 +38,6 @@ function Wallet(): JSX.Element {
 
     console.log('Address: ', address);
     console.log('isConnected: ', isConnected);
-
-    // Request the balance
-    // const getBalance = async () => {
-    //     try {
-    //         // Make the balance request
-    //         const balance = await provider?.request({
-    //             method: 'eth_getBalance',
-    //             params: [address, 'latest'],
-    //         });
-
-    //         console.log('Balance: ', balance);
-    //     } catch (error) {
-    //         console.error('Error getting balance:', error);
-    //     }
-    // };
-
-    // const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'; // USDT contract address
-    // const usdcContractAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'; // USDC contract address
-
-    // const getERC20Balance = async (tokenContractAddress: any, walletAddress: any) => {
-    //     try {
-    //         const balance = await provider?.request({
-    //             method: 'eth_call',
-    //             params: [
-    //                 {
-    //                     to: tokenContractAddress,
-    //                     data: `0x70a08231000000000000000000000000${walletAddress.slice(2)}`,
-    //                 },
-    //                 'latest',
-    //             ],
-    //         });
-
-    //         console.log(`Balance of ${tokenContractAddress}: ${balance}`);
-
-    //         const balanceInWei = ethers.from(balance).toString();
-    //         // const balanceInEther = ethers.utils.formatEther(balanceInWei);
-
-    //         // console.log(`Balance of ${tokenContractAddress}: ${balanceInEther}`);
-    //     } catch (error) {
-    //         console.error(`Error getting balance of ${tokenContractAddress}:`, error);
-    //     }
-    // };
-
-    // // Call the function to get the balances
-    // getERC20Balance(usdtContractAddress, address);
-    // getERC20Balance(usdcContractAddress, address);
-
-
-    // const handleSendTransaction = async () => {
-    //     if (isConnected && provider) {
-    //         const tx = {
-    //             from: address,
-    //             to: '0x1234567890123456789012345678901234567890', // Replace with the recipient address
-    //             value: ethers.parseEther('0.1').toString(), // Replace with the amount to send
-    //         };
-
-    //         try {
-    //             const txHash = await provider?.request({
-    //                 method: 'eth_sendTransaction',
-    //                 params: [tx],
-    //             });
-    //             txHash && console.log('TxHash: ', txHash);
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     }
-    // };
 
     const wallets = [
         // { name: 'Metamask', address: '', image: require('../../assets/metamask.png') },
