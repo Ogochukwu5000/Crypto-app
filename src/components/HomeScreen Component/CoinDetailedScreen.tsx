@@ -138,7 +138,8 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
         return () => {
             ws.close();
         };
-    }, []);
+    }, [coinId]);
+
 
     if (loading || !coin || !coinMarketData || !coinCandleChartData) {
         return <ActivityIndicator size="large" />;
