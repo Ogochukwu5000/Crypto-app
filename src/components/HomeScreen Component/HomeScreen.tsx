@@ -11,18 +11,23 @@ import {
 } from 'react-native';
 import CoinDetailedScreen from './CoinDetailedScreen';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useWalletConnectModal } from '@walletconnect/modal-react-native';
+import { useSelector } from 'react-redux';
+import { RootState } from "../../../store/reducers"
+
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function Home(): JSX.Element {
     const [coinId, setCoinId] = useState('ethereum');
-    const [address, setAddress] = useState('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa');
-    const [cryptoTag, setCryptoTag] = useState('BTC');
+    const { address } = useWalletConnectModal();
+    const user = useSelector((state: RootState) => state.userReducer.user);
+    const cryptoTag = user?.cryptoTag;
 
     const handleReceivePress = () => {
         Alert.alert(
             'Receive',
-            `Address: ${address}\nCrypto Tag: ${cryptoTag}`,
+            `Address:\n ${address}\n\nCrypto Tag: ${cryptoTag}`,
             [
                 {
                     text: 'Copy Tag',
