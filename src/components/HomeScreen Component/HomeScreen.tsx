@@ -11,13 +11,11 @@ import {
 } from 'react-native';
 import CoinDetailedScreen from './CoinDetailedScreen';
 import { ScrollView } from 'react-native-gesture-handler';
-
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function Home(): JSX.Element {
-    const coinId = 'bitcoin';
-
+    const [coinId, setCoinId] = useState('ethereum');
     const [address, setAddress] = useState('1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa');
     const [cryptoTag, setCryptoTag] = useState('BTC');
 
@@ -30,7 +28,7 @@ function Home(): JSX.Element {
                     text: 'Copy Tag',
                     onPress: () => {
                         // TODO: Implement copy tag functionality
-                        
+
                     },
                 },
                 {
@@ -38,10 +36,6 @@ function Home(): JSX.Element {
                     onPress: () => {
                         // TODO: Implement copy address functionality
                     },
-                },
-                {
-                    text: 'Thanks',
-                    onPress: () => {},
                 },
             ]
         );
@@ -67,28 +61,17 @@ function Home(): JSX.Element {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button}>
                         <Image source={require('../../assets/send.png')} />
-                        <Text>Send</Text>
+                        <Text>Withdraw</Text>
                     </TouchableOpacity>
                 </View>
                 <Text style={styles.assetText}>Asset</Text>
                 <ScrollView style={styles.assetContainer}>
-                    <TouchableOpacity style={styles.asset}>
-                        <Image style={styles.assetIcon} source={require('../../assets/Bitcoin.png')} />
-                        <View style={
-                            styles.assetTextContainer
-                        }>
-                            <Text style={styles.assetName}>Bitcoin</Text>
-                            <Text style={styles.assetCryptoPrice}>0.8934 BTC</Text>
-                        </View>
-                        <View style={
-                            styles.assetTextContainer
-                        }>
-                            <Text style={styles.assetPrice}>$ 5,000</Text>
-                            <Text style={styles.assetPercent}>+ 5.24%</Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.asset}>
-                        <Image style={styles.assetIcon} source={require('../../assets/ethereumIcon.png')} />
+                    <TouchableOpacity style={styles.asset}
+                        onPress={() => {
+                            setCoinId('ethereum');
+                        }}
+                    >
+                        <Image style={styles.assetIcon} source={require('../../assets/Ethereum.png')} />
                         <View style={
                             styles.assetTextContainer
                         }>
@@ -102,13 +85,36 @@ function Home(): JSX.Element {
                             <Text style={styles.assetPercent}>+ 2.44%</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.asset}>
-                        <Image style={styles.assetIcon} source={require('../../assets/Stellar.png')} />
+                    <TouchableOpacity style={styles.asset}
+                        onPress={() => {
+                            setCoinId('tether');
+                        }}
+                    >
+                        <Image style={styles.assetIcon} source={require('../../assets/Tether.png')} />
                         <View style={
                             styles.assetTextContainer
                         }>
-                            <Text style={styles.assetName}>Stellar</Text>
-                            <Text style={styles.assetCryptoPrice}>0.8934 XLM</Text>
+                            <Text style={styles.assetName}>Tether</Text>
+                            <Text style={styles.assetCryptoPrice}>0.8934 USDT</Text>
+                        </View>
+                        <View style={
+                            styles.assetTextContainer
+                        }>
+                            <Text style={styles.assetPrice}>$ 5,000</Text>
+                            <Text style={styles.assetPercent}>+ 5.24%</Text>
+                        </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.asset}
+                        onPress={() => {
+                            setCoinId('usd-coin');
+                        }}
+                    >
+                        <Image style={styles.assetIcon} source={require('../../assets/usd-coin.png')} />
+                        <View style={
+                            styles.assetTextContainer
+                        }>
+                            <Text style={styles.assetName}>USD Coin</Text>
+                            <Text style={styles.assetCryptoPrice}>0.8934 USDC</Text>
                         </View>
                         <View style={
                             styles.assetTextContainer
