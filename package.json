@@ -22,6 +22,7 @@
     "@tradle/react-native-http": "^2.0.1",
     "@types/react-redux": "^7.1.25",
     "@walletconnect/modal-react-native": "^1.0.0-rc.5",
+    "alchemy-sdk": "^2.9.2",
     "assert": "^1.5.0",
     "axios": "^1.4.0",
     "babel-preset-expo": "^9.5.0",
