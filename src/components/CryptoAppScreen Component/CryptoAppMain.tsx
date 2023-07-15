@@ -37,7 +37,7 @@ function CryptoAppMain(): JSX.Element {
     const [ethBalance, setEthBalance] = useState<any>(null);
     const [formattedEthBalance, setFormattedEthBalance] = useState<any>(null);
     const [usdtBalance, setUsdtBalance] = useState<any>(null);
-    const [usdcBalance, setUsdcBalance] = useState('');
+    const [usdcBalance, setUsdcBalance] = useState<any>(null);
     const settings = {
         apiKey: "U9HkfdvfM9qNbYWbyeHxMsaG0jzgqp8E",
         network: Network.ETH_MAINNET,
@@ -57,6 +57,15 @@ function CryptoAppMain(): JSX.Element {
         const decBalance = parseInt(balance as any, 16);
         const formattedNumber = (decBalance / 1000000);
         setUsdtBalance(formattedNumber);
+    };
+
+    const getUsdcBalance = async () => {
+        const usdcBalance = await alchemy.core.getTokenBalances(address as any, [usdcContractAddress]);
+        const balance = usdcBalance.tokenBalances[0].tokenBalance;
+        const decBalance = parseInt(balance as any, 16);
+        const formattedNumber = (decBalance / 1000000);
+        console.log(formattedNumber);
+        setUsdcBalance(formattedNumber);
     };
 
     const handleCryptoPress = (crypto: string) => {
@@ -85,6 +94,7 @@ function CryptoAppMain(): JSX.Element {
     useEffect(() => {
         getEthBalance();
         getUsdtBalance();
+        getUsdcBalance();
         axios
             .get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
             .then((response) => {
