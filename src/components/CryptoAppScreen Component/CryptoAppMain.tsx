@@ -86,7 +86,7 @@ function CryptoAppMain(): JSX.Element {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
+    }, [ethBalance]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -127,7 +127,7 @@ function CryptoAppMain(): JSX.Element {
             <View style={styles.cryptoAvailableContainer}>
                 <Text style={styles.cryptoAvailableText}>
                     {
-                        selectedCrypto === 'ethereum' ? `${formattedEthBalance} ETH Available` : selectedCrypto === 'tether' ? `${usdtBalance} USDT Available` : `${usdcBalance} USDC Available`
+                        selectedCrypto === 'ethereum' ? `${ethBalance} ETH Available` : selectedCrypto === 'tether' ? `${usdtBalance} USDT Available` : `${usdcBalance} USDC Available`
                     }
                 </Text>
             </View>
