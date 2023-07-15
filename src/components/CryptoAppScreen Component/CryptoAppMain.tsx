@@ -36,19 +36,29 @@ function CryptoAppMain(): JSX.Element {
     const usdcContractAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'; // USDC contract address
     const [ethBalance, setEthBalance] = useState<any>(null);
     const [formattedEthBalance, setFormattedEthBalance] = useState<any>(null);
-    const [usdtBalance, setUsdtBalance] = useState('');
+    const [usdtBalance, setUsdtBalance] = useState<any>(null);
     const [usdcBalance, setUsdcBalance] = useState('');
     const settings = {
         apiKey: "U9HkfdvfM9qNbYWbyeHxMsaG0jzgqp8E",
         network: Network.ETH_MAINNET,
     };
     const alchemy = new Alchemy(settings);
+
     const getEthBalance = async () => {
         const balance = await alchemy.core.getBalance(address as any);
         const formattedEthBalance = web3.utils.fromWei(balance as any, 'ether');
         setEthBalance(formattedEthBalance);
         console.log(formattedEthBalance);
     };
+
+    const getUsdtBalance = async () => {
+        const usdtBalance = await alchemy.core.getTokenBalances(address as any, [usdtContractAddress]);
+        const balance = usdtBalance.tokenBalances[0].tokenBalance;
+        const decBalance = parseInt(balance as any, 16);
+        const formattedNumber = (decBalance / 1000000);
+        setUsdtBalance(formattedNumber);
+    };
+
     const handleCryptoPress = (crypto: string) => {
         setSelectedCrypto(crypto);
     };
@@ -74,6 +84,7 @@ function CryptoAppMain(): JSX.Element {
 
     useEffect(() => {
         getEthBalance();
+        getUsdtBalance();
         axios
             .get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
             .then((response) => {
@@ -86,7 +97,7 @@ function CryptoAppMain(): JSX.Element {
             .catch((error) => {
                 console.log(error);
             });
-    }, [ethBalance]);
+    }, [ethBalance, address]);
 
     return (
         <SafeAreaView style={styles.container}>
