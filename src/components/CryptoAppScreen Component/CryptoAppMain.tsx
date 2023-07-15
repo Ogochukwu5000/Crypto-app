@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useWalletConnectModal } from '@walletconnect/modal-react-native';
+import { ethers } from 'ethers';
 
 
 interface KeypadButtonProps {
@@ -25,10 +26,12 @@ function KeypadButton({ value, onPress, isHighlighted }: KeypadButtonProps): JSX
 }
 
 function CryptoAppMain(): JSX.Element {
-    const [selectedCrypto, setSelectedCrypto] = useState('bitcoin');
+    const [selectedCrypto, setSelectedCrypto] = useState('ethereum');
     const [amount, setAmount] = useState('0');
     const navigation = useNavigation();
     const { provider, address } = useWalletConnectModal();
+    const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'; // USDT contract address
+    const usdcContractAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'; // USDC contract address
     const handleCryptoPress = (crypto: string) => {
         setSelectedCrypto(crypto);
     };
@@ -52,6 +55,34 @@ function CryptoAppMain(): JSX.Element {
         }
     };
 
+    const getERC20Balance = async (tokenContractAddress: any, walletAddress: any) => {
+        try {
+            const balance = await provider?.request({
+                method: 'eth_call',
+                params: [
+                    {
+                        to: tokenContractAddress,
+                        data: `0x70a08231000000000000000000000000${walletAddress.slice(2)}`,
+                    },
+                    'latest',
+                ],
+            });
+
+            console.log(`Balance of ${tokenContractAddress}: ${balance}`);
+
+            //const balanceInWei = ethers.from(balance).toString();
+            // const balanceInEther = ethers.utils.formatEther(balanceInWei);
+
+            // console.log(`Balance of ${tokenContractAddress}: ${balanceInEther}`);
+        } catch (error) {
+            console.error(`Error getting balance of ${tokenContractAddress}:`, error);
+        }
+    };
+
+    // Call the function to get the balances
+    getERC20Balance(usdtContractAddress, address);
+    getERC20Balance(usdcContractAddress, address);
+
     return (
         <SafeAreaView style={styles.container}>
             <TouchableOpacity style={styles.profileImage} onPress={() => {
@@ -70,20 +101,20 @@ function CryptoAppMain(): JSX.Element {
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={[styles.cryptoButton, selectedCrypto === 'bitcoin' && styles.selectedCryptoButton]}
-                    onPress={() => handleCryptoPress('bitcoin')}
+                    style={[styles.cryptoButton, selectedCrypto === 'tether' && styles.selectedCryptoButton]}
+                    onPress={() => handleCryptoPress('tether')}
                 >
                     <Image source={require('../../assets/Tether.png')} style={styles.cryptoButtonImage} />
-                    <Text style={[styles.cryptoButtonText, selectedCrypto === 'bitcoin' && styles.selectedCryptoButtonText]}>
+                    <Text style={[styles.cryptoButtonText, selectedCrypto === 'tether' && styles.selectedCryptoButtonText]}>
                         Tether
                     </Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={[styles.cryptoButton, selectedCrypto === 'stellar' && styles.selectedCryptoButton]}
-                    onPress={() => handleCryptoPress('stellar')}
+                    style={[styles.cryptoButton, selectedCrypto === 'usdCoin' && styles.selectedCryptoButton]}
+                    onPress={() => handleCryptoPress('usdCoin')}
                 >
                     <Image source={require('../../assets/usd-coin.png')} style={styles.cryptoButtonImage} />
-                    <Text style={[styles.cryptoButtonText, selectedCrypto === 'stellar' && styles.selectedCryptoButtonText]}>
+                    <Text style={[styles.cryptoButtonText, selectedCrypto === 'usdCoin' && styles.selectedCryptoButtonText]}>
                         USD Coin
                     </Text>
                 </TouchableOpacity>
