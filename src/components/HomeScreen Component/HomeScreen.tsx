@@ -59,7 +59,7 @@ function Home(): JSX.Element {
                 <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button}>
                         <Image source={require('../../assets/deposit.png')} />
-                        <Text>Deposit</Text>
+                        <Text>Buy</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.button} onPress={handleReceivePress}>
                         <Image source={require('../../assets/Receive.png')} />
