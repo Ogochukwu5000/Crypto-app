@@ -14,6 +14,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from "../../../store/reducers"
+import { Share } from 'react-native';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -30,17 +31,25 @@ function Home(): JSX.Element {
             `Address:\n ${address}\n\nCrypto Tag: ${cryptoTag}`,
             [
                 {
-                    text: 'Copy Tag',
+                    text: 'Share Tag',
                     onPress: () => {
-                        // TODO: Implement copy tag functionality
-
+                        Share.share({
+                            message: `Check out my Crypto Tag: ${cryptoTag}`,
+                        });
                     },
                 },
                 {
-                    text: 'Copy Address',
+                    text: 'Share Address',
                     onPress: () => {
-                        // TODO: Implement copy address functionality
+                        Share.share({
+                            message: `Check out my Crypto Address: ${address}`,
+                        });
                     },
+                },
+                {
+                    text: 'Cancel',
+                    onPress: () => console.log('Cancel Pressed'),
+                    style: 'cancel',
                 },
             ]
         );
