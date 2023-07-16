@@ -175,7 +175,7 @@ function Home(): JSX.Element {
                             styles.assetTextContainer
                         }>
                             <Text style={styles.assetPrice}>$ 5,000</Text>
-                            <Text style={[styles.assetPercent, ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
+                            <Text style={[styles.assetPercent, usdtcoin?.market_data && usdtcoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
                             ]}>
                                 {
                                     usdtcoin?.market_data && usdtcoin?.market_data.price_change_percentage_24h > 0 ? `${usdtcoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${usdtcoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
@@ -199,7 +199,12 @@ function Home(): JSX.Element {
                             styles.assetTextContainer
                         }>
                             <Text style={styles.assetPrice}>$ 3,450</Text>
-                            <Text style={styles.assetPercent}>+ 2.34%</Text>
+                            <Text style={[styles.assetPercent, usdccoin?.market_data && usdccoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
+                            ]}>
+                                {
+                                    usdccoin?.market_data && usdccoin?.market_data.price_change_percentage_24h > 0 ? `+${usdccoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `-${usdccoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
+                                }
+                            </Text>
                         </View>
                     </TouchableOpacity>
                 </ScrollView>
