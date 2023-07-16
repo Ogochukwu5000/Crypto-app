@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useWalletConnectModal } from '@walletconnect/modal-react-native';
+import { useWalletConnectModal, WalletConnectModal } from '@walletconnect/modal-react-native';
 import { Alchemy, Network } from "alchemy-sdk";
 import axios from 'axios';
 import web3 from 'web3';
@@ -33,6 +33,7 @@ function CryptoAppMain(): JSX.Element {
     const [amount, setAmount] = useState('0');
     const navigation = useNavigation();
     const dispatch = useDispatch();
+    const projectId = '68a720495e3c0321e66a2ecca9dd75db';
     const { provider, address } = useWalletConnectModal();
     const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'; // USDT contract address
     const usdcContractAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'; // USDC contract address
@@ -42,6 +43,18 @@ function CryptoAppMain(): JSX.Element {
     const [formattedUsdcBalance, setFormattedUsdcBalance] = useState<any>(null);
     const [usdtBalance, setUsdtBalance] = useState<any>(null);
     const [usdcBalance, setUsdcBalance] = useState<any>(null);
+    const providerMetadata = {
+        name: 'Crypto App',
+        description: 'Crypto App is a decentralized application that allows you send and receive crypto with your crypto tag.',
+        url: 'https://cryptoapplabs.com/',
+        icons: [require("../../assets/App logo.png")],
+        redirect: {
+            native: 'cryptoapp://',
+            universal: 'https://cryptoapplabs.com/',
+        },
+        textEncoder: new TextEncoder(),
+        textDecoder: new TextDecoder(),
+    };
     const settings = {
         apiKey: "U9HkfdvfM9qNbYWbyeHxMsaG0jzgqp8E",
         network: Network.ETH_MAINNET,
@@ -96,67 +109,66 @@ function CryptoAppMain(): JSX.Element {
     };
 
     useEffect(() => {
-        getEthBalance();
-        getUsdtBalance();
-        getUsdcBalance();
-        axios
-            .get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
-            .then((response) => {
-                const ethPrice = response.data.ethereum.usd;
-                const usdBalance = ethBalance as any * ethPrice;
+        const intervalId = setInterval(() => {
+            getEthBalance();
+            getUsdtBalance();
+            getUsdcBalance();
+            axios
+                .get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
+                .then((response) => {
+                    const ethPrice = response.data.ethereum.usd;
+                    const usdBalance = ethBalance as any * ethPrice;
 
-                setFormattedEthBalance(usdBalance.toFixed(2));
-                console.log(usdBalance.toFixed(2));
-            })
-            .catch((error) => {
-                console.log(error);
+                    setFormattedEthBalance(usdBalance.toFixed(2));
+                    console.log(usdBalance.toFixed(2));
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            axios
+                .get("https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd")
+                .then((response) => {
+                    const usdtPrice = response.data.tether.usd;
+                    const usdBalance = usdtBalance as any * usdtPrice;
+                    setFormattedUsdtBalance(usdBalance.toFixed(2));
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            axios
+                .get("https://api.coingecko.com/api/v3/simple/price?ids=usd-coin&vs_currencies=usd")
+                .then((response) => {
+                    const usdcPrice = response.data['usd-coin'].usd;
+                    const usdBalance = usdcBalance as any * usdcPrice;
+                    setFormattedUsdcBalance(usdBalance.toFixed(2));
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            const updatedBalance = {
+                eth: {
+                    tokenBalance: ethBalance,
+                    usdBalance: formattedEthBalance,
+                },
+                usdt: {
+                    tokenBalance: usdtBalance,
+                    usdBalance: formattedUsdtBalance,
+                },
+                usdc: {
+                    tokenBalance: usdcBalance,
+                    usdBalance: formattedUsdcBalance,
+                },
+            };
+            dispatch({
+                type: 'SET_BALANCE',
+                payload: updatedBalance,
             });
+        }, 10000);
 
-        axios
-            .get("https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd")
-            .then((response) => {
-                const usdtPrice = response.data.tether.usd;
-                const usdBalance = usdtBalance as any * usdtPrice;
-                setFormattedUsdtBalance(usdBalance.toFixed(2));
-            }
-            )
-            .catch((error) => {
-                console.log(error);
-            }
-            );
-
-        axios
-            .get("https://api.coingecko.com/api/v3/simple/price?ids=usd-coin&vs_currencies=usd")
-            .then((response) => {
-                const usdcPrice = response.data['usd-coin'].usd;
-                const usdBalance = usdcBalance as any * usdcPrice;
-                setFormattedUsdcBalance(usdBalance.toFixed(2));
-            }
-            )
-            .catch((error) => {
-                console.log(error);
-            }
-            );
-
-        const updatedBalance = {
-            eth: {
-                tokenBalance: ethBalance,
-                usdBalance: formattedEthBalance,
-            },
-            usdt: {
-                tokenBalance: usdtBalance,
-                usdBalance: formattedUsdtBalance,
-            },
-            usdc: {
-                tokenBalance: usdcBalance,
-                usdBalance: formattedUsdcBalance,
-            },
-        };
-        dispatch({
-            type: 'SET_BALANCE',
-            payload: updatedBalance,
-        });
-
+        return () => clearInterval(intervalId);
     }, [ethBalance, address, usdtBalance, usdcBalance, formattedEthBalance, formattedUsdtBalance, formattedUsdcBalance]);
 
     return (
@@ -243,6 +255,10 @@ function CryptoAppMain(): JSX.Element {
                     </TouchableOpacity>
                 </View>
             </View>
+            <WalletConnectModal
+                projectId={projectId}
+                providerMetadata={providerMetadata}
+            />
         </SafeAreaView>
     );
 }
