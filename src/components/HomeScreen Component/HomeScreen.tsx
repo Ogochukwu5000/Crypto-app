@@ -155,8 +155,8 @@ function Home(): JSX.Element {
                             <Text style={styles.assetPrice}>$ 2,000</Text>
                             <Text style={[styles.assetPercent, ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
                             ]}>{
-                                ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? `${ethcoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${ethcoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
-                            }</Text>
+                                    ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? `${ethcoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${ethcoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
+                                }</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.asset}
@@ -175,7 +175,12 @@ function Home(): JSX.Element {
                             styles.assetTextContainer
                         }>
                             <Text style={styles.assetPrice}>$ 5,000</Text>
-                            <Text style={styles.assetPercent}>+ 5.24%</Text>
+                            <Text style={[styles.assetPercent, ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
+                            ]}>
+                                {
+                                    usdtcoin?.market_data && usdtcoin?.market_data.price_change_percentage_24h > 0 ? `${usdtcoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${usdtcoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
+                                }
+                            </Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.asset}
