@@ -147,12 +147,12 @@ function Home(): JSX.Element {
                             styles.assetTextContainer
                         }>
                             <Text style={styles.assetName}>Ethereum</Text>
-                            <Text style={styles.assetCryptoPrice}>0.8934 ETH</Text>
+                            <Text style={styles.assetCryptoPrice}>{user?.balance?.eth?.tokenBalance} ETH</Text>
                         </View>
                         <View style={
                             [styles.assetTextContainer]
                         }>
-                            <Text style={styles.assetPrice}>$ 2,000</Text>
+                            <Text style={styles.assetPrice}>$ {user?.balance?.eth.usdBalance}</Text>
                             <Text style={[styles.assetPercent, ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
                             ]}>{
                                     ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? `${ethcoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${ethcoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
@@ -169,12 +169,12 @@ function Home(): JSX.Element {
                             styles.assetTextContainer
                         }>
                             <Text style={styles.assetName}>Tether</Text>
-                            <Text style={styles.assetCryptoPrice}>0.8934 USDT</Text>
+                            <Text style={styles.assetCryptoPrice}>{user?.balance?.usdt?.tokenBalance} USDT</Text>
                         </View>
                         <View style={
                             styles.assetTextContainer
                         }>
-                            <Text style={styles.assetPrice}>$ 5,000</Text>
+                            <Text style={styles.assetPrice}>$ {user?.balance?.usdt.usdBalance}</Text>
                             <Text style={[styles.assetPercent, usdtcoin?.market_data && usdtcoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
                             ]}>
                                 {
@@ -193,16 +193,16 @@ function Home(): JSX.Element {
                             styles.assetTextContainer
                         }>
                             <Text style={styles.assetName}>USD Coin</Text>
-                            <Text style={styles.assetCryptoPrice}>0.8934 USDC</Text>
+                            <Text style={styles.assetCryptoPrice}>{user?.balance?.usdc?.tokenBalance ? user?.balance?.usdc?.tokenBalance : 0} USDC</Text>
                         </View>
                         <View style={
                             styles.assetTextContainer
                         }>
-                            <Text style={styles.assetPrice}>$ 3,450</Text>
+                            <Text style={styles.assetPrice}>$ {user?.balance?.usdc.usdBalance}</Text>
                             <Text style={[styles.assetPercent, usdccoin?.market_data && usdccoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
                             ]}>
                                 {
-                                    usdccoin?.market_data && usdccoin?.market_data.price_change_percentage_24h > 0 ? `+${usdccoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `-${usdccoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
+                                    usdccoin?.market_data && usdccoin?.market_data.price_change_percentage_24h > 0 ? `${usdccoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${usdccoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
                                 }
                             </Text>
                         </View>
