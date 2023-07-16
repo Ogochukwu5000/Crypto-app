@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Text,
     SafeAreaView,
@@ -15,15 +15,72 @@ import { useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from "../../../store/reducers"
 import { Share } from 'react-native';
+import axios from 'axios';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
+
+interface Coin {
+    id: string;
+    name: string;
+    symbol: string;
+    image: {
+        small: string;
+        large: string;
+        thumb: string;
+    };
+    market_data: {
+        current_price: {
+            usd: number;
+        };
+        price_change_percentage_24h: number;
+    };
+}
 
 function Home(): JSX.Element {
     const [coinId, setCoinId] = useState('ethereum');
     const { address } = useWalletConnectModal();
     const user = useSelector((state: RootState) => state.userReducer.user);
     const cryptoTag = user?.cryptoTag;
+    const [ethcoin, setEthCoin] = useState<Coin | null>(null);
+    const [usdtcoin, setUsdtCoin] = useState<Coin | null>(null);
+    const [usdccoin, setUsdCoin] = useState<Coin | null>(null);
+    // const percentageColor = price_change_percentage_24h < 0 ? "#ea3943" : "#16c784" || "white";
+
+    const fetchEthCoinData = async () => {
+        try {
+            const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${`ethereum`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`);
+            setEthCoin(response.data);
+        } catch (e: any) {
+            console.log(e.response.data);
+        }
+    };
+
+    const fetchUsdtCoinData = async () => {
+        try {
+            const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${`tether`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`);
+            setUsdtCoin(response.data);
+        } catch (e: any) {
+            console.log(e.response.data);
+        }
+    };
+
+    const fetchUsdcCoinData = async () => {
+        try {
+            const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${`usd-coin`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`);
+            setUsdCoin(response.data);
+        } catch (e: any) {
+            console.log(e.response.data);
+        }
+    };
+
+    useEffect(() => {
+        fetchEthCoinData();
+        fetchUsdtCoinData();
+        fetchUsdcCoinData();
+    }, [coinId]);
+
+
 
     const handleReceivePress = () => {
         Alert.alert(
@@ -93,10 +150,13 @@ function Home(): JSX.Element {
                             <Text style={styles.assetCryptoPrice}>0.8934 ETH</Text>
                         </View>
                         <View style={
-                            styles.assetTextContainer
+                            [styles.assetTextContainer]
                         }>
                             <Text style={styles.assetPrice}>$ 2,000</Text>
-                            <Text style={styles.assetPercent}>+ 2.44%</Text>
+                            <Text style={[styles.assetPercent, ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
+                            ]}>{
+                                ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? `${ethcoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${ethcoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
+                            }</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.asset}
@@ -249,6 +309,12 @@ const styles = StyleSheet.create({
     assetIcon: {
         width: 40,
         height: 40,
+    },
+    positive: {
+        color: '#00BFA6',
+    },
+    negative: {
+        color: '#FF0000',
     },
 });
 
