@@ -5,6 +5,7 @@ import { useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { Alchemy, Network } from "alchemy-sdk";
 import axios from 'axios';
 import web3 from 'web3';
+import { useDispatch } from 'react-redux';
 
 
 interface KeypadButtonProps {
@@ -31,11 +32,14 @@ function CryptoAppMain(): JSX.Element {
     const [selectedCrypto, setSelectedCrypto] = useState('ethereum');
     const [amount, setAmount] = useState('0');
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const { provider, address } = useWalletConnectModal();
     const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'; // USDT contract address
     const usdcContractAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'; // USDC contract address
     const [ethBalance, setEthBalance] = useState<any>(null);
     const [formattedEthBalance, setFormattedEthBalance] = useState<any>(null);
+    const [formattedUsdtBalance, setFormattedUsdtBalance] = useState<any>(null);
+    const [formattedUsdcBalance, setFormattedUsdcBalance] = useState<any>(null);
     const [usdtBalance, setUsdtBalance] = useState<any>(null);
     const [usdcBalance, setUsdcBalance] = useState<any>(null);
     const settings = {
@@ -91,6 +95,21 @@ function CryptoAppMain(): JSX.Element {
         }
     };
 
+    const updatedBalance = {
+        eth: {
+            tokenBalance: ethBalance,
+            usdBalance: formattedEthBalance,
+        },
+        usdt: {
+            tokenBalance: usdtBalance,
+            usdBalance: formattedUsdtBalance,
+        },
+        usdc: {
+            tokenBalance: usdcBalance,
+            usdBalance: formattedUsdcBalance,
+        },
+    }
+
     useEffect(() => {
         getEthBalance();
         getUsdtBalance();
@@ -107,6 +126,37 @@ function CryptoAppMain(): JSX.Element {
             .catch((error) => {
                 console.log(error);
             });
+
+        axios
+            .get("https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd")
+            .then((response) => {
+                const usdtPrice = response.data.tether.usd;
+                const usdBalance = usdtBalance as any * usdtPrice;
+                setFormattedUsdtBalance(usdBalance.toFixed(2));
+            }
+            )
+            .catch((error) => {
+                console.log(error);
+            }
+            );
+
+        axios
+            .get("https://api.coingecko.com/api/v3/simple/price?ids=usd-coin&vs_currencies=usd")
+            .then((response) => {
+                const usdcPrice = response.data['usd-coin'].usd;
+                const usdBalance = usdcBalance as any * usdcPrice;
+                setFormattedUsdcBalance(usdBalance.toFixed(2));
+            }
+            )
+            .catch((error) => {
+                console.log(error);
+            }
+            );
+        dispatch({
+            type: 'SET_BALANCE',
+            payload: updatedBalance,
+        });
+
     }, [ethBalance, address]);
 
     return (
