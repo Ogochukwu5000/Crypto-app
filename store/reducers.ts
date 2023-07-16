@@ -11,7 +11,7 @@ interface User {
     token: string;
     otp: string;
     firstTime: boolean;
-    balance: object;
+    balance: object | any;
 }
 
 interface UserState {
