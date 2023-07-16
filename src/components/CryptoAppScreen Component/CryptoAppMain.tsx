@@ -95,21 +95,6 @@ function CryptoAppMain(): JSX.Element {
         }
     };
 
-    const updatedBalance = {
-        eth: {
-            tokenBalance: ethBalance,
-            usdBalance: formattedEthBalance,
-        },
-        usdt: {
-            tokenBalance: usdtBalance,
-            usdBalance: formattedUsdtBalance,
-        },
-        usdc: {
-            tokenBalance: usdcBalance,
-            usdBalance: formattedUsdcBalance,
-        },
-    }
-
     useEffect(() => {
         getEthBalance();
         getUsdtBalance();
@@ -152,12 +137,27 @@ function CryptoAppMain(): JSX.Element {
                 console.log(error);
             }
             );
+
+        const updatedBalance = {
+            eth: {
+                tokenBalance: ethBalance,
+                usdBalance: formattedEthBalance,
+            },
+            usdt: {
+                tokenBalance: usdtBalance,
+                usdBalance: formattedUsdtBalance,
+            },
+            usdc: {
+                tokenBalance: usdcBalance,
+                usdBalance: formattedUsdcBalance,
+            },
+        };
         dispatch({
             type: 'SET_BALANCE',
             payload: updatedBalance,
         });
 
-    }, [ethBalance, address]);
+    }, [ethBalance, address, usdtBalance, usdcBalance, formattedEthBalance, formattedUsdtBalance, formattedUsdcBalance]);
 
     return (
         <SafeAreaView style={styles.container}>
