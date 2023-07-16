@@ -11,6 +11,7 @@ interface User {
     token: string;
     otp: string;
     firstTime: boolean;
+    balance: object;
 }
 
 interface UserState {
@@ -29,6 +30,20 @@ const initialUserState: UserState = {
         token: '',
         otp: '',
         firstTime: true,
+        balance: {
+            eth: {
+                tokenBalance: 0,
+                usdBalance: 0,
+            },
+            usdt: {
+                tokenBalance: 0,
+                usdBalance: 0,
+            },
+            usdc: {
+                tokenBalance: 0,
+                usdBalance: 0,
+            },
+        }
     },
 };
 
@@ -83,6 +98,14 @@ function userReducer(state = initialUserState, action: any) {
                     ...state.user,
                     authenticated: false,
                     token: '',
+                }
+            };
+        case 'SET_BALANCE':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    balance: action.payload,
                 }
             };
         default:
