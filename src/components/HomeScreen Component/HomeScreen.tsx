@@ -13,7 +13,7 @@ import CoinDetailedScreen from './CoinDetailedScreen';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { useSelector } from 'react-redux';
-import { RootState } from "../../../store/reducers"
+import { RootState } from "../../../store/reducers";
 // import { Share } from 'react-native';
 import axios from 'axios';
 
