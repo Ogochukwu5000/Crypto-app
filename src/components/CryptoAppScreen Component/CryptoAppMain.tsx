@@ -44,6 +44,8 @@ function CryptoAppMain(): JSX.Element {
     const [usdtBalance, setUsdtBalance] = useState<any>(null);
     const [usdcBalance, setUsdcBalance] = useState<any>(null);
     const [cryptoAmount, setCryptoAmount] = useState<any>("0.00");
+    const [currentEthPrice, setCurrentEthPrice] = useState<any>(null);
+    const usdToEth = (1 / currentEthPrice) as any;
     const providerMetadata = {
         name: 'Crypto App',
         description: 'Crypto App is a decentralized application that allows you send and receive crypto with your crypto tag.',
@@ -118,7 +120,7 @@ function CryptoAppMain(): JSX.Element {
         const amountNumber = parseFloat(amount);
         let equivalentCryptoAmount = 0.00
         if (selectedCrypto === 'ethereum') {
-            equivalentCryptoAmount = amountNumber * 0.00052;
+            equivalentCryptoAmount = amountNumber * usdToEth;
         }
         else if (selectedCrypto === 'tether') {
             equivalentCryptoAmount = (amountNumber * 1).toFixed(2) as any;
@@ -143,8 +145,8 @@ function CryptoAppMain(): JSX.Element {
                 .get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
                 .then((response) => {
                     const ethPrice = response.data.ethereum.usd;
+                    setCurrentEthPrice(ethPrice);
                     const usdBalance = ethBalance as any * ethPrice;
-
                     setFormattedEthBalance(usdBalance.toFixed(2));
                     console.log(usdBalance.toFixed(2));
                 })
