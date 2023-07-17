@@ -133,6 +133,11 @@ function CryptoAppMain(): JSX.Element {
     };
 
     useEffect(() => {
+        setCryptoAmount('0.00');
+        setAmount('0');
+    }, [selectedCrypto]);
+
+    useEffect(() => {
         handleAmountChange(amount);
     }, [amount]);
 
@@ -247,7 +252,7 @@ function CryptoAppMain(): JSX.Element {
                     ${amount}
                 </Text>
                 <Text style={styles.cryptoToSend}>
-                    {cryptoAmount}
+                    {cryptoAmount} {selectedCrypto === 'ethereum' ? 'ETH' : selectedCrypto === 'tether' ? 'USDT' : 'USDC'}
                 </Text>
             </View>
             <TouchableOpacity onPress={
