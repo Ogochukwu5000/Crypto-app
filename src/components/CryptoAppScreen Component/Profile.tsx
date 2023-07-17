@@ -10,7 +10,8 @@ import {
     Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -18,6 +19,7 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function Profile(): JSX.Element {
     const navigation = useNavigation();
     const dispatch = useDispatch();
+    const user = useSelector((state: RootState) => state.userReducer.user);
 
     const handleLogout = () => {
         Alert.alert(
@@ -77,8 +79,8 @@ function Profile(): JSX.Element {
                     />
                 </View>
                 <View style={styles.nameContainer}>
-                    <Text style={styles.cryptoTag}>Hmoney</Text>
-                    <Text style={styles.fullName}>Haruna Oseni</Text>
+                    <Text style={styles.cryptoTag}>{user?.cryptoTag}</Text>
+                    <Text style={styles.fullName}>{user?.firstName} {user?.lastName}</Text>
                 </View>
                 <TouchableOpacity style={styles.profileItemContainer} onPress={
                     () => {
