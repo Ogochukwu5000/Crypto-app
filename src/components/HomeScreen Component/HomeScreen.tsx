@@ -7,14 +7,14 @@ import {
     Dimensions,
     TouchableOpacity,
     Image,
-    Alert,
+    // Alert,
 } from 'react-native';
 import CoinDetailedScreen from './CoinDetailedScreen';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from "../../../store/reducers"
-import { Share } from 'react-native';
+// import { Share } from 'react-native';
 import axios from 'axios';
 
 const { width } = Dimensions.get('window');
@@ -82,35 +82,35 @@ function Home(): JSX.Element {
 
 
 
-    const handleReceivePress = () => {
-        Alert.alert(
-            'Receive',
-            `Address:\n ${address}\n\nCrypto Tag: ${cryptoTag}`,
-            [
-                {
-                    text: 'Share Tag',
-                    onPress: () => {
-                        Share.share({
-                            message: `Check out my Crypto Tag: ${cryptoTag}`,
-                        });
-                    },
-                },
-                {
-                    text: 'Share Address',
-                    onPress: () => {
-                        Share.share({
-                            message: `Check out my Crypto Address: ${address}`,
-                        });
-                    },
-                },
-                {
-                    text: 'Cancel',
-                    onPress: () => console.log('Cancel Pressed'),
-                    style: 'cancel',
-                },
-            ]
-        );
-    };
+    // const handleReceivePress = () => {
+    //     Alert.alert(
+    //         'Receive',
+    //         `Address:\n ${address}\n\nCrypto Tag: ${cryptoTag}`,
+    //         [
+    //             {
+    //                 text: 'Share Tag',
+    //                 onPress: () => {
+    //                     Share.share({
+    //                         message: `Check out my Crypto Tag: ${cryptoTag}`,
+    //                     });
+    //                 },
+    //             },
+    //             {
+    //                 text: 'Share Address',
+    //                 onPress: () => {
+    //                     Share.share({
+    //                         message: `Check out my Crypto Address: ${address}`,
+    //                     });
+    //                 },
+    //             },
+    //             {
+    //                 text: 'Cancel',
+    //                 onPress: () => console.log('Cancel Pressed'),
+    //                 style: 'cancel',
+    //             },
+    //         ]
+    //     );
+    // };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -121,7 +121,7 @@ function Home(): JSX.Element {
             {/* Bottom half  log in modal */}
             <View
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
-                <View style={styles.buttonContainer}>
+                {/* <View style={styles.buttonContainer}>
                     <TouchableOpacity style={styles.button}>
                         <Image source={require('../../assets/deposit.png')} />
                         <Text>Buy</Text>
@@ -134,7 +134,7 @@ function Home(): JSX.Element {
                         <Image source={require('../../assets/send.png')} />
                         <Text>Withdraw</Text>
                     </TouchableOpacity>
-                </View>
+                </View> */}
                 <Text style={styles.assetText}>Asset</Text>
                 <ScrollView style={styles.assetContainer}>
                     <TouchableOpacity style={styles.asset}
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     assetText: {
         fontSize: 15,
         fontWeight: '500',
-        marginTop: '2%',
+        marginTop: '8%',
         display: 'flex',
         alignItems: 'flex-start',
         width: '85%',
