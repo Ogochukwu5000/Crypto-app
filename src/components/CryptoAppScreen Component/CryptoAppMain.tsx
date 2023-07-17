@@ -43,6 +43,7 @@ function CryptoAppMain(): JSX.Element {
     const [formattedUsdcBalance, setFormattedUsdcBalance] = useState<any>(null);
     const [usdtBalance, setUsdtBalance] = useState<any>(null);
     const [usdcBalance, setUsdcBalance] = useState<any>(null);
+    const [cryptoAmount, setCryptoAmount] = useState<any>("0.00");
     const providerMetadata = {
         name: 'Crypto App',
         description: 'Crypto App is a decentralized application that allows you send and receive crypto with your crypto tag.',
@@ -107,6 +108,31 @@ function CryptoAppMain(): JSX.Element {
             setAmount('0');
         }
     };
+
+    const handleAmountChange = (amount: string) => {
+        //convert amount to float
+        if (amount === '0') {
+            setCryptoAmount('0.00');
+            return;
+        }
+        const amountNumber = parseFloat(amount);
+        let equivalentCryptoAmount = 0.00
+        if (selectedCrypto === 'ethereum') {
+            equivalentCryptoAmount = amountNumber * 0.00052;
+        }
+        else if (selectedCrypto === 'tether') {
+            equivalentCryptoAmount = (amountNumber * 1).toFixed(2) as any;
+        }
+        else {
+            equivalentCryptoAmount = (amountNumber * 1).toFixed(2) as any;
+        }
+
+        setCryptoAmount(equivalentCryptoAmount);
+    };
+
+    useEffect(() => {
+        handleAmountChange(amount);
+    }, [amount]);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -219,7 +245,7 @@ function CryptoAppMain(): JSX.Element {
                     ${amount}
                 </Text>
                 <Text style={styles.cryptoToSend}>
-                    0.00
+                    {cryptoAmount}
                 </Text>
             </View>
             <TouchableOpacity onPress={
