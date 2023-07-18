@@ -12,7 +12,6 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
-
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
@@ -77,6 +76,9 @@ function Profile(): JSX.Element {
                         style={[styles.image, isSmallScreen && styles.smallScreenImage]}
                         resizeMode="contain"
                     />
+                    <TouchableOpacity style={styles.uploadPhotoContainer}>
+                        <Text style={styles.uploadPhoto}>+</Text>
+                    </TouchableOpacity>
                 </View>
                 <View style={styles.nameContainer}>
                     <Text style={styles.cryptoTag}>{user?.cryptoTag}</Text>
@@ -186,6 +188,22 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         borderWidth: 5,
         borderColor: '#F0F0F0',
+    },
+    uploadPhotoContainer: {
+        width: '10%',
+        display: 'flex',
+        alignItems: 'center',
+        position: 'absolute',
+        top: '100%',
+        left: '57%',
+        backgroundColor: '#F0F0F0',
+        borderRadius: 30,
+        padding: 10,
+    },
+    uploadPhoto: {
+        color: 'black',
+        fontSize: 17,
+        fontWeight: '700',
     },
     smallScreenImage: {
         width: 120,
