@@ -45,7 +45,7 @@ function Profile(): JSX.Element {
     const alertUser = () => {
         Alert.alert(
             'Contact Us',
-            'Email: hoseni@cryptoapplabs.com Contact: +1 832 757 8493',
+            'Email: hoseni@cryptoapplabs.com',
             [{ text: 'OK' }],
             { cancelable: false }
         );
