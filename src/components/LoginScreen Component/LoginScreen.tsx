@@ -16,7 +16,7 @@ import axios from 'axios';
 import Loading from '../LoadingScreen Component/LoadingScreen';
 
 function LoginScreen(): JSX.Element {
-  const [emailOrCtag, setEmailOrCtag] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordHidden, setPasswordHidden] = useState(true);
   const [isFocused, setIsFocused] = useState(false);
@@ -26,26 +26,17 @@ function LoginScreen(): JSX.Element {
 
   const handleLogin = () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const cryptoTagRegex = /^[a-zA-Z0-9]+$/;
     let isEmail = false;
-    let isCryptoTag = false;
 
-    if (emailRegex.test(emailOrCtag)) {
+    if (emailRegex.test(email)) {
       isEmail = true;
-    } else if (cryptoTagRegex.test(emailOrCtag)) {
-      isCryptoTag = true;
-    } else {
-      // handle invalid input
-      return;
     }
 
     axios.post('http://10.0.0.174:8000/user/login', {
-      email: isEmail ? emailOrCtag.toLowerCase : '',
-      crypto_tag: isCryptoTag ? emailOrCtag : '',
+      email: isEmail ? email : Alert.alert('Invalid email or password'),
       password,
     }).then((response) => {
       if (response.data.status) {
-        //console.log('Response: ', response.data);
         setIsLoading(true);
         setTimeout(() => {
           setIsLoading(false);
@@ -62,9 +53,10 @@ function LoginScreen(): JSX.Element {
         }
           , 2000);
       } else {
-        Alert.alert('Invalid email or password');
+        Alert.alert(response.data.message);
       }
     }).catch((error) => {
+      console.log(error);
       Alert.alert('Invalid email or password');
     });
   };
@@ -101,8 +93,8 @@ function LoginScreen(): JSX.Element {
                 <TextInput
                   style={styles.input}
                   placeholder="Email address or Crypto tag"
-                  onChangeText={setEmailOrCtag}
-                  value={emailOrCtag}
+                  onChangeText={setEmail}
+                  value={email}
                   // specify type
                   keyboardType="email-address"
                   placeholderTextColor={'#3D4C63'}
