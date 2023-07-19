@@ -92,10 +92,9 @@ function LoginScreen(): JSX.Element {
               <View style={styles.emailInput}>
                 <TextInput
                   style={styles.input}
-                  placeholder="Email address or Crypto tag"
+                  placeholder="Email address"
                   onChangeText={setEmail}
                   value={email}
-                  // specify type
                   keyboardType="email-address"
                   placeholderTextColor={'#3D4C63'}
                   textContentType="emailAddress"
