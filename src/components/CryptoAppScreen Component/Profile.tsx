@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Text,
     Image,
@@ -12,6 +12,8 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
+import ImagePicker, { ImageOrVideo } from "react-native-image-crop-picker";
+
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
@@ -19,6 +21,7 @@ function Profile(): JSX.Element {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.userReducer.user);
+    const [image, setImage] = useState<ImageOrVideo | null>(null);
 
     const handleLogout = () => {
         Alert.alert(
@@ -50,6 +53,34 @@ function Profile(): JSX.Element {
             { cancelable: false }
         );
     };
+
+    // function that allows users to upload a photo from their camera roll
+    const uploadPhoto = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true,
+        }).then((image) => {
+            Alert.alert(
+                'Are you sure?',
+                'Do you want to select this image?',
+                [
+                    {
+                        text: 'Cancel',
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'OK',
+                        onPress: () => {
+                            setImage(image);
+                        },
+                    },
+                ],
+                { cancelable: false }
+            );
+        });
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             {/* Image */}
@@ -72,11 +103,16 @@ function Profile(): JSX.Element {
                 <View style={styles.profileHeader}>
                     <Image
                         // source={require('../../assets/Oval.png')}
-                        source={{ uri: "https://pbs.twimg.com/profile_images/1645598180111728643/Twg6kxMT_400x400.jpg" }}
+                        source={{ uri: image?.path }}
                         style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-                        resizeMode="contain"
+                        // resize to scale
+                        resizeMode="cover"
                     />
-                    <TouchableOpacity style={styles.uploadPhotoContainer}>
+                    <TouchableOpacity style={styles.uploadPhotoContainer} onPress={
+                        () => {
+                            uploadPhoto();
+                        }
+                    } >
                         <Text style={styles.uploadPhoto}>+</Text>
                     </TouchableOpacity>
                 </View>
