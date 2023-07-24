@@ -103,7 +103,7 @@ function Profile(): JSX.Element {
                 <View style={styles.profileHeader}>
                     <Image
                         // source={require('../../assets/Oval.png')}
-                        source={{ uri: image?.path }}
+                        source={image ? { uri: image.path } : { uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' }}
                         style={[styles.image, isSmallScreen && styles.smallScreenImage]}
                         // resize to scale
                         resizeMode="cover"
