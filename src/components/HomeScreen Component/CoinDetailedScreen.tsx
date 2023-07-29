@@ -12,7 +12,7 @@ import styles from "./styles";
 import { LineChart } from "react-native-wagmi-charts";
 import FilterComponent from "./FilterComponent";
 import axios from "axios";
-import { COIN_GECO_API } from '../../constants/config';
+import { COIN_GECO_API, prod } from '../../constants/config';
 
 interface Coin {
     id: string;
@@ -62,6 +62,11 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
     const [selectedRange, setSelectedRange] = useState<string>("1");
     const [refreshing, setRefreshing] = useState<boolean>(false);
     const memoOnSelectedRangeChange = useCallback((range: string) => onSelectedRangeChange(range), []);
+
+    const headers = new Headers();
+
+    if (prod)
+        headers.append('x-cg-pro-api-key', 'CG-XwxgJwWcS3H6hG4c9AfLXSbL');
 
     const fetchCoinData = async () => {
         setLoading(true);
