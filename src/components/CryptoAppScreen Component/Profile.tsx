@@ -13,6 +13,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import ImagePicker, { ImageOrVideo } from "react-native-image-crop-picker";
+import axios from 'axios';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -73,6 +74,22 @@ function Profile(): JSX.Element {
                         text: 'OK',
                         onPress: () => {
                             setImage(image);
+                            // name of file is profile_picture
+                            const data = new FormData();
+                            data.append('profile_picture', {
+                                name: 'profile_picture',
+                                type: image.mime,
+                                uri: image.path,
+                            });
+                            
+                            axios
+                                .post(`http://10.0.0.174:8000/user/profile-picture`, data, {
+                                    headers: {
+                                        'Content-Type': 'multipart/form-data',
+                                    },
+                                }).then((response) => {
+                                    
+                                })
                         },
                     },
                 ],
