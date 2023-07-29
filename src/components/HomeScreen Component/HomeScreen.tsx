@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from "../../../store/reducers";
 // import { Share } from 'react-native';
 import axios from 'axios';
-import { COIN_GECO_API_PROD, COIN_GECO_API_DEV } from '../../constants/config';
+import { COIN_GECO_API } from '../../constants/config';
 
 
 const { width } = Dimensions.get('window');

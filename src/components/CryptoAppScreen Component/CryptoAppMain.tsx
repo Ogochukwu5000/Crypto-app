@@ -6,7 +6,7 @@ import { Alchemy, Network } from "alchemy-sdk";
 import axios from 'axios';
 import web3 from 'web3';
 import { useDispatch } from 'react-redux';
-import { COIN_GECO_API_PROD, COIN_GECO_API_DEV } from '../../constants/config';
+import { COIN_GECO_API } from '../../constants/config';
 
 
 interface KeypadButtonProps {
