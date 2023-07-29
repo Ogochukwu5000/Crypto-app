@@ -66,7 +66,7 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
     const fetchCoinData = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`);
+            const response = await axios.get(`${COIN_GECO_API}coins/${coinId}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`);
             setCoin(response.data);
         } catch (e: any) {
             console.log(e.response.data);
@@ -77,7 +77,7 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
 
     const fetchMarketCoinData = async (selectedRangeValue: string) => {
         try {
-            const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${selectedRangeValue}&interval=hourly`);
+            const response = await axios.get(`${COIN_GECO_API}coins/${coinId}/market_chart?vs_currency=usd&days=${selectedRangeValue}&interval=hourly`);
             setCoinMarketData(response.data);
         } catch (e) {
             console.log(e);
@@ -86,7 +86,7 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
 
     const fetchCandleStickChartData = async (selectedRangeValue: string) => {
         try {
-            const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}/ohlc?vs_currency=usd&days=${selectedRangeValue}`);
+            const response = await axios.get(`${COIN_GECO_API}coins/${coinId}/ohlc?vs_currency=usd&days=${selectedRangeValue}`);
             setCoinCandleChartData(response.data);
         } catch (e) {
             console.log(e);
