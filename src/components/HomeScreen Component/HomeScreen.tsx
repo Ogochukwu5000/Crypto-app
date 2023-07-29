@@ -16,7 +16,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from "../../../store/reducers";
 // import { Share } from 'react-native';
 import axios from 'axios';
-import { COIN_GECO_API } from '../../constants/config';
+import { COIN_GECO_API, prod } from '../../constants/config';
 
 
 const { width } = Dimensions.get('window');
@@ -48,6 +48,11 @@ function Home(): JSX.Element {
     const [usdtcoin, setUsdtCoin] = useState<Coin | null>(null);
     const [usdccoin, setUsdCoin] = useState<Coin | null>(null);
     // const percentageColor = price_change_percentage_24h < 0 ? "#ea3943" : "#16c784" || "white";
+
+    const headers = new Headers();
+
+    if (prod)
+        headers.append('x-cg-pro-api-key', 'CG-XwxgJwWcS3H6hG4c9AfLXSbL');
 
     const fetchEthCoinData = async () => {
         try {
