@@ -133,6 +133,11 @@ function CryptoAppMain(): JSX.Element {
         setCryptoAmount(equivalentCryptoAmount);
     };
 
+    const headers = new Headers();
+
+    if (prod)
+        headers.append('x-cg-pro-api-key', 'CG-XwxgJwWcS3H6hG4c9AfLXSbL');
+
     useEffect(() => {
         setCryptoAmount('0.00');
         setAmount('0');
