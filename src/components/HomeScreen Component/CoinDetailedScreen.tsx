@@ -12,6 +12,7 @@ import styles from "./styles";
 import { LineChart } from "react-native-wagmi-charts";
 import FilterComponent from "./FilterComponent";
 import axios from "axios";
+import { COIN_GECO_API_PROD, COIN_GECO_API_DEV } from '../../constants/config';
 
 interface Coin {
     id: string;
