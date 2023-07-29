@@ -148,7 +148,7 @@ function CryptoAppMain(): JSX.Element {
             getUsdtBalance();
             getUsdcBalance();
             axios
-                .get("https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd")
+                .get(`${COIN_GECO_API}simple/price?ids=ethereum&vs_currencies=usd`)
                 .then((response) => {
                     const ethPrice = response.data.ethereum.usd;
                     setCurrentEthPrice(ethPrice);
@@ -161,7 +161,7 @@ function CryptoAppMain(): JSX.Element {
                 });
 
             axios
-                .get("https://api.coingecko.com/api/v3/simple/price?ids=tether&vs_currencies=usd")
+                .get(`${COIN_GECO_API}simple/price?ids=tether&vs_currencies=usd`)
                 .then((response) => {
                     const usdtPrice = response.data.tether.usd;
                     const usdBalance = usdtBalance as any * usdtPrice;
@@ -172,7 +172,7 @@ function CryptoAppMain(): JSX.Element {
                 });
 
             axios
-                .get("https://api.coingecko.com/api/v3/simple/price?ids=usd-coin&vs_currencies=usd")
+                .get(`${COIN_GECO_API}simple/price?ids=usd-coin&vs_currencies=usd`)
                 .then((response) => {
                     const usdcPrice = response.data['usd-coin'].usd;
                     const usdBalance = usdcBalance as any * usdcPrice;
