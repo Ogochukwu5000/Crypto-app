@@ -133,11 +133,6 @@ function CryptoAppMain(): JSX.Element {
         setCryptoAmount(equivalentCryptoAmount);
     };
 
-    const headers = new Headers();
-
-    if (prod)
-        headers.append('x-cg-pro-api-key', 'CG-XwxgJwWcS3H6hG4c9AfLXSbL');
-
     useEffect(() => {
         setCryptoAmount('0.00');
         setAmount('0');
@@ -153,7 +148,9 @@ function CryptoAppMain(): JSX.Element {
             getUsdtBalance();
             getUsdcBalance();
             axios
-                .get(`${COIN_GECO_API}simple/price?ids=ethereum&vs_currencies=usd`)
+                .get(`${COIN_GECO_API}simple/price?ids=ethereum&vs_currencies=usd`, {
+                    headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,  
+                })
                 .then((response) => {
                     const ethPrice = response.data.ethereum.usd;
                     setCurrentEthPrice(ethPrice);
