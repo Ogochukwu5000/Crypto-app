@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from "../../../store/reducers";
 import axios from 'axios';
 
 const { width } = Dimensions.get('window');
@@ -19,10 +21,11 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function PersonalInformation(): JSX.Element {
     const [isFocused, setIsFocused] = useState(false);
     const navigation = useNavigation();
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
-    const [cryptoTag, setCryptoTag] = useState('');
-    const [bio, setBio] = useState('');
+    const user = useSelector((state: RootState) => state.userReducer.user);
+    const [firstName, setFirstName] = useState(user?.firstName);
+    const [lastName, setLastName] = useState(user?.lastName);
+    const [cryptoTag, setCryptoTag] = useState(user?.cryptoTag);
+    const [bio, setBio] = useState(user?.bio);
 
     const handleFocus = () => {
         setIsFocused(true);
