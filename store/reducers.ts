@@ -13,6 +13,7 @@ interface User {
     firstTime: boolean;
     balance: object | any;
     profilePicture: string | any;
+    bio: string;
 }
 
 interface UserState {
@@ -32,6 +33,7 @@ const initialUserState: UserState = {
         otp: '',
         firstTime: true,
         profilePicture: '',
+        bio: '',
         balance: {
             eth: {
                 tokenBalance: 0,
