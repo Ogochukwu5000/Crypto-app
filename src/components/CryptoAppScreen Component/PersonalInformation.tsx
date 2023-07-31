@@ -74,6 +74,7 @@ function PersonalInformation(): JSX.Element {
                         style={styles.input}
                         placeholder="First Name"
                         placeholderTextColor={'#3D4C63'}
+                        value={firstName}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
                     />
@@ -83,6 +84,7 @@ function PersonalInformation(): JSX.Element {
                         style={styles.input}
                         placeholder="Last Name"
                         placeholderTextColor={'#3D4C63'}
+                        value={lastName}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
                     />
@@ -92,6 +94,7 @@ function PersonalInformation(): JSX.Element {
                         style={styles.input}
                         placeholder="Crypto Tag"
                         placeholderTextColor={'#3D4C63'}
+                        value={cryptoTag}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
                     />
@@ -102,6 +105,7 @@ function PersonalInformation(): JSX.Element {
                         placeholder="Bio (Why do you love crypto ?)"
                         placeholderTextColor={'#3D4C63'}
                         onFocus={handleFocus}
+                        value={bio}
                         onSubmitEditing={handleBlur}
                     />
                 </View>
