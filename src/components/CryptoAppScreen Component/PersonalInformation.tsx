@@ -19,6 +19,10 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function PersonalInformation(): JSX.Element {
     const [isFocused, setIsFocused] = useState(false);
     const navigation = useNavigation();
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [cryptoTag, setCryptoTag] = useState('');
+    const [bio, setBio] = useState('');
 
     const handleFocus = () => {
         setIsFocused(true);
@@ -27,6 +31,9 @@ function PersonalInformation(): JSX.Element {
     const handleBlur = () => {
         setIsFocused(false);
     };
+
+    const handleSubmit = () => { };
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
