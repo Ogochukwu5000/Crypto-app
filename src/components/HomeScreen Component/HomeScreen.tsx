@@ -41,7 +41,6 @@ function Home(): JSX.Element {
     const [coinId, setCoinId] = useState('ethereum');
     const { isConnected } = useWalletConnectModal();
     const user = useSelector((state: RootState) => state.userReducer.user);
-    const cryptoTag = user?.cryptoTag;
     const [ethcoin, setEthCoin] = useState<Coin | null>(null);
     const [usdtcoin, setUsdtCoin] = useState<Coin | null>(null);
     const [usdccoin, setUsdCoin] = useState<Coin | null>(null);
