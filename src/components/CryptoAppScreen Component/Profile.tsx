@@ -62,6 +62,15 @@ function Profile(): JSX.Element {
             height: 400,
             cropping: true,
         }).then((image) => {
+            if (image.mime !== 'image/jpeg' && image.mime !== 'image/png') {
+                Alert.alert(
+                    'Error',
+                    'Invalid file type. Please select a JPEG or PNG file.',
+                    [{ text: 'OK' }],
+                    { cancelable: false }
+                );
+                return;
+            }
             Alert.alert(
                 'Are you sure?',
                 'Do you want to select this image?',
@@ -89,6 +98,7 @@ function Profile(): JSX.Element {
                                     },
                                 }).then((response) => {
                                     if (response.data.status) {
+                                        console.log(response.data);
                                         dispatch({
                                             type: 'SET_PROFILE_PICTURE', payload: {
                                                 profilePicture: response.data.profile_picture,
