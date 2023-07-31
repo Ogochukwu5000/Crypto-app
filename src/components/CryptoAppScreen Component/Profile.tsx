@@ -83,10 +83,9 @@ function Profile(): JSX.Element {
                         text: 'OK',
                         onPress: () => {
                             setImage(image);
-                            // name of file is profile_picture
                             const data = new FormData();
                             data.append('profile_picture', {
-                                name: 'profile_picture',
+                                name: image.path.split('/').pop(),
                                 type: image.mime,
                                 uri: image.path,
                             });
@@ -149,7 +148,7 @@ function Profile(): JSX.Element {
                 <View style={styles.profileHeader}>
                     <Image
                         // source={require('../../assets/Oval.png')}
-                        source={user?.profilePicture ? { uri: `http://10.0.0.174:8000/${user?.profilePicture}` } : { uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' }}
+                        source={user?.profilePicture.profilePicture ? { uri: `http://10.0.0.174:8000/${user?.profilePicture.profilePicture}` } : { uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' }}
                         style={[styles.image, isSmallScreen && styles.smallScreenImage]}
                         // resize to scale
                         resizeMode="cover"
