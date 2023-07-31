@@ -210,7 +210,7 @@ function CryptoAppMain(): JSX.Element {
         }, 10000);
 
         return () => clearInterval(intervalId);
-    }, [ethBalance, address, usdtBalance, usdcBalance, formattedEthBalance, formattedUsdtBalance, formattedUsdcBalance]);
+    }, [ethBalance, address, usdtBalance, usdcBalance, formattedEthBalance, formattedUsdtBalance, formattedUsdcBalance, isConnected]);
 
     return (
         <SafeAreaView style={styles.container}>
