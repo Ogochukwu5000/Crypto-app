@@ -12,6 +12,7 @@ interface User {
     otp: string;
     firstTime: boolean;
     balance: object | any;
+    profilePicture: string;
 }
 
 interface UserState {
@@ -30,6 +31,7 @@ const initialUserState: UserState = {
         token: '',
         otp: '',
         firstTime: true,
+        profilePicture: '',
         balance: {
             eth: {
                 tokenBalance: 0,
@@ -106,6 +108,14 @@ function userReducer(state = initialUserState, action: any) {
                 user: {
                     ...state.user,
                     balance: action.payload,
+                }
+            };
+        case 'SET_PROFILE_PICTURE':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    profilePicture: action.payload,
                 }
             };
         default:
