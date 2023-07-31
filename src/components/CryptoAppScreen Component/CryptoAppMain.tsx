@@ -180,6 +180,7 @@ function CryptoAppMain(): JSX.Element {
                     headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
                 })
                 .then((response) => {
+                    //console.log(response.data);
                     const usdcPrice = response.data['usd-coin'].usd;
                     const usdBalance = usdcBalance as any * usdcPrice;
                     setFormattedUsdcBalance(usdBalance.toFixed(2));
