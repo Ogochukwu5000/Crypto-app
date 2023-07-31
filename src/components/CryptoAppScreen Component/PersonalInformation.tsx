@@ -21,6 +21,7 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function PersonalInformation(): JSX.Element {
     const [isFocused, setIsFocused] = useState(false);
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const user = useSelector((state: RootState) => state.userReducer.user);
     const [firstName, setFirstName] = useState(user?.firstName);
     const [lastName, setLastName] = useState(user?.lastName);
@@ -35,7 +36,31 @@ function PersonalInformation(): JSX.Element {
         setIsFocused(false);
     };
 
-    const handleSubmit = () => { };
+    const handleSubmit = () => {
+        axios
+            .post('http://10.0.0.174:8000/user/update-personal-info', {
+                firstName,
+                lastName,
+                cryptoTag,
+                bio,
+            })
+            .then((res) => {
+                console.log(res);
+                // SET_PERSONAL_INFO
+                dispatch({
+                    type: 'SET_PERSONAL_INFO',
+                    payload: {
+                        firstName,
+                        lastName,
+                        cryptoTag,
+                        bio,
+                    },
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -77,6 +102,7 @@ function PersonalInformation(): JSX.Element {
                         value={firstName}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
+                        onChangeText={(text) => setFirstName(text)}
                     />
                 </View>
                 <View style={styles.Input}>
@@ -87,6 +113,7 @@ function PersonalInformation(): JSX.Element {
                         value={lastName}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
+                        onChangeText={(text) => setLastName(text)}
                     />
                 </View>
                 <View style={styles.Input}>
@@ -97,6 +124,7 @@ function PersonalInformation(): JSX.Element {
                         value={cryptoTag}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
+                        onChangeText={(text) => setCryptoTag(text)}
                     />
                 </View>
                 <View style={styles.Input}>
@@ -107,9 +135,12 @@ function PersonalInformation(): JSX.Element {
                         onFocus={handleFocus}
                         value={bio}
                         onSubmitEditing={handleBlur}
+                        onChangeText={(text) => setBio(text)}
                     />
                 </View>
-                <TouchableOpacity style={[styles.saveButton, isSmallScreen && styles.smallScreenSaveButton]}>
+                <TouchableOpacity onPress={
+                    () => handleSubmit()
+                } style={[styles.saveButton, isSmallScreen && styles.smallScreenSaveButton]}>
                     <Text style={styles.saveButtonText}>Save</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
