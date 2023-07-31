@@ -66,7 +66,9 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
     const fetchCoinData = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`${COIN_GECO_API}coins/${coinId}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`);
+            const response = await axios.get(`${COIN_GECO_API}coins/${coinId}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
+                headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+            });
             setCoin(response.data);
         } catch (e: any) {
             console.log(e.response.data);
@@ -77,7 +79,9 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
 
     const fetchMarketCoinData = async (selectedRangeValue: string) => {
         try {
-            const response = await axios.get(`${COIN_GECO_API}coins/${coinId}/market_chart?vs_currency=usd&days=${selectedRangeValue}&interval=hourly`);
+            const response = await axios.get(`${COIN_GECO_API}coins/${coinId}/market_chart?vs_currency=usd&days=${selectedRangeValue}&interval=hourly`, {
+                headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+            });
             setCoinMarketData(response.data);
         } catch (e) {
             console.log(e);
@@ -86,7 +90,9 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
 
     const fetchCandleStickChartData = async (selectedRangeValue: string) => {
         try {
-            const response = await axios.get(`${COIN_GECO_API}coins/${coinId}/ohlc?vs_currency=usd&days=${selectedRangeValue}`);
+            const response = await axios.get(`${COIN_GECO_API}coins/${coinId}/ohlc?vs_currency=usd&days=${selectedRangeValue}`, {
+                headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+            });
             setCoinCandleChartData(response.data);
         } catch (e) {
             console.log(e);
@@ -111,34 +117,6 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
         fetchCoinData();
         fetchMarketCoinData("1");
         fetchCandleStickChartData("1");
-
-        // Connect to WebSocket
-        const ws = new WebSocket("wss://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin");
-
-        // Handle WebSocket messages
-        ws.onmessage = (event) => {
-            const data = JSON.parse(event.data);
-            const newPrice = data[0].current_price;
-            setCoin((prevCoin) => {
-                if (prevCoin) {
-                    return {
-                        ...prevCoin,
-                        market_data: {
-                            ...prevCoin.market_data,
-                            current_price: {
-                                usd: newPrice,
-                            },
-                        },
-                    };
-                }
-                return null;
-            });
-        };
-
-        // Close WebSocket on unmount
-        return () => {
-            ws.close();
-        };
     }, [coinId]);
 
 
