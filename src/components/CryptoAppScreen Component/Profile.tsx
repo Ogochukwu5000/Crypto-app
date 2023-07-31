@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Text,
     Image,
@@ -88,7 +88,11 @@ function Profile(): JSX.Element {
                                         'Content-Type': 'multipart/form-data',
                                     },
                                 }).then((response) => {
-                                    
+                                    dispatch({
+                                        type: 'SET_PROFILE_PICTURE', payload: {
+                                            profilePicture: response.data.profile_picture,
+                                        }
+                                    });
                                 })
                         },
                     },
@@ -97,6 +101,12 @@ function Profile(): JSX.Element {
             );
         });
     };
+
+    useEffect(() => {
+        if (image) {
+            console.log(image);
+        }
+    }, [image, user?.profilePicture]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -120,7 +130,7 @@ function Profile(): JSX.Element {
                 <View style={styles.profileHeader}>
                     <Image
                         // source={require('../../assets/Oval.png')}
-                        source={image ? { uri: image.path } : { uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' }}
+                        source={user?.profilePicture ? { uri: `http://10.0.0.174:8000/${user?.profilePicture}` } : { uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' }}
                         style={[styles.image, isSmallScreen && styles.smallScreenImage]}
                         // resize to scale
                         resizeMode="cover"
