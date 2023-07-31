@@ -81,7 +81,7 @@ function Profile(): JSX.Element {
                                 type: image.mime,
                                 uri: image.path,
                             });
-                            
+                            data.append('crypto_tag', user?.cryptoTag as string);
                             axios
                                 .post(`http://10.0.0.174:8000/user/profile-picture`, data, {
                                     headers: {
