@@ -88,11 +88,20 @@ function Profile(): JSX.Element {
                                         'Content-Type': 'multipart/form-data',
                                     },
                                 }).then((response) => {
-                                    dispatch({
-                                        type: 'SET_PROFILE_PICTURE', payload: {
-                                            profilePicture: response.data.profile_picture,
-                                        }
-                                    });
+                                    if (response.data.status) {
+                                        dispatch({
+                                            type: 'SET_PROFILE_PICTURE', payload: {
+                                                profilePicture: response.data.profile_picture,
+                                            }
+                                        });
+                                    } else {
+                                        Alert.alert(
+                                            'Error',
+                                            'There was an error uploading your photo. Please try again.',
+                                            [{ text: 'OK' }],
+                                            { cancelable: false }
+                                        );
+                                    }
                                 })
                         },
                     },
