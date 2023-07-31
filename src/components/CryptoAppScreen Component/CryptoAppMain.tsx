@@ -149,7 +149,7 @@ function CryptoAppMain(): JSX.Element {
             getUsdcBalance();
             axios
                 .get(`${COIN_GECO_API}simple/price?ids=ethereum&vs_currencies=usd`, {
-                    headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,  
+                    headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
                 })
                 .then((response) => {
                     const ethPrice = response.data.ethereum.usd;
@@ -163,7 +163,9 @@ function CryptoAppMain(): JSX.Element {
                 });
 
             axios
-                .get(`${COIN_GECO_API}simple/price?ids=tether&vs_currencies=usd`)
+                .get(`${COIN_GECO_API}simple/price?ids=tether&vs_currencies=usd`, {
+                    headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+                })
                 .then((response) => {
                     const usdtPrice = response.data.tether.usd;
                     const usdBalance = usdtBalance as any * usdtPrice;
@@ -174,7 +176,9 @@ function CryptoAppMain(): JSX.Element {
                 });
 
             axios
-                .get(`${COIN_GECO_API}simple/price?ids=usd-coin&vs_currencies=usd`)
+                .get(`${COIN_GECO_API}simple/price?ids=usd-coin&vs_currencies=usd`, {
+                    headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+                })
                 .then((response) => {
                     const usdcPrice = response.data['usd-coin'].usd;
                     const usdBalance = usdcBalance as any * usdcPrice;
