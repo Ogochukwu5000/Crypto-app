@@ -12,7 +12,7 @@ interface User {
     otp: string;
     firstTime: boolean;
     balance: object | any;
-    profilePicture: string;
+    profilePicture: string | any;
 }
 
 interface UserState {
