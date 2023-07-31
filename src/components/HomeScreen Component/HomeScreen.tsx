@@ -7,14 +7,12 @@ import {
     Dimensions,
     TouchableOpacity,
     Image,
-    // Alert,
 } from 'react-native';
 import CoinDetailedScreen from './CoinDetailedScreen';
 import { ScrollView } from 'react-native-gesture-handler';
 import { useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from "../../../store/reducers";
-// import { Share } from 'react-native';
 import axios from 'axios';
 import { COIN_GECO_API, prod } from '../../constants/config';
 
@@ -41,13 +39,12 @@ interface Coin {
 
 function Home(): JSX.Element {
     const [coinId, setCoinId] = useState('ethereum');
-    const { address } = useWalletConnectModal();
+    const { isConnected } = useWalletConnectModal();
     const user = useSelector((state: RootState) => state.userReducer.user);
     const cryptoTag = user?.cryptoTag;
     const [ethcoin, setEthCoin] = useState<Coin | null>(null);
     const [usdtcoin, setUsdtCoin] = useState<Coin | null>(null);
     const [usdccoin, setUsdCoin] = useState<Coin | null>(null);
-    // const percentageColor = price_change_percentage_24h < 0 ? "#ea3943" : "#16c784" || "white";
 
     const fetchEthCoinData = async () => {
         try {
@@ -88,38 +85,6 @@ function Home(): JSX.Element {
         fetchUsdcCoinData();
     }, [coinId]);
 
-
-
-    // const handleReceivePress = () => {
-    //     Alert.alert(
-    //         'Receive',
-    //         `Address:\n ${address}\n\nCrypto Tag: ${cryptoTag}`,
-    //         [
-    //             {
-    //                 text: 'Share Tag',
-    //                 onPress: () => {
-    //                     Share.share({
-    //                         message: `Check out my Crypto Tag: ${cryptoTag}`,
-    //                     });
-    //                 },
-    //             },
-    //             {
-    //                 text: 'Share Address',
-    //                 onPress: () => {
-    //                     Share.share({
-    //                         message: `Check out my Crypto Address: ${address}`,
-    //                     });
-    //                 },
-    //             },
-    //             {
-    //                 text: 'Cancel',
-    //                 onPress: () => console.log('Cancel Pressed'),
-    //                 style: 'cancel',
-    //             },
-    //         ]
-    //     );
-    // };
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -129,20 +94,6 @@ function Home(): JSX.Element {
             {/* Bottom half  log in modal */}
             <View
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
-                {/* <View style={styles.buttonContainer}>
-                    <TouchableOpacity style={styles.button}>
-                        <Image source={require('../../assets/deposit.png')} />
-                        <Text>Buy</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button} onPress={handleReceivePress}>
-                        <Image source={require('../../assets/Receive.png')} />
-                        <Text>Receive</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.button}>
-                        <Image source={require('../../assets/send.png')} />
-                        <Text>Withdraw</Text>
-                    </TouchableOpacity>
-                </View> */}
                 <Text style={styles.assetText}>Asset</Text>
                 <ScrollView style={styles.assetContainer}>
                     <TouchableOpacity style={styles.asset}
