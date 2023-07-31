@@ -35,7 +35,7 @@ function CryptoAppMain(): JSX.Element {
     const navigation = useNavigation();
     const dispatch = useDispatch();
     const projectId = '68a720495e3c0321e66a2ecca9dd75db';
-    const { provider, address } = useWalletConnectModal();
+    const { provider, address, isConnected } = useWalletConnectModal();
     const usdtContractAddress = '0xdac17f958d2ee523a2206206994597c13d831ec7'; // USDT contract address
     const usdcContractAddress = '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'; // USDC contract address
     const [ethBalance, setEthBalance] = useState<any>(null);
@@ -250,9 +250,11 @@ function CryptoAppMain(): JSX.Element {
             </ScrollView>
             <View style={styles.cryptoAvailableContainer}>
                 <Text style={styles.cryptoAvailableText}>
-                    {
+                    {isConnected ? (
                         selectedCrypto === 'ethereum' ? `${ethBalance} ETH Available` : selectedCrypto === 'tether' ? `${usdtBalance} USDT Available` : `${usdcBalance} USDC Available`
-                    }
+                    ) : (
+                        'Connect Wallet'
+                    )}
                 </Text>
             </View>
             <View style={styles.cryptoToSendContainer}>
