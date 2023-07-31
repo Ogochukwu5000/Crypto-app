@@ -120,6 +120,15 @@ function userReducer(state = initialUserState, action: any) {
                     profilePicture: action.payload,
                 }
             };
+        case 'SET_PERSONAL_INFO':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    ...action.payload,
+                }
+            };
+
         default:
             return state;
     }
