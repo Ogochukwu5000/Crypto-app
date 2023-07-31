@@ -51,7 +51,9 @@ function Home(): JSX.Element {
 
     const fetchEthCoinData = async () => {
         try {
-            const response = await axios.get(`${COIN_GECO_API}coins/${`ethereum`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`);
+            const response = await axios.get(`${COIN_GECO_API}coins/${`ethereum`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
+                headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+            });
             setEthCoin(response.data);
         } catch (e: any) {
             console.log(e.response.data);
@@ -60,7 +62,9 @@ function Home(): JSX.Element {
 
     const fetchUsdtCoinData = async () => {
         try {
-            const response = await axios.get(`${COIN_GECO_API}coins/${`tether`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`);
+            const response = await axios.get(`${COIN_GECO_API}coins/${`tether`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
+                headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+            });
             setUsdtCoin(response.data);
         } catch (e: any) {
             console.log(e.response.data);
@@ -69,7 +73,9 @@ function Home(): JSX.Element {
 
     const fetchUsdcCoinData = async () => {
         try {
-            const response = await axios.get(`${COIN_GECO_API}coins/${`usd-coin`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`);
+            const response = await axios.get(`${COIN_GECO_API}coins/${`usd-coin`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
+                headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+            });
             setUsdCoin(response.data);
         } catch (e: any) {
             console.log(e.response.data);
