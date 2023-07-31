@@ -7,6 +7,7 @@ import {
     Dimensions,
     TouchableOpacity,
     Image,
+    ActivityIndicator,
 } from 'react-native';
 import CoinDetailedScreen from './CoinDetailedScreen';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -44,6 +45,20 @@ function Home(): JSX.Element {
     const [ethcoin, setEthCoin] = useState<Coin | null>(null);
     const [usdtcoin, setUsdtCoin] = useState<Coin | null>(null);
     const [usdccoin, setUsdCoin] = useState<Coin | null>(null);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const loadData = async () => {
+        setIsLoading(true);
+        try {
+            // Load data here
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setTimeout(() => {
+                setIsLoading(false);
+            }, 2000); // Set a delay of 2 seconds (2000 milliseconds)
+        }
+    };
 
     const fetchEthCoinData = async () => {
         try {
@@ -84,6 +99,13 @@ function Home(): JSX.Element {
         fetchUsdcCoinData();
     }, [coinId]);
 
+
+    useEffect(() => {
+        if (isConnected) {
+            loadData();
+        }
+    }, [isConnected]);
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -95,88 +117,92 @@ function Home(): JSX.Element {
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
                 {
                     isConnected ? (
-                        <>
-                            <Text style={styles.assetText}>Asset</Text>
-                            <ScrollView style={styles.assetContainer}>
-                                <TouchableOpacity style={styles.asset}
-                                    onPress={() => {
-                                        setCoinId('ethereum');
-                                    }}
-                                >
-                                    <Image style={styles.assetIcon} source={require('../../assets/Ethereum.png')} />
-                                    <View style={
-                                        styles.assetTextContainer
-                                    }>
-                                        <Text style={styles.assetName}>Ethereum</Text>
-                                        <Text style={styles.assetCryptoPrice}>{user?.balance?.eth?.tokenBalance} ETH</Text>
-                                    </View>
-                                    <View style={
-                                        [styles.assetTextContainer]
-                                    }>
-                                        <Text style={styles.assetPrice}>$ {user?.balance?.eth.usdBalance}</Text>
-                                        <Text style={[styles.assetPercent, ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
-                                        ]}>{
-                                                ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? `${ethcoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${ethcoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
-                                            }</Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.asset}
-                                    onPress={() => {
-                                        setCoinId('tether');
-                                    }}
-                                >
-                                    <Image style={styles.assetIcon} source={require('../../assets/Tether.png')} />
-                                    <View style={
-                                        styles.assetTextContainer
-                                    }>
-                                        <Text style={styles.assetName}>Tether</Text>
-                                        <Text style={styles.assetCryptoPrice}>{user?.balance?.usdt?.tokenBalance} USDT</Text>
-                                    </View>
-                                    <View style={
-                                        styles.assetTextContainer
-                                    }>
-                                        <Text style={styles.assetPrice}>$ {user?.balance?.usdt.usdBalance}</Text>
-                                        <Text style={[styles.assetPercent, usdtcoin?.market_data && usdtcoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
-                                        ]}>
-                                            {
-                                                usdtcoin?.market_data && usdtcoin?.market_data.price_change_percentage_24h > 0 ? `${usdtcoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${usdtcoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
-                                            }
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={styles.asset}
-                                    onPress={() => {
-                                        setCoinId('usd-coin');
-                                    }}
-                                >
-                                    <Image style={styles.assetIcon} source={require('../../assets/usd-coin.png')} />
-                                    <View style={
-                                        styles.assetTextContainer
-                                    }>
-                                        <Text style={styles.assetName}>USD Coin</Text>
-                                        <Text style={styles.assetCryptoPrice}>{user?.balance?.usdc?.tokenBalance ? user?.balance?.usdc?.tokenBalance : 0} USDC</Text>
-                                    </View>
-                                    <View style={
-                                        styles.assetTextContainer
-                                    }>
-                                        <Text style={styles.assetPrice}>$ {user?.balance?.usdc.usdBalance}</Text>
-                                        <Text style={[styles.assetPercent, usdccoin?.market_data && usdccoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
-                                        ]}>
-                                            {
-                                                usdccoin?.market_data && usdccoin?.market_data.price_change_percentage_24h > 0 ? `${usdccoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${usdccoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
-                                            }
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </ScrollView>
-                        </>
-                    ) : (
-                        <>
-                            <Text style={styles.connectWalletText}>Connect Wallet</Text>
-                            <Text>
-                                To view your assets, please connect your wallet.
-                            </Text>
-                        </>)
+                        isLoading ? (
+                            <ActivityIndicator size="large" color="#0000ff" />
+                        ) : (
+                            <>
+                                <Text style={styles.assetText}>Asset</Text>
+                                <ScrollView style={styles.assetContainer}>
+                                    <TouchableOpacity style={styles.asset}
+                                        onPress={() => {
+                                            setCoinId('ethereum');
+                                        }}
+                                    >
+                                        <Image style={styles.assetIcon} source={require('../../assets/Ethereum.png')} />
+                                        <View style={
+                                            styles.assetTextContainer
+                                        }>
+                                            <Text style={styles.assetName}>Ethereum</Text>
+                                            <Text style={styles.assetCryptoPrice}>{user?.balance?.eth?.tokenBalance} ETH</Text>
+                                        </View>
+                                        <View style={
+                                            [styles.assetTextContainer]
+                                        }>
+                                            <Text style={styles.assetPrice}>$ {user?.balance?.eth.usdBalance}</Text>
+                                            <Text style={[styles.assetPercent, ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
+                                            ]}>{
+                                                    ethcoin?.market_data && ethcoin?.market_data.price_change_percentage_24h > 0 ? `${ethcoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${ethcoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
+                                                }</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.asset}
+                                        onPress={() => {
+                                            setCoinId('tether');
+                                        }}
+                                    >
+                                        <Image style={styles.assetIcon} source={require('../../assets/Tether.png')} />
+                                        <View style={
+                                            styles.assetTextContainer
+                                        }>
+                                            <Text style={styles.assetName}>Tether</Text>
+                                            <Text style={styles.assetCryptoPrice}>{user?.balance?.usdt?.tokenBalance} USDT</Text>
+                                        </View>
+                                        <View style={
+                                            styles.assetTextContainer
+                                        }>
+                                            <Text style={styles.assetPrice}>$ {user?.balance?.usdt.usdBalance}</Text>
+                                            <Text style={[styles.assetPercent, usdtcoin?.market_data && usdtcoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
+                                            ]}>
+                                                {
+                                                    usdtcoin?.market_data && usdtcoin?.market_data.price_change_percentage_24h > 0 ? `${usdtcoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${usdtcoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
+                                                }
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    <TouchableOpacity style={styles.asset}
+                                        onPress={() => {
+                                            setCoinId('usd-coin');
+                                        }}
+                                    >
+                                        <Image style={styles.assetIcon} source={require('../../assets/usd-coin.png')} />
+                                        <View style={
+                                            styles.assetTextContainer
+                                        }>
+                                            <Text style={styles.assetName}>USD Coin</Text>
+                                            <Text style={styles.assetCryptoPrice}>{user?.balance?.usdc?.tokenBalance ? user?.balance?.usdc?.tokenBalance : 0} USDC</Text>
+                                        </View>
+                                        <View style={
+                                            styles.assetTextContainer
+                                        }>
+                                            <Text style={styles.assetPrice}>$ {user?.balance?.usdc.usdBalance}</Text>
+                                            <Text style={[styles.assetPercent, usdccoin?.market_data && usdccoin?.market_data.price_change_percentage_24h > 0 ? styles.positive : styles.negative
+                                            ]}>
+                                                {
+                                                    usdccoin?.market_data && usdccoin?.market_data.price_change_percentage_24h > 0 ? `${usdccoin?.market_data.price_change_percentage_24h.toFixed(2)}%` : `${usdccoin?.market_data.price_change_percentage_24h.toFixed(2)}%`
+                                                }
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </ScrollView>
+                            </>
+                        ))
+                        : (
+                            <>
+                                <Text style={styles.connectWalletText}>Connect Wallet</Text>
+                                <Text>
+                                    To view your assets, please connect your wallet.
+                                </Text>
+                            </>)
                 }
             </View>
         </SafeAreaView >
