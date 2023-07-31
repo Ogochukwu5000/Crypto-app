@@ -63,11 +63,6 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
     const [refreshing, setRefreshing] = useState<boolean>(false);
     const memoOnSelectedRangeChange = useCallback((range: string) => onSelectedRangeChange(range), []);
 
-    const headers = new Headers();
-
-    if (prod)
-        headers.append('x-cg-pro-api-key', 'CG-XwxgJwWcS3H6hG4c9AfLXSbL');
-
     const fetchCoinData = async () => {
         setLoading(true);
         try {
