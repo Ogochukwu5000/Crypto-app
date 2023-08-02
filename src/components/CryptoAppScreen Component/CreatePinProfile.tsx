@@ -77,7 +77,7 @@ function CreatePinProfile(): JSX.Element {
             shakePinContainer();
             return;
         }
-        if (pin.length === 4) {
+        else if (pin.length === 4 && user?.oldPin !== pin) {
             dispatch({
                 type: 'SET_PERSONAL_INFO',
                 payload: {
