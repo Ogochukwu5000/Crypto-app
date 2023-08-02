@@ -10,7 +10,8 @@ import {
     Animated,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import axios from 'axios';
+
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
@@ -20,7 +21,6 @@ function CurrentPin(): JSX.Element {
     const shakeAnimation = useRef(new Animated.Value(0)).current;
     const [isPinWrong, setIsPinWrong] = useState(false);
     const navigation = useNavigation();
-    const dispatch = useDispatch();
 
     const handlePinKeyPress = (digit: string) => {
         if (digit === 'X') {
@@ -67,6 +67,22 @@ function CurrentPin(): JSX.Element {
             setPinCount(0);
         });
     };
+
+    const handlePinSubmit = () => {
+        if (pin.length === 4) {
+            navigation.navigate('ConfirmPinProfile' as never);
+        }
+    };
+
+    // useEffect(() => {
+    //     if (pin.length === 4) {
+    //         setIsPinWrong(true);
+    //         shakePinContainer();
+    //     } else {
+    //         setIsPinWrong(false);
+    //         handlePinSubmit();
+    //     }
+    // }, [pin]);
 
     return (
         <SafeAreaView style={styles.container}>
