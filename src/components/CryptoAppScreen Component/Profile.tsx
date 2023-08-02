@@ -38,6 +38,7 @@ function Profile(): JSX.Element {
                     onPress: () => {
                         dispatch({ type: 'LOGOUT' });
                         navigation.navigate('Login' as never);
+                        dispatch({ type: 'CLEAR_REDUX' });
                     },
                 },
             ],
