@@ -77,12 +77,12 @@ function LoginScreen(): JSX.Element {
     setPasswordHidden(!passwordHidden);
   };
 
-  useEffect(() => {
-    //clear redux
-    dispatch({
-      type: 'CLEAR_REDUX',
-    });
-  }, []);
+  // useEffect(() => {
+  //   //clear redux
+  //   dispatch({
+  //     type: 'CLEAR_REDUX',
+  //   });
+  // }, []);
 
   return (
     <SafeAreaView style={styles.container}>
