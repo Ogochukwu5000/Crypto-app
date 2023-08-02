@@ -131,6 +131,15 @@ function userReducer(state = initialUserState, action: any) {
                 }
             };
 
+        case 'CLEAR_REDUX':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    ...initialUserState.user,
+                }
+            };
+
         default:
             return state;
     }
