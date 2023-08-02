@@ -78,8 +78,14 @@ function CurrentPin(): JSX.Element {
                 email: user?.email,
                 old_pin: pin,
             }).then((res) => {
-                console.log(res.data);
+                //console.log(res.data);
                 if (res.data.status) {
+                    dispatch({
+                        type: 'SET_PERSONAL_INFO',
+                        payload: {
+                            oldPin: pin,
+                        },
+                    });
                     navigation.navigate('CreatePinProfile' as never);
                 } else {
                     setIsPinWrong(true);
