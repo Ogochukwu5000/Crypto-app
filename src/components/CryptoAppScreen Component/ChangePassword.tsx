@@ -55,6 +55,11 @@ function ChangePassword(): JSX.Element {
             return;
         }
 
+        if (password === newPassword) {
+            Alert.alert('Error', 'New password cannot be the same as old password');
+            return;
+        }
+
         if (newPassword !== confirmPassword) {
             Alert.alert('Error', 'Passwords do not match');
             return;
