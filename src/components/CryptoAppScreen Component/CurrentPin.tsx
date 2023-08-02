@@ -73,11 +73,11 @@ function CurrentPin(): JSX.Element {
 
     const handlePinSubmit = () => {
         if (pin.length === 4) {
-            //navigation.navigate('ConfirmPinProfile' as never);
             axios.post('http://10.0.0.174:8000/user/verify-old-pin', {
                 email: user?.email,
                 old_pin: pin,
             }).then((res) => {
+                console.log(res.data);
                 if (res.data.status) {
                     navigation.navigate('ConfirmPinProfile' as never);
                 } else {
@@ -90,15 +90,11 @@ function CurrentPin(): JSX.Element {
         }
     };
 
-    // useEffect(() => {
-    //     if (pin.length === 4) {
-    //         setIsPinWrong(true);
-    //         shakePinContainer();
-    //     } else {
-    //         setIsPinWrong(false);
-    //         handlePinSubmit();
-    //     }
-    // }, [pin]);
+    useEffect(() => {
+        if (pin.length === 4) {
+            handlePinSubmit();
+        }
+    }, [pin]);
 
     return (
         <SafeAreaView style={styles.container}>
