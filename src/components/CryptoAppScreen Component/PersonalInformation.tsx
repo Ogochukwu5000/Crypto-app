@@ -37,6 +37,12 @@ function PersonalInformation(): JSX.Element {
     };
 
     const handleSubmit = () => {
+        if (!firstName || !lastName || !cryptoTag || !bio) {
+            return;
+        }
+        if (firstName === user?.firstName && lastName === user?.lastName && cryptoTag === user?.cryptoTag && bio === user?.bio) {
+            return;
+        }
         axios
             .post('http://10.0.0.174:8000/user/update-personal-info', {
                 firstName,
