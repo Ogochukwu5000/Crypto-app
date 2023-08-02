@@ -64,9 +64,12 @@ function PersonalInformation(): JSX.Element {
                         bio,
                     },
                 });
+                Alert.alert('Success', 'Your personal information has been updated');
             })
             .catch((err) => {
                 console.log(err);
+                navigation.goBack();
+                Alert.alert('Error', 'Something went wrong, please try again');
             });
     };
 
