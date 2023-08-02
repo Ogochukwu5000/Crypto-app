@@ -66,6 +66,7 @@ function ChangePassword(): JSX.Element {
             new_password: newPassword,
         }).then((res) => {
             if (res.data.status) {
+                navigation.goBack();
                 Alert.alert('Success', 'Password changed successfully');
                 setPassword('');
                 setNewPassword('');
