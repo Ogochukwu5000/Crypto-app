@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { WalletConnectModal, useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { TextEncoder, TextDecoder } from 'text-encoding';
 import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -22,6 +23,8 @@ function Wallet(): JSX.Element {
     const navigation = useNavigation();
     const [selectedWallet, setSelectedWallet] = useState('');
     const projectId = '68a720495e3c0321e66a2ecca9dd75db';
+    const dispatch = useDispatch();
+    const user = useSelector((state: RootState) => state.userReducer.user);
     const { open, close, provider, isConnected, address } = useWalletConnectModal();
 
     const providerMetadata = {
