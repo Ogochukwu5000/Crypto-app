@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import { RootState } from '../../../store/reducers';
+import { useSelector } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -21,6 +23,7 @@ function CurrentPin(): JSX.Element {
     const shakeAnimation = useRef(new Animated.Value(0)).current;
     const [isPinWrong, setIsPinWrong] = useState(false);
     const navigation = useNavigation();
+    const user = useSelector((state: RootState) => state.userReducer.user);
 
     const handlePinKeyPress = (digit: string) => {
         if (digit === 'X') {
@@ -70,7 +73,20 @@ function CurrentPin(): JSX.Element {
 
     const handlePinSubmit = () => {
         if (pin.length === 4) {
-            navigation.navigate('ConfirmPinProfile' as never);
+            //navigation.navigate('ConfirmPinProfile' as never);
+            axios.post('http://10.0.0.174:8000/user/verify-old-pin', {
+                email: user?.email,
+                old_pin: pin,
+            }).then((res) => {
+                if (res.data.status) {
+                    navigation.navigate('ConfirmPinProfile' as never);
+                } else {
+                    setIsPinWrong(true);
+                    shakePinContainer();
+                }
+            }).catch((err) => {
+                console.log(err);
+            });
         }
     };
 
