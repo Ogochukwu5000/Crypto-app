@@ -1,6 +1,5 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import PinVerification from '../components/PinVerificationScreen Component/PinVerificationScreen';
 import ForgotPassword from '../components/ForgotPasswordScreen Component/ForgotPasswordScreen';
 import CheckEmailScreen from '../components/CheckEmailScreen Component/CheckEmailScreen';
 import CreateNewPassword from '../components/CreateNewPasswordScreen Component/CreateNewPassword';
@@ -20,11 +19,6 @@ function PreAuthenticationNav(): JSX.Element {
       <Stack.Screen
         name="Login"
         component={LoginScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="PinVerification"
-        component={PinVerification}
         options={{ headerShown: false }}
       />
       <Stack.Screen
