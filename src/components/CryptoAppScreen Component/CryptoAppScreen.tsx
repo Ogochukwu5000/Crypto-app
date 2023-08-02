@@ -10,7 +10,6 @@ import PersonalInformation from './PersonalInformation';
 import Security from './Security';
 import ChangePassword from './ChangePassword';
 import CurrentPin from './CurrentPin';
-import CreatePin from './CreatePin';
 import ConfirmPin from './ConfirmPin';
 import Wallet from './Wallet';
 
@@ -71,11 +70,6 @@ function CryptoApp(): JSX.Element {
             <Stack.Screen
                 name="CurrentPin"
                 component={CurrentPin}
-                options={{ headerShown: false }}
-            />
-            <Stack.Screen
-                name="CreatePinProfile"
-                component={CreatePin}
                 options={{ headerShown: false }}
             />
             <Stack.Screen
