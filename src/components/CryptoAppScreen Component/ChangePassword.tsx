@@ -79,13 +79,13 @@ function ChangePassword(): JSX.Element {
                     <TextInput
                         style={styles.input}
                         placeholder="Current Password"
-                        onChangeText={setPassword}
                         value={password}
                         keyboardType="default"
                         placeholderTextColor={'#3D4C63'}
                         secureTextEntry={passwordHidden}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
+                        onChangeText={(text) => setPassword(text)}
                     />
                     <TouchableOpacity
                         style={styles.passwordEye}
@@ -104,13 +104,13 @@ function ChangePassword(): JSX.Element {
                     <TextInput
                         style={styles.input}
                         placeholder="New Password"
-                        onChangeText={setNewPassword}
                         value={newPassword}
                         keyboardType="default"
                         placeholderTextColor={'#3D4C63'}
                         secureTextEntry={newPasswordHidden}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
+                        onChangeText={(text) => setNewPassword(text)}
                     />
                     <TouchableOpacity
                         style={styles.passwordEye}
@@ -129,13 +129,13 @@ function ChangePassword(): JSX.Element {
                     <TextInput
                         style={styles.input}
                         placeholder="Confirm Password"
-                        onChangeText={setConfirmPassword}
                         value={confirmPassword}
                         keyboardType="default"
                         placeholderTextColor={'#3D4C63'}
                         secureTextEntry={confirmPasswordHidden}
                         onFocus={handleFocus}
                         onSubmitEditing={handleBlur}
+                        onChangeText={(text) => setConfirmPassword(text)}
                     />
                     <TouchableOpacity
                         style={styles.passwordEye}
