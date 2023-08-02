@@ -72,7 +72,7 @@ function CreatePinProfile(): JSX.Element {
     };
 
     const handlePinSubmit = () => {
-        if (user?.oldPin !== pin) {
+        if (user?.oldPin === pin) {
             setIsPinWrong(true);
             shakePinContainer();
             return;
