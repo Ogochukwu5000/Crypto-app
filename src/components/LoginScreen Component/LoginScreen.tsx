@@ -49,7 +49,7 @@ function LoginScreen(): JSX.Element {
               firstName: response.data.user.first_name,
               lastName: response.data.user.last_name,
               bio: response.data.user.bio,
-              profilePicture: response.data.user.profile_picture,
+              profilePicture: { profilePicture: response.data.user.profile_picture },
               walletAddress: response.data.user.wallet_address,
             },
           });
