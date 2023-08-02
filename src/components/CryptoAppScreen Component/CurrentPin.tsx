@@ -79,7 +79,7 @@ function CurrentPin(): JSX.Element {
             }).then((res) => {
                 console.log(res.data);
                 if (res.data.status) {
-                    navigation.navigate('ConfirmPinProfile' as never);
+                    navigation.navigate('CreatePinProfile' as never);
                 } else {
                     setIsPinWrong(true);
                     shakePinContainer();
