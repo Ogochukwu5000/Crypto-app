@@ -43,6 +43,7 @@ function PersonalInformation(): JSX.Element {
                 lastName,
                 cryptoTag,
                 bio,
+                email: user?.email,
             })
             .then((res) => {
                 console.log(res);
