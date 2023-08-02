@@ -81,6 +81,7 @@ function ConfirmPin(): JSX.Element {
                 console.log(res.data);
                 if (res.data.status) {
                     navigation.navigate('Profile' as never);
+                    Alert.alert('Success', 'PIN changed successfully');
                 } else {
                     setIsPinWrong(true);
                     shakePinContainer();
