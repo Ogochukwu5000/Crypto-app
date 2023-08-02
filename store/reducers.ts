@@ -16,6 +16,7 @@ interface User {
     bio: string;
     walletAddress: string;
     newPin: string;
+    oldPin: string;
 }
 
 interface UserState {
@@ -38,6 +39,7 @@ const initialUserState: UserState = {
         bio: '',
         walletAddress: '',
         newPin: '',
+        oldPin: '',
         balance: {
             eth: {
                 tokenBalance: 0,
