@@ -10,9 +10,7 @@ import {
     Animated,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import axios from 'axios';
-import { RootState } from '../../../store/reducers';
-import { useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -20,10 +18,10 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function CreatePinProfile(): JSX.Element {
     const [pin, setPin] = useState('');
     const [pinCount, setPinCount] = useState(0);
+    const dispatch = useDispatch();
     const shakeAnimation = useRef(new Animated.Value(0)).current;
     const [isPinWrong, setIsPinWrong] = useState(false);
     const navigation = useNavigation();
-    const user = useSelector((state: RootState) => state.userReducer.user);
 
     const handlePinKeyPress = (digit: string) => {
         if (digit === 'X') {
@@ -37,43 +35,51 @@ function CreatePinProfile(): JSX.Element {
         }
     };
 
-    const shakePinContainer = () => {
-        Animated.sequence([
-            Animated.timing(shakeAnimation, {
-                toValue: -10,
-                duration: 50,
-                useNativeDriver: true,
-            }),
-            Animated.timing(shakeAnimation, {
-                toValue: 10,
-                duration: 50,
-                useNativeDriver: true,
-            }),
-            Animated.timing(shakeAnimation, {
-                toValue: -10,
-                duration: 50,
-                useNativeDriver: true,
-            }),
-            Animated.timing(shakeAnimation, {
-                toValue: 10,
-                duration: 50,
-                useNativeDriver: true,
-            }),
-            Animated.timing(shakeAnimation, {
-                toValue: 0,
-                duration: 50,
-                useNativeDriver: true,
-            }),
-        ]).start(() => {
-            // Animation completed, clear the pin
-            setPin('');
-            setPinCount(0);
-        });
-    };
+    // const shakePinContainer = () => {
+    //     Animated.sequence([
+    //         Animated.timing(shakeAnimation, {
+    //             toValue: -10,
+    //             duration: 50,
+    //             useNativeDriver: true,
+    //         }),
+    //         Animated.timing(shakeAnimation, {
+    //             toValue: 10,
+    //             duration: 50,
+    //             useNativeDriver: true,
+    //         }),
+    //         Animated.timing(shakeAnimation, {
+    //             toValue: -10,
+    //             duration: 50,
+    //             useNativeDriver: true,
+    //         }),
+    //         Animated.timing(shakeAnimation, {
+    //             toValue: 10,
+    //             duration: 50,
+    //             useNativeDriver: true,
+    //         }),
+    //         Animated.timing(shakeAnimation, {
+    //             toValue: 0,
+    //             duration: 50,
+    //             useNativeDriver: true,
+    //         }),
+    //     ]).start(() => {
+    //         // Animation completed, clear the pin
+    //         setPin('');
+    //         setPinCount(0);
+    //     });
+    // };
 
     const handlePinSubmit = () => {
         if (pin.length === 4) {
+            dispatch({
+                type: 'SET_PERSONAL_INFO',
+                payload: {
+                    newPin: pin,
+                },
+            });
+
             navigation.navigate('ConfirmPinProfile' as never);
+
         }
     };
 
