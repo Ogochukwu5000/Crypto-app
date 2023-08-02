@@ -12,7 +12,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { RootState } from '../../../store/reducers';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -20,6 +20,7 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function CurrentPin(): JSX.Element {
     const [pin, setPin] = useState('');
     const [pinCount, setPinCount] = useState(0);
+    const dispatch = useDispatch();
     const shakeAnimation = useRef(new Animated.Value(0)).current;
     const [isPinWrong, setIsPinWrong] = useState(false);
     const navigation = useNavigation();
