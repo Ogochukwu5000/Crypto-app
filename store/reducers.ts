@@ -76,6 +76,7 @@ function userReducer(state = initialUserState, action: any) {
                 ...state,
                 user: {
                     ...state.user,
+                    ...action.payload,
                     authenticated: true,
                     token: action.payload.token,
                 }
