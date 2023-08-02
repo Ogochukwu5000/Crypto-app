@@ -15,6 +15,7 @@ import { WalletConnectModal, useWalletConnectModal } from '@walletconnect/modal-
 import { TextEncoder, TextDecoder } from 'text-encoding';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store/reducers';
+import axios from 'axios';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -68,6 +69,20 @@ function Wallet(): JSX.Element {
                                 open();
                                 if (isConnected) {
                                     close();
+                                    axios.post('http://10.0.0.174:8000/user/add-wallet-address', {
+                                        wallet_address: address,
+                                        email: user?.email,
+                                    }).then((res) => {
+                                        //console.log(res.data);
+                                        dispatch({
+                                            type: 'SET_PERSONAL_INFO',
+                                            payload: {
+                                                walletAddress: address,
+                                            }
+                                        });
+                                    }).catch((err) => {
+                                        console.log(err);
+                                    });
                                 }
                             }
                         },
