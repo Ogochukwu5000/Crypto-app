@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Text,
   Image,
@@ -76,6 +76,13 @@ function LoginScreen(): JSX.Element {
   const togglePasswordHidden = () => {
     setPasswordHidden(!passwordHidden);
   };
+
+  useEffect(() => {
+    //clear redux
+    dispatch({
+      type: 'CLEAR_REDUX',
+    });
+  }, []);
 
   return (
     <SafeAreaView style={styles.container}>
