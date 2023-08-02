@@ -7,6 +7,7 @@ import {
     View,
     TextInput,
     Dimensions,
+    Alert,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -48,7 +49,34 @@ function ChangePassword(): JSX.Element {
         setIsFocused(false);
     };
 
-    const handleSubmit = () => { };
+    const handleSubmit = () => {
+        if (!password || !newPassword || !confirmPassword) {
+            Alert.alert('Error', 'Please fill in all the fields');
+            return;
+        }
+
+        if (newPassword !== confirmPassword) {
+            Alert.alert('Error', 'Passwords do not match');
+            return;
+        }
+
+        axios.post('http://10.0.0.174:8000/user/change-password', {
+            email: user?.email,
+            old_password: password,
+            new_password: newPassword,
+        }).then((res) => {
+            if (res.data.status) {
+                Alert.alert('Success', 'Password changed successfully');
+                setPassword('');
+                setNewPassword('');
+                setConfirmPassword('');
+            } else {
+                Alert.alert('Error', `${res.data.message}`);
+            }
+        }).catch((err) => {
+
+        });
+    };
 
     return (
         <SafeAreaView style={styles.container}>
