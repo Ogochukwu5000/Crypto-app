@@ -12,6 +12,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -21,6 +22,7 @@ function ChangePassword(): JSX.Element {
     const [isFocused, setIsFocused] = useState(false);
     const [password, setPassword] = useState('');
     const [passwordHidden, setPasswordHidden] = useState(true);
+    const user = useSelector((state: RootState) => state.userReducer.user);
     const [newPassword, setNewPassword] = useState('');
     const [newPasswordHidden, setNewPasswordHidden] = useState(true);
     const [confirmPassword, setConfirmPassword] = useState('');
