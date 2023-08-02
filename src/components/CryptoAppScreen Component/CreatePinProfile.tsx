@@ -8,7 +8,6 @@ import {
     Dimensions,
     TouchableOpacity,
     Animated,
-    Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -74,21 +73,7 @@ function CreatePinProfile(): JSX.Element {
 
     const handlePinSubmit = () => {
         if (pin.length === 4) {
-            axios.post('http://10.0.0.174:8000/user/change-pin', {
-                email: user?.email,
-                new_pin: pin,
-            }).then((res) => {
-                console.log(res.data);
-                if (res.data.status) {
-                    navigation.navigate('Profile' as never);
-                    Alert.alert('Success', 'PIN changed successfully');
-                } else {
-                    setIsPinWrong(true);
-                    shakePinContainer();
-                }
-            }).catch((err) => {
-                console.log(err);
-            });
+            navigation.navigate('ConfirmPinProfile' as never);
         }
     };
 
