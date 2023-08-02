@@ -48,6 +48,8 @@ function ChangePassword(): JSX.Element {
         setIsFocused(false);
     };
 
+    const handleSubmit = () => { };
+
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -148,6 +150,11 @@ function ChangePassword(): JSX.Element {
                         }
                     </TouchableOpacity>
                 </View>
+                <TouchableOpacity onPress={
+                    () => handleSubmit()
+                } style={[styles.saveButton, isSmallScreen && styles.smallScreenSaveButton]}>
+                    <Text style={styles.saveButtonText}>Save</Text>
+                </TouchableOpacity>
             </View>
         </SafeAreaView >
     );
@@ -228,6 +235,23 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderColor: '#D8D8D8',
         fontSize: 20,
+    },
+    saveButton: {
+        backgroundColor: '#3447F0',
+        width: 200,
+        height: 50,
+        borderRadius: 25,
+        marginTop: '10%',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    smallScreenSaveButton: {
+        marginTop: '5%',
+    },
+    saveButtonText: {
+        color: '#fff',
+        fontSize: 20,
+        fontWeight: 'bold',
     },
 });
 
