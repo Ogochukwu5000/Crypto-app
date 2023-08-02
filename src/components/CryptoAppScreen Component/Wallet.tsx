@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Text,
     Image,
@@ -69,20 +69,6 @@ function Wallet(): JSX.Element {
                                 open();
                                 if (isConnected) {
                                     close();
-                                    axios.post('http://10.0.0.174:8000/user/add-wallet-address', {
-                                        wallet_address: address,
-                                        email: user?.email,
-                                    }).then((res) => {
-                                        //console.log(res.data);
-                                        dispatch({
-                                            type: 'SET_PERSONAL_INFO',
-                                            payload: {
-                                                walletAddress: address,
-                                            }
-                                        });
-                                    }).catch((err) => {
-                                        console.log(err);
-                                    });
                                 }
                             }
                         },
@@ -164,6 +150,26 @@ function Wallet(): JSX.Element {
         }
 
     };
+
+
+    useEffect(() => {
+        if (address) {
+            axios.post('http://10.0.0.174:8000/user/add-wallet-address', {
+                wallet_address: address,
+                email: user?.email,
+            }).then((res) => {
+                console.log(res.data);
+                dispatch({
+                    type: 'SET_PERSONAL_INFO',
+                    payload: {
+                        walletAddress: address,
+                    }
+                });
+            }).catch((err) => {
+                console.log(err);
+            });
+        }
+    }, [address]);
 
 
     return (
