@@ -8,6 +8,7 @@ import {
     TextInput,
     KeyboardAvoidingView,
     Dimensions,
+    Alert,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
@@ -37,7 +38,7 @@ function PersonalInformation(): JSX.Element {
     };
 
     const handleSubmit = () => {
-        if (!firstName || !lastName || !cryptoTag || !bio) {
+        if (!firstName || !lastName || !cryptoTag) {
             return;
         }
         if (firstName === user?.firstName && lastName === user?.lastName && cryptoTag === user?.cryptoTag && bio === user?.bio) {
