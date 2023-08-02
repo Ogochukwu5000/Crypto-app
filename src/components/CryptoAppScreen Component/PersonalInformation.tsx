@@ -39,9 +39,11 @@ function PersonalInformation(): JSX.Element {
 
     const handleSubmit = () => {
         if (!firstName || !lastName || !cryptoTag) {
+            Alert.alert('Error', 'Please fill in all the fields');
             return;
         }
         if (firstName === user?.firstName && lastName === user?.lastName && cryptoTag === user?.cryptoTag && bio === user?.bio) {
+            Alert.alert('Error', 'Please change at least one field');
             return;
         }
         axios
@@ -53,7 +55,7 @@ function PersonalInformation(): JSX.Element {
                 email: user?.email,
             })
             .then((res) => {
-                console.log(res);
+                //console.log(res);
                 // SET_PERSONAL_INFO
                 dispatch({
                     type: 'SET_PERSONAL_INFO',
@@ -64,11 +66,11 @@ function PersonalInformation(): JSX.Element {
                         bio,
                     },
                 });
+                navigation.goBack();
                 Alert.alert('Success', 'Your personal information has been updated');
             })
             .catch((err) => {
                 console.log(err);
-                navigation.goBack();
                 Alert.alert('Error', 'Something went wrong, please try again');
             });
     };
