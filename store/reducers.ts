@@ -15,6 +15,7 @@ interface User {
     profilePicture: string | any;
     bio: string;
     walletAddress: string;
+    newPin: string;
 }
 
 interface UserState {
@@ -36,6 +37,7 @@ const initialUserState: UserState = {
         profilePicture: '',
         bio: '',
         walletAddress: '',
+        newPin: '',
         balance: {
             eth: {
                 tokenBalance: 0,
