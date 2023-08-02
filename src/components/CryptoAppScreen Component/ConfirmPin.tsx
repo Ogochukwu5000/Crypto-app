@@ -73,7 +73,7 @@ function ConfirmPin(): JSX.Element {
     };
 
     const handlePinSubmit = () => {
-        if (pin.length === 4) {
+        if (pin.length === 4 && pin === user?.newPin) {
             axios.post('http://10.0.0.174:8000/user/change-pin', {
                 email: user?.email,
                 new_pin: pin,
@@ -89,6 +89,9 @@ function ConfirmPin(): JSX.Element {
             }).catch((err) => {
                 console.log(err);
             });
+        } else {
+            setIsPinWrong(true);
+            shakePinContainer();
         }
     };
 
