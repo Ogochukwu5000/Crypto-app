@@ -11,6 +11,7 @@ import Security from './Security';
 import ChangePassword from './ChangePassword';
 import CurrentPin from './CurrentPin';
 import ConfirmPin from './ConfirmPin';
+import CreatePinProfile from './CreatePinProfile';
 import Wallet from './Wallet';
 
 function CryptoApp(): JSX.Element {
@@ -75,6 +76,11 @@ function CryptoApp(): JSX.Element {
             <Stack.Screen
                 name="ConfirmPinProfile"
                 component={ConfirmPin}
+                options={{ headerShown: false }}
+            />
+            <Stack.Screen
+                name="CreatePinProfile"
+                component={CreatePinProfile}
                 options={{ headerShown: false }}
             />
         </Stack.Navigator>
