@@ -118,7 +118,9 @@ function Home(): JSX.Element {
                 {
                     isConnected ? (
                         isLoading ? (
-                            <ActivityIndicator size="large" color="#0000ff" />
+                            <View style={styles.loading}>
+                                <ActivityIndicator size="large" color="#0000ff" />
+                            </View>
                         ) : (
                             <>
                                 <Text style={styles.assetText}>Asset</Text>
@@ -269,6 +271,11 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         padding: 10,
         gap: 3,
+    },
+    loading: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     assetText: {
         fontSize: 15,
