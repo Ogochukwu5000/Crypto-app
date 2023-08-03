@@ -251,8 +251,7 @@ function CryptoAppMain(): JSX.Element {
             <View style={styles.cryptoAvailableContainer}>
                 <Text style={styles.cryptoAvailableText}>
                     {isConnected ? (
-                        selectedCrypto === 'ethereum' ? `${ethBalance ? ethBalance : "Loading"} ETH Available` : selectedCrypto === 'tether' ? `${usdtBalance ? usdtBalance : "Loading"} USDT Available` : `${usdcBalance ? usdcBalance : "Loading"} USDC Available`
-                    ) : (
+                        selectedCrypto === 'ethereum' ? `${ethBalance || (ethBalance === 0 ? 0 : 'Loading')} ETH Available` : selectedCrypto === 'tether' ? `${usdtBalance || (usdtBalance === 0 ? 0 : 'Loading')} USDT Available` : `${usdcBalance || (usdcBalance === 0 ? 0 : 'Loading')} USDC Available`) : (
                         'Connect Wallet'
                     )}
                 </Text>
