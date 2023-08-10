@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
-    "postinstall": "rn-nodeify --install 'crypto,process,stream,events' --hack"
+    "postinstall": "rn-nodeify --install 'crypto,process,stream,events' --hack",
+    "clean-start": "rm -rf node_modules && yarn install && rm -rf $TMPDIR/react* && npm start --reset-cache"
   },
   "dependencies": {
     "@metamask/sdk": "^0.4.2",
@@ -67,7 +68,7 @@
     "react-native-tcp-socket": "^3.4.1",
     "react-native-toast-message": "^2.1.6",
     "react-native-wagmi-charts": "^2.3.0",
-    "react-redux": "^8.1.1",
+    "react-redux": "^8.1.2",
     "readable-stream": "^1.0.33",
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
