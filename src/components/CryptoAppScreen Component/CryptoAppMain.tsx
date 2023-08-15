@@ -6,7 +6,7 @@ import { Alchemy, Network } from "alchemy-sdk";
 import axios from 'axios';
 import web3 from 'web3';
 import { useDispatch } from 'react-redux';
-import { COIN_GECO_API, prod } from '../../constants/config';
+import { COIN_GECO_API } from '../../constants/config';
 
 
 interface KeypadButtonProps {
@@ -153,7 +153,7 @@ function CryptoAppMain(): JSX.Element {
             getUsdcBalance();
             axios
                 .get(`${COIN_GECO_API}simple/price?ids=ethereum&vs_currencies=usd`, {
-                    headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+                    headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
                 })
                 .then((response) => {
                     const ethPrice = response.data.ethereum.usd;
@@ -168,7 +168,7 @@ function CryptoAppMain(): JSX.Element {
 
             axios
                 .get(`${COIN_GECO_API}simple/price?ids=tether&vs_currencies=usd`, {
-                    headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+                    headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
                 })
                 .then((response) => {
                     const usdtPrice = response.data.tether.usd;
@@ -181,7 +181,7 @@ function CryptoAppMain(): JSX.Element {
 
             axios
                 .get(`${COIN_GECO_API}simple/price?ids=usd-coin&vs_currencies=usd`, {
-                    headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+                    headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
                 })
                 .then((response) => {
                     //console.log(response.data);

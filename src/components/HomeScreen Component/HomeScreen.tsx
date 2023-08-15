@@ -15,7 +15,7 @@ import { useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { useSelector } from 'react-redux';
 import { RootState } from "../../../store/reducers";
 import axios from 'axios';
-import { COIN_GECO_API, prod } from '../../constants/config';
+import { COIN_GECO_API } from '../../constants/config';
 
 
 const { width } = Dimensions.get('window');
@@ -63,7 +63,7 @@ function Home(): JSX.Element {
     const fetchEthCoinData = async () => {
         try {
             const response = await axios.get(`${COIN_GECO_API}coins/${`ethereum`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
-                headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+                headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
             });
             setEthCoin(response.data);
         } catch (e: any) {
@@ -74,7 +74,7 @@ function Home(): JSX.Element {
     const fetchUsdtCoinData = async () => {
         try {
             const response = await axios.get(`${COIN_GECO_API}coins/${`tether`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
-                headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+                headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
             });
             setUsdtCoin(response.data);
         } catch (e: any) {
@@ -85,7 +85,7 @@ function Home(): JSX.Element {
     const fetchUsdcCoinData = async () => {
         try {
             const response = await axios.get(`${COIN_GECO_API}coins/${`usd-coin`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
-                headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+                headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
             });
             setUsdCoin(response.data);
         } catch (e: any) {

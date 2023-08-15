@@ -12,7 +12,7 @@ import styles from "./styles";
 import { LineChart } from "react-native-wagmi-charts";
 import FilterComponent from "./FilterComponent";
 import axios from "axios";
-import { COIN_GECO_API, prod } from '../../constants/config';
+import { COIN_GECO_API } from '../../constants/config';
 
 interface Coin {
     id: string;
@@ -67,7 +67,7 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
         setLoading(true);
         try {
             const response = await axios.get(`${COIN_GECO_API}coins/${coinId}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
-                headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+                headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
             });
             setCoin(response.data);
         } catch (e: any) {
@@ -80,7 +80,7 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
     const fetchMarketCoinData = async (selectedRangeValue: string) => {
         try {
             const response = await axios.get(`${COIN_GECO_API}coins/${coinId}/market_chart?vs_currency=usd&days=${selectedRangeValue}&interval=hourly`, {
-                headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+                headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
             });
             setCoinMarketData(response.data);
         } catch (e) {
@@ -91,7 +91,7 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
     const fetchCandleStickChartData = async (selectedRangeValue: string) => {
         try {
             const response = await axios.get(`${COIN_GECO_API}coins/${coinId}/ohlc?vs_currency=usd&days=${selectedRangeValue}`, {
-                headers: prod ? { 'x-cg-pro-api-key': 'CG-XwxgJwWcS3H6hG4c9AfLXSbL' } : undefined,
+                headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
             });
             setCoinCandleChartData(response.data);
         } catch (e) {
