@@ -133,6 +133,10 @@ function CryptoAppMain(): JSX.Element {
         setCryptoAmount(equivalentCryptoAmount);
     };
 
+    const handleNavigateToChooseRecipient = () => {
+        navigation.navigate('ChooseRecipientScreen' as never)
+    };
+
     useEffect(() => {
         setCryptoAmount('0.00');
         setAmount('0');
@@ -265,9 +269,10 @@ function CryptoAppMain(): JSX.Element {
                 </Text>
             </View>
             <TouchableOpacity onPress={
-                () => navigation.navigate('ChooseRecipientScreen' as never)
-            } style={[styles.chooseRecipientContainer, isSmallScreen && styles.chooseRecipientContainerSmallScreen
-            ]}>
+                handleNavigateToChooseRecipient
+            }
+                style={[styles.chooseRecipientContainer, isSmallScreen && styles.chooseRecipientContainerSmallScreen
+                ]}>
                 <Text style={styles.chooseRecipientText}>
                     Choose Recipient
                 </Text>
