@@ -68,8 +68,7 @@ function CryptoAppMain(): JSX.Element {
     const getEthBalance = async () => {
         const balance = await alchemy.core.getBalance(address as any);
         const formattedEthBalance = web3.utils.fromWei(balance as any, 'ether');
-        setEthBalance(formattedEthBalance);
-        console.log(formattedEthBalance);
+        setEthBalance(String(Number(formattedEthBalance).toFixed(5)));
     };
 
     const getUsdtBalance = async () => {
