@@ -48,7 +48,7 @@ const filterDaysArray = [
     { filterDay: "7", filterText: "1W" },
     { filterDay: "30", filterText: "1M" },
     { filterDay: "365", filterText: "1Y" },
-    { filterDay: "max", filterText: "All" },
+    //{ filterDay: "max", filterText: "All" },
 ];
 
 const { width } = Dimensions.get('window');
@@ -66,12 +66,10 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
     const fetchCoinData = async () => {
         setLoading(true);
         try {
-            const response = await axios.get(`${COIN_GECO_API}coins/${coinId}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
-                headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
-            });
+            const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`);
             setCoin(response.data);
-        } catch (e: any) {
-            console.log(e.response.data);
+        } catch (e) {
+            console.log(e);
         } finally {
             setLoading(false);
         }
@@ -79,25 +77,60 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
 
     const fetchMarketCoinData = async (selectedRangeValue: string) => {
         try {
-            const response = await axios.get(`${COIN_GECO_API}coins/${coinId}/market_chart?vs_currency=usd&days=${selectedRangeValue}&interval=hourly`, {
-                headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
-            });
+            const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${selectedRangeValue}`);
+            console.log(response.data);
             setCoinMarketData(response.data);
         } catch (e) {
+            console.log("Doesn't work");
             console.log(e);
         }
     };
 
     const fetchCandleStickChartData = async (selectedRangeValue: string) => {
         try {
-            const response = await axios.get(`${COIN_GECO_API}coins/${coinId}/ohlc?vs_currency=usd&days=${selectedRangeValue}`, {
-                headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
-            });
+            const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}/ohlc?vs_currency=usd&days=${selectedRangeValue}`);
             setCoinCandleChartData(response.data);
+            console.log(response.data);
         } catch (e) {
             console.log(e);
         }
     };
+
+    // const fetchCoinData = async () => {
+    //     setLoading(true);
+    //     try {
+    //         const response = await axios.get(`${COIN_GECO_API}coins/${coinId}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
+    //             headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
+    //         });
+    //         setCoin(response.data);
+    //     } catch (e: any) {
+    //         console.log(e.response.data);
+    //     } finally {
+    //         setLoading(false);
+    //     }
+    // };
+
+    // const fetchMarketCoinData = async (selectedRangeValue: string) => {
+    //     try {
+    //         const response = await axios.get(`${COIN_GECO_API}coins/${coinId}/market_chart?vs_currency=usd&days=${selectedRangeValue}&interval=hourly`, {
+    //             headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
+    //         });
+    //         setCoinMarketData(response.data);
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // };
+
+    // const fetchCandleStickChartData = async (selectedRangeValue: string) => {
+    //     try {
+    //         const response = await axios.get(`${COIN_GECO_API}coins/${coinId}/ohlc?vs_currency=usd&days=${selectedRangeValue}`, {
+    //             headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
+    //         });
+    //         setCoinCandleChartData(response.data);
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // };
 
     const onSelectedRangeChange = (selectedRangeValue: string) => {
         setSelectedRange(selectedRangeValue);
