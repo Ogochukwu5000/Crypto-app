@@ -180,7 +180,7 @@ function Home(): JSX.Element {
                                         <View style={
                                             styles.assetTextContainer
                                         }>
-                                            <Text style={styles.assetName}>USD Coin</Text>
+                                            <Text style={styles.assetName}>USD Coin   </Text>
                                             <Text style={styles.assetCryptoPrice}>{user?.balance?.usdc?.tokenBalance ? user?.balance?.usdc?.tokenBalance : 0} USDC</Text>
                                         </View>
                                         <View style={
