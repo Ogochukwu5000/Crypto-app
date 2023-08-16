@@ -127,13 +127,13 @@ function PostAuthenticationNav(): JSX.Element {
           },
         }
       } name="cryptoapp" component={CryptoAppMain} />
-      <Tab.Screen options={{
+      {/* <Tab.Screen options={{
         tabBarLabel: () => null,
         tabBarIcon: ({ focused, color, size }) => {
           const svgXmlData = focused ? searchSvgFocusedBlack : searchSvgNotFocused;
           return <SvgXml xml={svgXmlData} width={27} height={70} fill={color} />;
         }
-      }} name="Search" component={Search} />
+      }} name="Search" component={Search} /> */}
       <Tab.Screen options={{
         tabBarLabel: () => null,
         tabBarIcon: ({ focused, color, size }) => {
