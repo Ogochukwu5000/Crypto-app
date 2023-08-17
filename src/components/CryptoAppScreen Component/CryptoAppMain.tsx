@@ -430,7 +430,7 @@ const styles = StyleSheet.create({
     },
     smallScreenKeypadRow: {
         width: '75%',
-        marginBottom: -35,
+        marginBottom: -25,
     },
     keypadButton: {
         width: 70,
