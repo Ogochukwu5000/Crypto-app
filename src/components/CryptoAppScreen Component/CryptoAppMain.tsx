@@ -94,7 +94,6 @@ function CryptoAppMain(): JSX.Element {
         const balance = usdcBalance.tokenBalances[0].tokenBalance;
         const decBalance = parseInt(balance as any, 16);
         const formattedNumber = (decBalance / 1000000);
-        console.log(formattedNumber);
         setUsdcBalance(formattedNumber);
     };
 
@@ -197,7 +196,6 @@ function CryptoAppMain(): JSX.Element {
                     setCurrentEthPrice(ethPrice);
                     const usdBalance = ethBalance as any * ethPrice;
                     setFormattedEthBalance(usdBalance.toFixed(2));
-                    console.log(usdBalance.toFixed(2));
                 })
                 .catch((error) => {
                     console.log(error);
@@ -221,7 +219,6 @@ function CryptoAppMain(): JSX.Element {
                     headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
                 })
                 .then((response) => {
-                    //console.log(response.data);
                     const usdcPrice = response.data['usd-coin'].usd;
                     const usdBalance = usdcBalance as any * usdcPrice;
                     setFormattedUsdcBalance(usdBalance.toFixed(2));
