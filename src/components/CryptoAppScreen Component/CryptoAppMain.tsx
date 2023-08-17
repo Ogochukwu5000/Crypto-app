@@ -149,6 +149,7 @@ function CryptoAppMain(): JSX.Element {
                 cryptoAmount: cryptoAmount,
                 selectedCrypto: selectedCrypto,
                 fromAddress: address,
+                amount: amount,
             };
             // @ts-ignore
             navigation.navigate('ChooseRecipientScreen', params);
