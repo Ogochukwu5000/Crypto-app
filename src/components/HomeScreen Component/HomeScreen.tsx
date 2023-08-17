@@ -147,7 +147,7 @@ function Home(): JSX.Element {
                                                 }</Text>
                                         </View>
                                     </TouchableOpacity>
-                                    <TouchableOpacity style={styles.asset}
+                                    {/* <TouchableOpacity style={styles.asset}
                                         onPress={() => {
                                             setCoinId('tether');
                                         }}
@@ -170,8 +170,8 @@ function Home(): JSX.Element {
                                                 }
                                             </Text>
                                         </View>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={styles.asset}
+                                    </TouchableOpacity> */}
+                                    {/* <TouchableOpacity style={styles.asset}
                                         onPress={() => {
                                             setCoinId('usd-coin');
                                         }}
@@ -194,7 +194,7 @@ function Home(): JSX.Element {
                                                 }
                                             </Text>
                                         </View>
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
                                 </ScrollView>
                             </>
                         ))
