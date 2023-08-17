@@ -94,7 +94,8 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
                             styles.SubHeader,
                             isSmallScreen && styles.smallScreenSubHeader,
                         ]}>
-                        0.0096BTC ($1,655 USD)
+                        {/* 0.0096BTC ($1,655 USD) */}
+                        {route.params.cryptoAmount.toFixed(5)} {route.params.selectedCrypto === "ethereum" ? "ETH" : null} (${route.params.amount} USD)
                     </Text>
                 </View>
             </View>
