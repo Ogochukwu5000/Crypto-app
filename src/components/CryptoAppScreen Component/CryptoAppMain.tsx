@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions } from 'react-native';
+import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, ScrollView, Dimensions, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useWalletConnectModal, WalletConnectModal } from '@walletconnect/modal-react-native';
 import { Alchemy, Network } from "alchemy-sdk";
@@ -157,7 +157,28 @@ function CryptoAppMain(): JSX.Element {
     };
 
     const handleNavigateToChooseRecipient = () => {
-        navigation.navigate('ChooseRecipientScreen' as never)
+        // navigation.navigate('ChooseRecipientScreen' as never)
+        if (isConnected) {
+
+        } else {
+            Alert.alert(
+                "Connect Wallet",
+                "Please connect your wallet to continue",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                    },
+                    {
+                        text: "Connect",
+                        onPress: () => {
+                            navigation.navigate('Profile' as never);
+                        }
+                    }
+                ]
+            );
+        }
     };
 
     useEffect(() => {
