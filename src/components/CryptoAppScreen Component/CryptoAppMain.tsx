@@ -246,7 +246,7 @@ function CryptoAppMain(): JSX.Element {
             }}>
                 <Image source={require('../../assets/profile.png')} />
             </TouchableOpacity>
-            <ScrollView horizontal={true} style={styles.cryptoButtonContainer} showsHorizontalScrollIndicator={false}>
+            {/* <ScrollView horizontal={true} style={styles.cryptoButtonContainer} showsHorizontalScrollIndicator={false}>
                 <TouchableOpacity
                     style={[styles.cryptoButton, selectedCrypto === 'ethereum' && styles.selectedCryptoButton]}
                     onPress={() => handleCryptoPress('ethereum')}
@@ -274,7 +274,7 @@ function CryptoAppMain(): JSX.Element {
                         USD Coin
                     </Text>
                 </TouchableOpacity>
-            </ScrollView>
+            </ScrollView> */}
             <View style={styles.cryptoAvailableContainer}>
                 <Text style={styles.cryptoAvailableText}>
                     {isConnected ? (
@@ -336,6 +336,7 @@ function CryptoAppMain(): JSX.Element {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: '#3447F0',
+        flex: 1,
     },
     profileImage: {
         alignItems: 'flex-end',
@@ -414,6 +415,7 @@ const styles = StyleSheet.create({
     keypadContainer: {
         padding: 10,
         alignItems: 'center',
+        marginTop: 15,
     },
     keypadContainerSmallScreen: {
         marginTop: 0,
