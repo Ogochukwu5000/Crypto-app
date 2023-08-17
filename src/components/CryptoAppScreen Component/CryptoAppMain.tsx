@@ -15,6 +15,16 @@ interface KeypadButtonProps {
     isHighlighted: boolean;
 }
 
+type MainStackParamList = {
+    ChooseRecipientScreen: {
+        weiAamount: any;
+        cryptoAmount: any;
+        selectedCrypto: string;
+        fromAddress: string | undefined;
+    };
+    // other screens...
+};
+
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
@@ -132,34 +142,17 @@ function CryptoAppMain(): JSX.Element {
         setCryptoAmount(equivalentCryptoAmount);
     };
 
-    // Send ETH transaction
-    const handleSendEthTransaction = async () => {
-        const weiAmount = parseInt(web3.utils.toWei(cryptoAmount, "ether")).toString(16)
-        console.log(weiAmount);
-        // Create the transaction object
-        const tx = {
-            from: address,
-            to: '0x82f467CCE13859eDa5D050e46aDbd9Fc01Ab0298',
-            value: weiAmount,
-        };
-
-        try {
-            // Send the transaction using WalletConnect
-            const transaction = await provider?.request({
-                method: 'eth_sendTransaction',
-                params: [tx],
-            });
-
-            console.log(`Transaction: ${transaction}`);
-        } catch (error) {
-            console.error(`Error: ${error}`);
-        }
-    };
-
     const handleNavigateToChooseRecipient = () => {
         // navigation.navigate('ChooseRecipientScreen' as never)
         if (isConnected) {
-
+            const params = {
+                weiAamount: parseInt(web3.utils.toWei(cryptoAmount, "ether")).toString(16),
+                cryptoAmount: cryptoAmount,
+                selectedCrypto: selectedCrypto,
+                fromAddress: address,
+            };
+            // @ts-ignore
+            navigation.navigate('ChooseRecipientScreen', params);
         } else {
             Alert.alert(
                 "Connect Wallet",
