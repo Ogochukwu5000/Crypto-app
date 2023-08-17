@@ -44,11 +44,9 @@ const recipients: Recipient[] = [
     },
 ];
 
-function ChooseRecipientScreen(): JSX.Element {
+function ChooseRecipientScreen({ route }: any): JSX.Element {
     const [cryptoTag, setCryptoTag] = useState('');
     const navigation = useNavigation();
-
-
 
     const renderItem = ({ item }: { item: Recipient }) => (
         <TouchableOpacity
