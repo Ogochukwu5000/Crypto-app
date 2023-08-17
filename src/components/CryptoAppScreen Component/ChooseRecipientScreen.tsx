@@ -105,7 +105,7 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
                 <View style={styles.Input}>
                     <TextInput
                         style={styles.input}
-                        placeholder="Enter crypto tag or name"
+                        placeholder="Enter crypto tag"
                         onChangeText={setCryptoTag}
                         value={cryptoTag}
                         placeholderTextColor={'#3D4C63'}
