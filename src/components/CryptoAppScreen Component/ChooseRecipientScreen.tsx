@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Text,
     Image,
@@ -12,6 +12,7 @@ import {
     FlatList,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -23,31 +24,23 @@ type Recipient = {
     profilePicture: string;
 };
 
-const recipients: Recipient[] = [
-    {
-        id: '1',
-        fullName: 'John Doe',
-        cryptoTag: 'jdoe',
-        profilePicture: 'https://ui-avatars.com/api/?name=John+Doe&color=fff&size=30&font-size=0.7',
-    },
-    {
-        id: '2',
-        fullName: 'Jane Smith',
-        cryptoTag: 'janySmitha',
-        profilePicture: 'https://ui-avatars.com/api/?name=Jane+Smith&color=fff&size=30&font-size=0.7',
-    },
-    {
-        id: '3',
-        fullName: 'Bob Johnson',
-        cryptoTag: 'BobJ',
-        profilePicture: 'https://ui-avatars.com/api/?name=Bob+Johnson&color=fff&size=30&font-size=0.7',
-    },
-];
-
 function ChooseRecipientScreen({ route }: any): JSX.Element {
     const [cryptoTag, setCryptoTag] = useState('');
+    const [recipients, setRecipients] = useState<Recipient[]>([]);
     const navigation = useNavigation();
     console.log(route.params);
+
+    useEffect(() => {
+        if (cryptoTag) {
+            axios.get(`/search-user/${cryptoTag}`)
+                .then(response => {
+                    setRecipients(response.data);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    }, [cryptoTag]);
 
     const renderItem = ({ item }: { item: Recipient }) => (
         <TouchableOpacity
@@ -158,7 +151,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold',
-        marginLeft: '13%',
+        marginLeft: '10%',
         width: '100%',
     },
     smallScreenHeader: {
@@ -185,7 +178,7 @@ const styles = StyleSheet.create({
         width: '80%',
         marginTop: '2%',
         textAlign: 'center',
-        marginLeft: '3%',
+        marginLeft: '1%',
     },
     smallScreenSubHeader: {
         fontSize: 13,
