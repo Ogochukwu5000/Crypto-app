@@ -28,16 +28,16 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
     const [cryptoTag, setCryptoTag] = useState('');
     const [recipients, setRecipients] = useState<Recipient[]>([]);
     const navigation = useNavigation();
-    console.log(route.params);
 
     useEffect(() => {
         if (cryptoTag) {
-            axios.get(`/search-user/${cryptoTag}`)
+            axios.get(`http://10.0.0.174:8000/user/search-user?crypto_tag=${cryptoTag}`)
                 .then(response => {
                     setRecipients(response.data);
+                    console.log(`Recipients: ${JSON.stringify(response.data)}`)
                 })
                 .catch(error => {
-                    console.log(error);
+                    console.error(`Error: ${JSON.stringify(error)}`);
                 });
         }
     }, [cryptoTag]);
