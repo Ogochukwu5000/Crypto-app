@@ -47,6 +47,7 @@ const recipients: Recipient[] = [
 function ChooseRecipientScreen({ route }: any): JSX.Element {
     const [cryptoTag, setCryptoTag] = useState('');
     const navigation = useNavigation();
+    console.log(route.params);
 
     const renderItem = ({ item }: { item: Recipient }) => (
         <TouchableOpacity
@@ -183,6 +184,7 @@ const styles = StyleSheet.create({
         width: '80%',
         marginTop: '2%',
         textAlign: 'center',
+        marginLeft: '3%',
     },
     smallScreenSubHeader: {
         fontSize: 13,
@@ -194,7 +196,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
-        marginLeft: '5%',
+        marginLeft: '3%',
     },
     recipientList: {
         width: '100%',
