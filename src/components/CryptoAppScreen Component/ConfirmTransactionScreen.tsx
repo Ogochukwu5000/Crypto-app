@@ -12,7 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
-function ConfirmTransactionScreen(): JSX.Element {
+function ConfirmTransactionScreen({ route }: any): JSX.Element {
     const navigation = useNavigation();
 
     return (
@@ -97,7 +97,7 @@ function ConfirmTransactionScreen(): JSX.Element {
                     </Text>
                 </View>
 
-                <TouchableOpacity onPress={()=>{
+                <TouchableOpacity onPress={() => {
                     navigation.navigate('TransactionDetails' as never);
                 }} style={[styles.confirmButton, isSmallScreen && styles.smallScreenConfirmButton]}>
                     <Text style={styles.confirmButtonText}>Confirm</Text>
