@@ -17,7 +17,7 @@ import { useSelector, useDispatch } from 'react-redux';
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
-function CurrentPin(): JSX.Element {
+function CurrentPin({ route }: any): JSX.Element {
     const [pin, setPin] = useState('');
     const [pinCount, setPinCount] = useState(0);
     const dispatch = useDispatch();
