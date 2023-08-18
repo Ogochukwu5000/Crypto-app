@@ -42,7 +42,7 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
             }}
         >
             <Image
-                source={{ uri:`http://10.0.0.174:8000/${item.profile_picture}` }}
+                source={{ uri: `http://10.0.0.174:8000/${item.profile_picture}` }}
                 style={styles.recipientProfilePicture}
                 resizeMode="cover"
             />
@@ -96,7 +96,8 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
                     />
                 </View>
                 <FlatList
-                    data={recipients}
+                    // @ts-ignore
+                    data={cryptoTag === '' ? recipients : recipients.filter((recipient: any) => recipient.crypto_tag.includes(cryptoTag))}
                     renderItem={renderItem}
                     keyExtractor={(item) => item.id}
                     style={styles.recipientList}
