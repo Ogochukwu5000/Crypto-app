@@ -97,9 +97,9 @@ function CryptoAppMain(): JSX.Element {
         setUsdcBalance(formattedNumber);
     };
 
-    const handleCryptoPress = (crypto: string) => {
-        setSelectedCrypto(crypto);
-    };
+    // const handleCryptoPress = (crypto: string) => {
+    //     setSelectedCrypto(crypto);
+    // };
 
     const handleKeypadPress = (value: string) => {
         if (amount === '0') {
