@@ -15,16 +15,6 @@ interface KeypadButtonProps {
     isHighlighted: boolean;
 }
 
-type MainStackParamList = {
-    ChooseRecipientScreen: {
-        weiAamount: any;
-        cryptoAmount: any;
-        selectedCrypto: string;
-        fromAddress: string | undefined;
-    };
-    // other screens...
-};
-
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
@@ -145,7 +135,7 @@ function CryptoAppMain(): JSX.Element {
         // navigation.navigate('ChooseRecipientScreen' as never)
         if (isConnected) {
             const params = {
-                weiAamount: parseInt(web3.utils.toWei(cryptoAmount, "ether")).toString(16),
+                weiAmount: parseInt(web3.utils.toWei(cryptoAmount, "ether")).toString(16),
                 cryptoAmount: cryptoAmount,
                 selectedCrypto: selectedCrypto,
                 fromAddress: address,
