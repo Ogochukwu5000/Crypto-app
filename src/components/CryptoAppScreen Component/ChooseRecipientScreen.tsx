@@ -17,32 +17,24 @@ import axios from 'axios';
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
-type Recipient = {
-    id: string;
-    fullName: string;
-    cryptoTag: string;
-    profilePicture: string;
-};
-
 function ChooseRecipientScreen({ route }: any): JSX.Element {
     const [cryptoTag, setCryptoTag] = useState('');
-    const [recipients, setRecipients] = useState<Recipient[]>([]);
+    const [recipients, setRecipients] = useState(null);
     const navigation = useNavigation();
 
     useEffect(() => {
-        if (cryptoTag) {
-            axios.get(`http://10.0.0.174:8000/user/search-user?crypto_tag=${cryptoTag}`)
-                .then(response => {
-                    setRecipients(response.data);
-                    console.log(`Recipients: ${JSON.stringify(response.data)}`)
-                })
-                .catch(error => {
-                    console.error(`Error: ${JSON.stringify(error)}`);
-                });
-        }
-    }, [cryptoTag]);
+        axios.get('http://10.0.0.174:8000/user/get-all-users')
+            .then(response => {
+                const users = response.data.users;
+                setRecipients(users); // Set the recipients state with the fetched data
+                console.log(recipients);
+            })
+            .catch(error => {
+                console.error(JSON.stringify(error));
+            });
+    }, []);
 
-    const renderItem = ({ item }: { item: Recipient }) => (
+    const renderItem = ({ item }: { item: any }) => (
         <TouchableOpacity
             style={styles.recipientItem}
             onPress={() => {
@@ -50,13 +42,13 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
             }}
         >
             <Image
-                source={{ uri: item.profilePicture }}
+                source={{ uri:`http://10.0.0.174:8000/${item.profile_picture}` }}
                 style={styles.recipientProfilePicture}
-                resizeMode="contain"
+                resizeMode="cover"
             />
             <View style={styles.recipientInfo}>
-                <Text style={styles.recipientFullName}>{item.fullName}</Text>
-                <Text style={styles.recipientCryptoTag}>{item.cryptoTag}</Text>
+                <Text style={styles.recipientFullName}>{`${item.first_name} ${item.last_name}`}</Text>
+                <Text style={styles.recipientCryptoTag}>{item.crypto_tag}</Text>
             </View>
         </TouchableOpacity>
     );
@@ -87,7 +79,6 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
                             styles.SubHeader,
                             isSmallScreen && styles.smallScreenSubHeader,
                         ]}>
-                        {/* 0.0096BTC ($1,655 USD) */}
                         {route.params.cryptoAmount.toFixed(5)} {route.params.selectedCrypto === "ethereum" ? "ETH" : null} (${route.params.amount} USD)
                     </Text>
                 </View>
@@ -151,7 +142,7 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 30,
         fontWeight: 'bold',
-        marginLeft: '10%',
+        marginLeft: '13%',
         width: '100%',
     },
     smallScreenHeader: {
@@ -178,7 +169,7 @@ const styles = StyleSheet.create({
         width: '80%',
         marginTop: '2%',
         textAlign: 'center',
-        marginLeft: '1%',
+        marginLeft: '3%',
     },
     smallScreenSubHeader: {
         fontSize: 13,
