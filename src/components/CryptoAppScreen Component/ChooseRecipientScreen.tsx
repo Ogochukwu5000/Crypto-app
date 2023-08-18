@@ -38,7 +38,7 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
         <TouchableOpacity
             style={styles.recipientItem}
             onPress={() => {
-                navigation.navigate('ConfirmTransactionScreen' as never);
+                navigation.navigate('CurrentPin' as never);
             }}
         >
             <Image
