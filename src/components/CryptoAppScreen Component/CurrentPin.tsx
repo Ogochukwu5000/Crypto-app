@@ -25,6 +25,8 @@ function CurrentPin(): JSX.Element {
     const [isPinWrong, setIsPinWrong] = useState(false);
     const navigation = useNavigation();
     const user = useSelector((state: RootState) => state.userReducer.user);
+    const routes = navigation.getState()?.routes;
+    const prevRoute = routes[routes.length - 2];
 
     const handlePinKeyPress = (digit: string) => {
         if (digit === 'X') {
@@ -86,6 +88,10 @@ function CurrentPin(): JSX.Element {
                             oldPin: pin,
                         },
                     });
+                    if (prevRoute.name === 'ChooseRecipientScreen') {
+                        navigation.navigate('ConfirmTransactionScreen' as never);
+                        return;
+                    }
                     navigation.navigate('CreatePinProfile' as never);
                 } else {
                     setIsPinWrong(true);
