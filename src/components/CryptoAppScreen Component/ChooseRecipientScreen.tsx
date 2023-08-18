@@ -42,7 +42,11 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
             }}
         >
             <Image
-                source={{ uri: `http://10.0.0.174:8000/${item.profile_picture}` }}
+                source={{
+                    uri: item.profile_picture
+                        ? `http://10.0.0.174:8000/${item.profile_picture}`
+                        : `https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}&color=fff&size=30&font-size=0.7`,
+                }} 
                 style={styles.recipientProfilePicture}
                 resizeMode="cover"
             />
