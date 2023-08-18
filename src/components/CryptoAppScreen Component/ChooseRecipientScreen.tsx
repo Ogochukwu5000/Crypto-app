@@ -27,18 +27,27 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
             .then(response => {
                 const users = response.data.users;
                 setRecipients(users); // Set the recipients state with the fetched data
-                console.log(recipients);
             })
             .catch(error => {
                 console.error(JSON.stringify(error));
             });
     }, []);
 
+    console.log(route.params);
+
     const renderItem = ({ item }: { item: any }) => (
         <TouchableOpacity
             style={styles.recipientItem}
             onPress={() => {
-                navigation.navigate('CurrentPin' as never);
+                // @ts-ignore
+                navigation.navigate('CurrentPin', {
+                    recipient: item,
+                    cryptoAmount: route.params.cryptoAmount,
+                    selectedCrypto: route.params.selectedCrypto,
+                    amount: route.params.amount,
+                    from: route.params.fromAddress,
+                    weiAmount: route.params.weiAmount,
+                });
             }}
         >
             <Image
@@ -46,7 +55,7 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
                     uri: item.profile_picture
                         ? `http://10.0.0.174:8000/${item.profile_picture}`
                         : `https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}&color=fff&size=30&font-size=0.7`,
-                }} 
+                }}
                 style={styles.recipientProfilePicture}
                 resizeMode="cover"
             />
