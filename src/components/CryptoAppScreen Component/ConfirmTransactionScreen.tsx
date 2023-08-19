@@ -6,6 +6,7 @@ import {
     View,
     Dimensions,
     TouchableOpacity,
+    Alert
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
@@ -26,7 +27,8 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
         // Create the transaction object
         const tx = {
             from: user?.walletAddress,
-            to: route.params.recipient.wallet_address,
+            // to: route.params.recipient.wallet_address,
+            to: '0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D',
             value: route.params.weiAmount,
         };
 
@@ -38,8 +40,13 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
             });
 
             console.log(`Transaction: ${transaction}`);
-        } catch (error) {
+        } catch (error: any) {
             console.error(`Error: ${JSON.stringify(error, null, 4)}`);
+            if (error.code === 5000) {
+                // User rejected request
+                navigation.navigate('CryptoAppMainScreen' as never);
+                Alert.alert('Transaction Cancelled');
+            }
         }
     };
 
