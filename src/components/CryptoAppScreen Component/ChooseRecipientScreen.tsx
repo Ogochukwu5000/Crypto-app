@@ -47,7 +47,6 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
                     amount: route.params.amount,
                     from: route.params.fromAddress,
                     weiAmount: route.params.weiAmount,
-                    to: item.crypto_tag,
                 });
             }}
         >
