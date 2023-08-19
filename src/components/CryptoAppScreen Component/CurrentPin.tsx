@@ -89,25 +89,16 @@ function CurrentPin({ route }: any): JSX.Element {
                         },
                     });
                     if (prevRoute.name === 'ChooseRecipientScreen') {
-                        axios
-                            .get(`http://10.0.0.174:8000/user/get-user/${route.params.recipient.crypto_tag}`)
-                            .then((res) => {
-                                // Handle successful response
-                                // @ts-ignore
-                                navigation.navigate('ConfirmTransactionScreen', {
-                                    recipient: route.params.recipient,
-                                    cryptoAmount: route.params.cryptoAmount,
-                                    selectedCrypto: route.params.selectedCrypto,
-                                    amount: route.params.amount,
-                                    from: route.params.fromAddress,
-                                    weiAmount: route.params.weiAmount,
-                                    to: res.data.user
-                                });
-                            })
-                            .catch((err) => {
-                                // Handle error
-                                console.error(JSON.stringify(err));
-                            });
+                        // @ts-ignore
+                        navigation.navigate('ConfirmTransactionScreen', {
+                            recipient: route.params.recipient,
+                            cryptoAmount: route.params.cryptoAmount,
+                            selectedCrypto: route.params.selectedCrypto,
+                            amount: route.params.amount,
+                            from: route.params.from,
+                            weiAmount: route.params.weiAmount,
+                        });
+
                     } else {
                         navigation.navigate('CreatePinProfile' as never);
                     }
