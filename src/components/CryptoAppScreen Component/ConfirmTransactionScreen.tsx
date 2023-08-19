@@ -48,7 +48,7 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
             {/* Image */}
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => {
-                    navigation.goBack();
+                    navigation.navigate('CryptoAppMainScreen' as never)
                 }}>
                     <Image
                         source={require('../../assets/back.png')}
