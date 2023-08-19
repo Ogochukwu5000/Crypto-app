@@ -132,31 +132,45 @@ function CryptoAppMain(): JSX.Element {
     };
 
     const handleNavigateToChooseRecipient = () => {
-        if (isConnected) {
-            const params = {
-                weiAmount: parseInt(web3.utils.toWei(cryptoAmount, "ether")).toString(16),
-                cryptoAmount: cryptoAmount,
-                selectedCrypto: selectedCrypto,
-                fromAddress: address,
-                amount: amount,
-            };
-            // @ts-ignore
-            navigation.navigate('ChooseRecipientScreen', params);
+        if (amount !== '0' && cryptoAmount !== '0.00') {
+            if (isConnected) {
+                const params = {
+                    weiAmount: parseInt(web3.utils.toWei(cryptoAmount, "ether")).toString(16),
+                    cryptoAmount: cryptoAmount,
+                    selectedCrypto: selectedCrypto,
+                    fromAddress: address,
+                    amount: amount,
+                };
+                // @ts-ignore
+                navigation.navigate('ChooseRecipientScreen', params);
+            } else {
+                Alert.alert(
+                    "Connect Wallet",
+                    "Please connect your wallet to continue",
+                    [
+                        {
+                            text: "Cancel",
+                            onPress: () => console.log("Cancel Pressed"),
+                            style: "cancel"
+                        },
+                        {
+                            text: "Connect",
+                            onPress: () => {
+                                navigation.navigate('Profile' as never);
+                            }
+                        }
+                    ]
+                );
+            }
         } else {
             Alert.alert(
-                "Connect Wallet",
-                "Please connect your wallet to continue",
+                "Enter Amount",
+                "Please enter amount to continue",
                 [
                     {
                         text: "Cancel",
                         onPress: () => console.log("Cancel Pressed"),
                         style: "cancel"
-                    },
-                    {
-                        text: "Connect",
-                        onPress: () => {
-                            navigation.navigate('Profile' as never);
-                        }
                     }
                 ]
             );
