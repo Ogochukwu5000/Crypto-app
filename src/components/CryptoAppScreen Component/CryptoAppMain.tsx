@@ -136,7 +136,7 @@ function CryptoAppMain(): JSX.Element {
             if (isConnected) {
                 const params = {
                     weiAmount: parseInt(web3.utils.toWei(cryptoAmount, "ether")).toString(16),
-                    cryptoAmount: cryptoAmount,
+                    cryptoAmount: cryptoAmount ? cryptoAmount : '0.00',
                     selectedCrypto: selectedCrypto,
                     fromAddress: address,
                     amount: amount,
