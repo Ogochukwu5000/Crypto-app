@@ -132,7 +132,6 @@ function CryptoAppMain(): JSX.Element {
     };
 
     const handleNavigateToChooseRecipient = () => {
-        // navigation.navigate('ChooseRecipientScreen' as never)
         if (isConnected) {
             const params = {
                 weiAmount: parseInt(web3.utils.toWei(cryptoAmount, "ether")).toString(16),
