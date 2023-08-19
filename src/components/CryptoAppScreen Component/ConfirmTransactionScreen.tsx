@@ -8,13 +8,41 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers';
+import { useWalletConnectModal } from '@walletconnect/modal-react-native';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function ConfirmTransactionScreen({ route }: any): JSX.Element {
     const navigation = useNavigation();
-    
+    const user = useSelector((state: RootState) => state.userReducer.user);
+    const { provider } = useWalletConnectModal();
+
+    console.log(route.params);
+
+    const handleSendTransaction = async () => {
+        // Create the transaction object
+        const tx = {
+            from: user?.walletAddress,
+            to: route.params.recipient.wallet_address,
+            value: route.params.weiAmount,
+        };
+
+        try {
+            // Send the transaction using WalletConnect
+            const transaction = await provider?.request({
+                method: 'eth_sendTransaction',
+                params: [tx],
+            });
+
+            console.log(`Transaction: ${transaction}`);
+        } catch (error) {
+            console.error(`Error: ${JSON.stringify(error, null, 4)}`);
+        }
+    };
+
     return (
         <SafeAreaView style={styles.container}>
             {/* Image */}
@@ -105,10 +133,7 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
                         ${route.params.amount}
                     </Text>
                 </View>
-
-                <TouchableOpacity onPress={() => {
-                    navigation.navigate('TransactionDetails' as never);
-                }} style={[styles.confirmButton, isSmallScreen && styles.smallScreenConfirmButton]}>
+                <TouchableOpacity onPress={handleSendTransaction} style={[styles.confirmButton, isSmallScreen && styles.smallScreenConfirmButton]}>
                     <Text style={styles.confirmButtonText}>Confirm</Text>
                 </TouchableOpacity>
             </SafeAreaView>
