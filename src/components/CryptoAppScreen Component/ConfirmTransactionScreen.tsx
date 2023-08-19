@@ -14,7 +14,7 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 
 function ConfirmTransactionScreen({ route }: any): JSX.Element {
     const navigation = useNavigation();
-
+    
     return (
         <SafeAreaView style={styles.container}>
             {/* Image */}
@@ -53,13 +53,21 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
                     style={[styles.recipientItem, isSmallScreen && styles.smallScreenRecipientItem]}
                 >
                     <Image
-                        source={{ uri: `https://ui-avatars.com/api/?name=John+Doe&color=fff&size=30&font-size=0.7` }}
+                        source={{
+                            uri: route.params.recipient.profile_picture
+                                ? `http://10.0.0.174:8000/${route.params.recipient.profile_picture}`
+                                : `https://ui-avatars.com/api/?name=${route.params.recipient.first_name}+${route.params.recipient.last_name}&color=fff&size=30&font-size=0.7`,
+                        }}
                         style={styles.recipientProfilePicture}
-                        resizeMode="contain"
+                        resizeMode="cover"
                     />
                     <View style={styles.recipientInfo}>
-                        <Text style={styles.recipientCryptoTag}>{`jdoe`}</Text>
-                        <Text style={styles.recipientFullName}>{`John Doe`}</Text>
+                        <Text style={styles.recipientCryptoTag}>
+                            {route.params.recipient.crypto_tag}
+                        </Text>
+                        <Text style={styles.recipientFullName}>
+                            {`${route.params.recipient.first_name} ${route.params.recipient.last_name}`}
+                        </Text>
                     </View>
 
                 </View>
@@ -84,16 +92,17 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
                         Amount
                     </Text>
                     <Text style={styles.amountInBtcValue}>
-                        0.0001 BTC
+                        {`${route.params.cryptoAmount.toFixed(5)} ETH`}
                     </Text>
                 </View>
 
                 <View style={styles.amountInUsd}>
                     <Text style={styles.amountInUsdText}>
                         Amount($)
+                        {route.params.amount}
                     </Text>
                     <Text style={styles.amountInUsdValue}>
-                        $5.00
+                        ${route.params.amount}
                     </Text>
                 </View>
 
