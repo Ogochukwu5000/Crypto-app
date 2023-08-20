@@ -8,6 +8,8 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -15,6 +17,7 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function TransactionDetails({ route }: any): JSX.Element {
     const navigation = useNavigation();
 
+    console.log(route.params);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -50,7 +53,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                     </View>
                     <View>
                         <Text style={styles.timeLabel}>Time</Text>
-                        <Text style={styles.timeValue}>{route.param.time}</Text>
+                        <Text style={styles.timeValue}>{route.params.time}</Text>
                     </View>
                 </View>
                 <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
@@ -59,7 +62,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                         Amount
                     </Text>
                     <Text style={styles.amountInBtcValue}>
-                        {route.params.cryptoAmount.toFixed(5)} ETH
+                        {route.params.cryptoAmount} ETH
                     </Text>
                 </View>
 
@@ -68,7 +71,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                         Amount($)
                     </Text>
                     <Text style={styles.amountInUsdValue}>
-                        ${route.params.amount}
+                        $5.00
                     </Text>
                 </View>
 
@@ -93,7 +96,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                     />
                     <View style={styles.senderInfo}>
                         <Text style={styles.senderCryptoTag}>{route.params.fromCryptoTag}</Text>
-                        <Text style={styles.senderFullName}>{`${route.prarams.fromName} (You)`}</Text>
+                        <Text style={styles.senderFullName}>{route.params.fromName} (You)</Text>
                     </View>
 
                 </View>
@@ -108,7 +111,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                     />
                     <View style={styles.recipientInfo}>
                         <Text style={styles.recipientCryptoTag}>{route.params.toCryptoTag}</Text>
-                        <Text style={styles.recipientFullName}>{route.prarams.toName}</Text>
+                        <Text style={styles.recipientFullName}>{route.params.toName}</Text>
                     </View>
                 </View>
                 <TouchableOpacity onPress={() => {
