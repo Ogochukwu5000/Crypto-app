@@ -8,12 +8,15 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
-function TransactionDetails(): JSX.Element {
+function TransactionDetails({ route }: any): JSX.Element {
     const navigation = useNavigation();
+    
 
     return (
         <SafeAreaView style={styles.container}>
