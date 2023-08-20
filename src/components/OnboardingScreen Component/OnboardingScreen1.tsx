@@ -37,7 +37,7 @@ function OnboardingScreen1({ setGettingStarted }: { setGettingStarted: (value: b
                     style={{ marginTop: 40 }}
                 />
                 <Text style={{ fontSize: 45, fontWeight: '600', marginTop: 45, textAlign: "center" }}>Welcome to CryptoApp</Text>
-                <Text style={{ fontSize: 20, fontWeight: '300', marginTop: 30, textAlign: "center", width: "80%" }}>Buy, send and receive crypto the cool way with Crypto app!</Text>
+                <Text style={{ fontSize: 20, fontWeight: '300', marginTop: 30, textAlign: "center", width: "80%" }}>Send and receive Eth the cool way with Crypto app!</Text>
                 <TouchableOpacity style={styles.nextButton} onPress={() => {
                     navigation.navigate('OnboardingScreen2' as never);
                 }}>

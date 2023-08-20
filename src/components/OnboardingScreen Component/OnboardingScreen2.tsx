@@ -36,7 +36,7 @@ function OnboardingScreen2({ setGettingStarted }: { setGettingStarted: (value: b
                     style={{ marginTop: 40 }}
                 />
                 <Text style={{ fontSize: !isSmallScreen ? 45 : 40, fontWeight: '600', marginTop: !isSmallScreen ? 45 : 30, textAlign: "center" }}>Create Your Unique Crypto Tag</Text>
-                <Text style={{ fontSize: 20, fontWeight: '300', marginTop: 30, textAlign: "center", width: "80%" }}>Connect with people and send crypto anywhere with your unique Crypto tag.</Text>
+                <Text style={{ fontSize: 20, fontWeight: '300', marginTop: 30, textAlign: "center", width: "80%" }}>Connect with people and send eth anywhere with your unique Crypto tag.</Text>
                 <TouchableOpacity style={styles.nextButton} onPress={() => {
                     navigation.navigate('OnboardingScreen3' as never);
                 }}>
