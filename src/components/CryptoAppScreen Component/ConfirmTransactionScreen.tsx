@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
     Text,
     Image,
@@ -12,6 +13,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import { useWalletConnectModal } from '@walletconnect/modal-react-native';
+import Loading from '../LoadingScreen Component/LoadingScreen';
+import axios from 'axios';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -20,8 +23,7 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
     const navigation = useNavigation();
     const user = useSelector((state: RootState) => state.userReducer.user);
     const { provider } = useWalletConnectModal();
-
-    console.log(route.params);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSendTransaction = async () => {
         // Create the transaction object
@@ -39,6 +41,33 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
             });
 
             console.log(`Transaction: ${transaction}`);
+
+            // Send the transaction to the backend
+            setIsLoading(true);
+            const response = await axios.post('http://10.0.0.174:8000/transaction/add-transaction', {
+                amount_crypto: route.params.cryptoAmount,
+                amount_usd: route.params.amount,
+                transaction_hash: transaction,
+                to_crypto_tag: route.params.recipient.crypto_tag,
+                to_name: `${route.params.recipient.first_name} ${route.params.recipient.last_name}`,
+                from_crypto_tag: user?.cryptoTag,
+                from_name: `${user?.firstName} ${user?.lastName}`,
+            });
+
+            console.log(`Response: ${JSON.stringify(response, null, 4)}`);
+            setIsLoading(false);
+            // @ts-ignore
+            navigation.navigate('TransactionDetails', {
+                amount: response.data.transaction.amount_usd,
+                cryptoAmount: response.data.transaction.amount_crypto,
+                transactionHash: response.data.transaction.transaction_hash,
+                toCryptoTag: response.data.transaction.to_crypto_tag,
+                toName: response.data.transaction.to_name,
+                fromCryptoTag: response.data.transaction.from_crypto_tag,
+                fromName: response.data.transaction.from_name,
+                date: response.data.transaction.date,
+                time: response.data.transaction.time,
+            });
         } catch (error: any) {
             console.error(`Error: ${JSON.stringify(error, null, 4)}`);
             if (error.code === 5000) {
@@ -51,98 +80,107 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* Image */}
-            <View style={styles.header}>
-                <TouchableOpacity onPress={() => {
-                    navigation.navigate('CryptoAppMainScreen' as never)
-                }}>
-                    <Image
-                        source={require('../../assets/back.png')}
-                        style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-                        resizeMode="contain"
-                    />
-                </TouchableOpacity>
-                <View style={styles.headerText}>
-                    <Text
-                        style={[
-                            styles.Header,
-                            isSmallScreen && styles.smallScreenHeader,
-                        ]}>
-                        Send to Your Friend
-                    </Text>
-                    <Text
-                        style={[
-                            styles.SubHeader,
-                            isSmallScreen && styles.smallScreenSubHeader,
-                        ]}>
-                        Confirm your transaction
-                    </Text>
-                </View>
-            </View>
-            {/* Bottom half modal */}
-            <SafeAreaView
-                style={[styles.bottomHalfModal]}
-            >
-                <View
-                    style={[styles.recipientItem, isSmallScreen && styles.smallScreenRecipientItem]}
-                >
-                    <Image
-                        source={{
-                            uri: route.params.recipient.profile_picture
-                                ? `http://10.0.0.174:8000/${route.params.recipient.profile_picture}`
-                                : `https://ui-avatars.com/api/?name=${route.params.recipient.first_name}+${route.params.recipient.last_name}&color=fff&size=30&font-size=0.7`,
-                        }}
-                        style={styles.recipientProfilePicture}
-                        resizeMode="cover"
-                    />
-                    <View style={styles.recipientInfo}>
-                        <Text style={styles.recipientCryptoTag}>
-                            {route.params.recipient.crypto_tag}
-                        </Text>
-                        <Text style={styles.recipientFullName}>
-                            {`${route.params.recipient.first_name} ${route.params.recipient.last_name}`}
-                        </Text>
-                    </View>
+            {
+                !isLoading ? (
+                    <>
+                        <View style={styles.header}>
+                            <TouchableOpacity onPress={() => {
+                                navigation.navigate('CryptoAppMainScreen' as never)
+                            }}>
+                                <Image
+                                    source={require('../../assets/back.png')}
+                                    style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                                    resizeMode="contain"
+                                />
+                            </TouchableOpacity>
+                            <View style={styles.headerText}>
+                                <Text
+                                    style={[
+                                        styles.Header,
+                                        isSmallScreen && styles.smallScreenHeader,
+                                    ]}>
+                                    Send to Your Friend
+                                </Text>
+                                <Text
+                                    style={[
+                                        styles.SubHeader,
+                                        isSmallScreen && styles.smallScreenSubHeader,
+                                    ]}>
+                                    Confirm your transaction
+                                </Text>
+                            </View>
+                        </View>
+                        {/* Bottom half modal */}
+                        <View
+                            style={[styles.bottomHalfModal]}
+                        >
+                            <View
+                                style={[styles.recipientItem, isSmallScreen && styles.smallScreenRecipientItem]}
+                            >
+                                <Image
+                                    source={{
+                                        uri: route.params.recipient.profile_picture
+                                            ? `http://10.0.0.174:8000/${route.params.recipient.profile_picture}`
+                                            : `https://ui-avatars.com/api/?name=${route.params.recipient.first_name}+${route.params.recipient.last_name}&color=fff&size=30&font-size=0.7`,
+                                    }}
+                                    style={styles.recipientProfilePicture}
+                                    resizeMode="cover"
+                                />
+                                <View style={styles.recipientInfo}>
+                                    <Text style={styles.recipientCryptoTag}>
+                                        {route.params.recipient.crypto_tag}
+                                    </Text>
+                                    <Text style={styles.recipientFullName}>
+                                        {`${route.params.recipient.first_name} ${route.params.recipient.last_name}`}
+                                    </Text>
+                                </View>
 
-                </View>
-                {/* add a horizonal dotted line */}
-                <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
+                            </View>
+                            {/* add a horizonal dotted line */}
+                            <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
 
-                <Image
-                    source={require("../../assets/emoji.png")}
-                    style={styles.emoji}
-                />
+                            <Image
+                                source={require("../../assets/emoji.png")}
+                                style={styles.emoji}
+                            />
 
-                <Text style={styles.confirmationText}>
-                    On behalf of crypto app, we love you (pss, this is visible to only you :)
-                </Text>
+                            <Text style={styles.confirmationText}>
+                                On behalf of crypto app, we love you (pss, this is visible to only you :)
+                            </Text>
 
 
-                {/* add a horizonal dotted line */}
-                <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
+                            {/* add a horizonal dotted line */}
+                            <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
 
-                <View style={styles.amountInBtc}>
-                    <Text style={styles.amountInBtcText}>
-                        Amount
-                    </Text>
-                    <Text style={styles.amountInBtcValue}>
-                        {`${route.params.cryptoAmount.toFixed(5)} ETH`}
-                    </Text>
-                </View>
+                            <View style={styles.amountInBtc}>
+                                <Text style={styles.amountInBtcText}>
+                                    Amount
+                                </Text>
+                                <Text style={styles.amountInBtcValue}>
+                                    {`${route.params.cryptoAmount.toFixed(5)} ETH`}
+                                </Text>
+                            </View>
 
-                <View style={styles.amountInUsd}>
-                    <Text style={styles.amountInUsdText}>
-                        Amount($)
-                        {route.params.amount}
-                    </Text>
-                    <Text style={styles.amountInUsdValue}>
-                        ${route.params.amount}
-                    </Text>
-                </View>
-                <TouchableOpacity onPress={handleSendTransaction} style={[styles.confirmButton, isSmallScreen && styles.smallScreenConfirmButton]}>
-                    <Text style={styles.confirmButtonText}>Confirm</Text>
-                </TouchableOpacity>
-            </SafeAreaView>
+                            <View style={styles.amountInUsd}>
+                                <Text style={styles.amountInUsdText}>
+                                    Amount($)
+                                    {route.params.amount}
+                                </Text>
+                                <Text style={styles.amountInUsdValue}>
+                                    ${route.params.amount}
+                                </Text>
+                            </View>
+                            <TouchableOpacity onPress={handleSendTransaction} style={[styles.confirmButton, isSmallScreen && styles.smallScreenConfirmButton]}>
+                                <Text style={styles.confirmButtonText}>Confirm</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </>
+                ) : (
+                    <Loading />
+                )
+            }
+
+
         </SafeAreaView>
     );
 }
