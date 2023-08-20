@@ -99,7 +99,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                 <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
                 <View style={styles.transactionIdContainer}>
                     <Text style={styles.transactionIdLabel}>Transaction ID</Text>
-                    <Text style={styles.transactionIdValue}>{route.params.transactionHash}</Text>
+                    <Text style={styles.transactionIdValue}>{route.param.transactionHash ? `${route.params.transactionHash.slice(0, 6)}...${route.params.transactionHash.slice(-6)}` : "Loading"}</Text>
                 </View>
                 <Text style={styles.fromLabel}>From</Text>
                 <View
