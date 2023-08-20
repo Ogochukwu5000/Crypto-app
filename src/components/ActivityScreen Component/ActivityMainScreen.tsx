@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Text,
     Image,
@@ -9,66 +9,76 @@ import {
     FlatList,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+import { RootState } from '../../../store/reducers';
+import { useSelector } from 'react-redux';
 
-type Transaction = {
-    id: string;
-    amount: string;
-    cryptoAmount: string;
-    type: string;
-    date: string;
-    image: any;
-};
-
-const transactions: Transaction[] = [
+/*
     {
-        id: '1',
-        amount: '$ 100',
-        cryptoAmount: '0.0001 BTC',
-        type: 'Sent',
-        date: 'Aug 19, 2023',
-        image: require('../../assets/arrow-up-right-circle.png'),
-    },
-    {
-        id: '2',
-        amount: '$ 50',
-        cryptoAmount: '0.00005 BTC',
-        type: 'Sent',
-        date: 'Aug 18, 2023',
-        image: require('../../assets/arrow-up-right-circle.png'),
-    },
-    {
-        id: '3',
-        amount: '$ 200',
-        cryptoAmount: '0.0002 BTC',
-        type: 'Sent',
-        date: 'Aug 17, 2023',
-        image: require('../../assets/arrow-up-right-circle.png'),
-    },
-];
+    "transactions": [
+        {
+            "_id": "64e27c3c59d408f4dcedb53b",
+            "amount_crypto": 0.004148049824004172,
+            "amount_usd": 7,
+            "transaction_hash": "0xd89cd6997f8c7a893ce33e26334a7db8c0ed8f64a598e322e13ca08d36f1ad90",
+            "from_crypto_tag": "Hmoney",
+            "to_crypto_tag": "Hmoney",
+            "from_name": "Haruna Oseni",
+            "to_name": "Haruna Oseni",
+            "date": "Aug 20, 2023",
+            "time": "03:49 PM",
+            "is_sender": true,
+            "profile_picture": "32F1633C-28CE-4AD7-A13E-8DD549BD6D1E.jpg",
+            "from_profile_picture": "32F1633C-28CE-4AD7-A13E-8DD549BD6D1E.jpg",
+            "to_profile_picture": "32F1633C-28CE-4AD7-A13E-8DD549BD6D1E.jpg"
+        }
+    ],
+    "status": true
+}
+*/
 
 function ActivityMain(): JSX.Element {
+    const [transactions, setTransactions] = useState();
     const navigation = useNavigation();
-    const renderItem = ({ item }: { item: Transaction }) => (
+    const user = useSelector((state: RootState) => state.userReducer.user);
+    const renderItem = ({ item }: any) => (
         <TouchableOpacity style={styles.transactionContainer} onPress={() => {
             navigation.navigate('ActivityTransactionDetails' as never);
         }}>
             <View style={styles.transactionImage}>
-                <Image
-                    source={item.image}
-                    style={[styles.image]}
-                    resizeMode="contain"
-                />
+                {
+                    item.is_sender ? (
+                        <Image
+                            source={require(`../../assets/${`send`}.png`)}
+                            style={[styles.image]}
+                            resizeMode="cover"
+                        />
+                    ) : (
+                        <Image
+                            source={require(`../../assets/${`Receive`}.png`)}
+                            style={[styles.image]}
+                            resizeMode="cover"
+                        />
+                    )
+                }
             </View>
             <View>
-                <Text style={styles.transactionAmount}>{item.amount}</Text>
-                <Text style={styles.transactionCryptoAmount}>{item.cryptoAmount}</Text>
+                <Text style={styles.transactionAmount}>${item.amount_usd}</Text>
+                <Text style={styles.transactionCryptoAmount}>{item.amount_crypto.toFixed(5)}</Text>
             </View>
             <View>
-                <Text style={styles.transactionType}>{item.type}</Text>
+                <Text style={styles.transactionType}>{item.time}</Text>
                 <Text style={styles.transactionDate}>{item.date}</Text>
             </View>
         </TouchableOpacity>
     );
+    useEffect(() => {
+        axios.get(`http://10.0.0.174:8000/transaction/${user?.cryptoTag}`).then(response => {
+            setTransactions(response.data.transactions);
+        }).catch(error => {
+            console.error(JSON.stringify(error));
+        });
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
