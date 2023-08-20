@@ -8,15 +8,13 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function TransactionDetails({ route }: any): JSX.Element {
     const navigation = useNavigation();
-    
+
 
     return (
         <SafeAreaView style={styles.container}>
@@ -48,11 +46,11 @@ function TransactionDetails({ route }: any): JSX.Element {
                 ]}>
                     <View>
                         <Text style={styles.dateLabel}>Date</Text>
-                        <Text style={styles.dateValue}>Aug 19, 2019</Text>
+                        <Text style={styles.dateValue}>{route.params.date}</Text>
                     </View>
                     <View>
                         <Text style={styles.timeLabel}>Time</Text>
-                        <Text style={styles.timeValue}>10:30 AM</Text>
+                        <Text style={styles.timeValue}>{route.param.time}</Text>
                     </View>
                 </View>
                 <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
@@ -61,7 +59,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                         Amount
                     </Text>
                     <Text style={styles.amountInBtcValue}>
-                        0.0001 BTC
+                        {route.params.cryptoAmount.toFixed(5)} ETH
                     </Text>
                 </View>
 
@@ -70,7 +68,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                         Amount($)
                     </Text>
                     <Text style={styles.amountInUsdValue}>
-                        $5.00
+                        ${route.params.amount}
                     </Text>
                 </View>
 
@@ -82,7 +80,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                 <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
                 <View style={styles.transactionIdContainer}>
                     <Text style={styles.transactionIdLabel}>Transaction ID</Text>
-                    <Text style={styles.transactionIdValue}>0x4c4...a7f</Text>
+                    <Text style={styles.transactionIdValue}>{route.params.transactionHash}</Text>
                 </View>
                 <Text style={styles.fromLabel}>From</Text>
                 <View
@@ -94,8 +92,8 @@ function TransactionDetails({ route }: any): JSX.Element {
                         resizeMode="contain"
                     />
                     <View style={styles.senderInfo}>
-                        <Text style={styles.senderCryptoTag}>{`jdoe`}</Text>
-                        <Text style={styles.senderFullName}>{`John Doe (You)`}</Text>
+                        <Text style={styles.senderCryptoTag}>{route.params.fromCryptoTag}</Text>
+                        <Text style={styles.senderFullName}>{`${route.prarams.fromName} (You)`}</Text>
                     </View>
 
                 </View>
@@ -109,8 +107,8 @@ function TransactionDetails({ route }: any): JSX.Element {
                         resizeMode="contain"
                     />
                     <View style={styles.recipientInfo}>
-                        <Text style={styles.recipientCryptoTag}>{`jdoe`}</Text>
-                        <Text style={styles.recipientFullName}>{`John Doe`}</Text>
+                        <Text style={styles.recipientCryptoTag}>{route.params.toCryptoTag}</Text>
+                        <Text style={styles.recipientFullName}>{route.prarams.toName}</Text>
                     </View>
                 </View>
                 <TouchableOpacity onPress={() => {
