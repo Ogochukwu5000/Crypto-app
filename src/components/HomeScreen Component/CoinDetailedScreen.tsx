@@ -78,10 +78,9 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
     const fetchMarketCoinData = async (selectedRangeValue: string) => {
         try {
             const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${selectedRangeValue}`);
-            console.log(response.data);
+            // console.log(response.data);
             setCoinMarketData(response.data);
         } catch (e) {
-            console.log("Doesn't work");
             console.log(e);
         }
     };
@@ -90,7 +89,6 @@ const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element =>
         try {
             const response = await axios.get(`https://api.coingecko.com/api/v3/coins/${coinId}/ohlc?vs_currency=usd&days=${selectedRangeValue}`);
             setCoinCandleChartData(response.data);
-            console.log(response.data);
         } catch (e) {
             console.log(e);
         }

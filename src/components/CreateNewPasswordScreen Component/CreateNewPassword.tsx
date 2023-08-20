@@ -56,14 +56,14 @@ function CreateNewPassword(): JSX.Element {
       email: user?.email,
     }).then((response) => {
       if (response.data.status) {
-        //console.log('Response: ', response.data);
+        // console.log('Response: ', response.data);
         Alert.alert('Success', 'Password reset successfully');
         navigation.navigate('Login' as never);
       } else {
         Alert.alert('Error', response.data.message);
       }
     }).catch((error) => {
-      //console.log(error.response);
+      // console.log(error.response);
       Alert.alert('Error', 'Something went wrong try again, pretty please');
     }
     );

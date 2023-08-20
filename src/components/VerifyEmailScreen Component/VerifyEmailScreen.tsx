@@ -33,7 +33,7 @@ function VerifyEmailScreen(): JSX.Element {
         axios.post('http://10.0.0.174:8000/user/sendverification', {
             email: user?.email,
         }).then((response) => {
-            console.log('Response: ', response.data);
+            // console.log('Response: ', response.data);
             setOtp(response.data.otp);
         }
         ).catch((error) => {

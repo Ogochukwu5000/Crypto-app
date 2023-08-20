@@ -78,7 +78,7 @@ function ConfirmPin(): JSX.Element {
                 email: user?.email,
                 new_pin: pin,
             }).then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 if (res.data.status) {
                     navigation.navigate('Profile' as never);
                     Alert.alert('Success', 'PIN changed successfully');
@@ -87,7 +87,7 @@ function ConfirmPin(): JSX.Element {
                     shakePinContainer();
                 }
             }).catch((err) => {
-                console.log(err);
+                // console.log(err);
             });
         } else {
             setIsPinWrong(true);

@@ -33,8 +33,6 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
             });
     }, []);
 
-    console.log(route.params);
-
     const renderItem = ({ item }: { item: any }) => (
         <TouchableOpacity
             style={styles.recipientItem}

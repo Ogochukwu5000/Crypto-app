@@ -50,14 +50,14 @@ function ChooseCryptoTag(): JSX.Element {
                         setIsLoading(false); // hide loading screen
                         navigation.navigate('CreatePin' as never); // navigate to next screen
                     }, 2000); // delay for 2 seconds
-                    console.log('User: ', user);
+                    // console.log('User: ', user);
                 } else {
                     Alert.alert('Error', 'Crypto Tag already exists.');
                     setIsLoading(false);
                 }
             })
             .catch((error) => {
-                console.log(error);
+                // console.log(error);
                 Alert.alert('Error', 'Crypto Tag already exists.');
             })
     };

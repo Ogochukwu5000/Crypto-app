@@ -42,8 +42,6 @@ function Welcome(): JSX.Element {
         }, 2500); // Wait for 2 seconds before registering the user
     }, []);
 
-    console.log('User: ', user);
-
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.content}>

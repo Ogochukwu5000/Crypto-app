@@ -46,7 +46,7 @@ function ForgotPassword(): JSX.Element {
       }).
       then((response) => {
         if (response.data.status) {
-          console.log('Response: ', response.data);
+          // console.log('Response: ', response.data);
           dispatch({
             type: 'VERIFY_OTP',
             payload: {

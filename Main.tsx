@@ -9,7 +9,7 @@ function Main(): JSX.Element {
   const user = useSelector((state: RootState) => state.userReducer.user);
 
   useEffect(() => {
-    console.log('User: ', user);
+    // console.log('User: ', user);
   }, [user?.authenticated]);
 
   return (

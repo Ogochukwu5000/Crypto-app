@@ -98,7 +98,7 @@ function Profile(): JSX.Element {
                                     },
                                 }).then((response) => {
                                     if (response.data.status) {
-                                        console.log(response.data);
+                                        // console.log(response.data);
                                         dispatch({
                                             type: 'SET_PROFILE_PICTURE', payload: {
                                                 profilePicture: response.data.profile_picture,

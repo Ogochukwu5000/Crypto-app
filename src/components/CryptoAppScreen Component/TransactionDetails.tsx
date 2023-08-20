@@ -18,8 +18,6 @@ function TransactionDetails({ route }: any): JSX.Element {
     const navigation = useNavigation();
     const user = useSelector((state: RootState) => state.userReducer.user);
 
-    console.log(route.params);
-
     return (
         <SafeAreaView style={styles.container}>
             {/* Image */}

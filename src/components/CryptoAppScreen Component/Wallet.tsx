@@ -41,9 +41,6 @@ function Wallet(): JSX.Element {
         textDecoder: new TextDecoder(),
     };
 
-    console.log('Address: ', address);
-    console.log('isConnected: ', isConnected);
-
     const wallets = [
         // { name: 'Metamask', address: '', image: require('../../assets/metamask.png') },
         // { name: 'Coinbase Wallet', address: '', image: require('../../assets/coinbase.png') },
@@ -158,7 +155,7 @@ function Wallet(): JSX.Element {
                 wallet_address: address,
                 email: user?.email,
             }).then((res) => {
-                console.log(res.data);
+                // console.log(res.data);
                 dispatch({
                     type: 'SET_PERSONAL_INFO',
                     payload: {
