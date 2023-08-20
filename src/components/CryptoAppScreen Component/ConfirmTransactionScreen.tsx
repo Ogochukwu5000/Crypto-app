@@ -40,7 +40,7 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
                 params: [tx],
             });
 
-            console.log(`Transaction: ${transaction}`);
+            // console.log(`Transaction: ${transaction}`);
 
             // Send the transaction to the backend
             setIsLoading(true);
@@ -54,7 +54,7 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
                 from_name: `${user?.firstName} ${user?.lastName}`,
             });
 
-            console.log(`Response: ${JSON.stringify(response, null, 4)}`);
+            // console.log(`Response: ${JSON.stringify(response.data.transaction)}`);
             setIsLoading(false);
             // @ts-ignore
             navigation.navigate('TransactionDetails', {
@@ -67,6 +67,8 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
                 fromName: response.data.transaction.from_name,
                 date: response.data.transaction.date,
                 time: response.data.transaction.time,
+                toProfilePicture: response.data.to_profile_picture,
+                fromProfilePicture: user?.profilePicture,
             });
         } catch (error: any) {
             console.error(`Error: ${JSON.stringify(error, null, 4)}`);
