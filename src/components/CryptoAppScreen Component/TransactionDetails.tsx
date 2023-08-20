@@ -8,14 +8,15 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
+import { useSelector } from 'react-redux';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function TransactionDetails({ route }: any): JSX.Element {
     const navigation = useNavigation();
+    const user = useSelector((state: RootState) => state.userReducer.user);
 
     console.log(route.params);
 
@@ -38,12 +39,29 @@ function TransactionDetails({ route }: any): JSX.Element {
                 style={[styles.bottomHalfModal, isSmallScreen && styles.smallScreenBottomHalfModal]}
             >
                 <View style={styles.transactionHeader}>
-                    <Image
-                        source={require('../../assets/sent.png')}
-                        style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-                        resizeMode="contain"
-                    />
-                    <Text style={styles.sentText}>Sent</Text>
+                    {
+                        user?.cryptoTag === route.params.fromCryptoTag ? (
+                            <Image
+                                source={require(`../../assets/${`sent`}.png`)}
+                                style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                                resizeMode="contain"
+                            />
+                        ) : (
+                            <Image
+                                source={require(`../../assets/${`recipient`}.png`)}
+                                style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                                resizeMode="contain"
+                            />
+                        )
+                    }
+
+                    {
+                        user?.cryptoTag === route.params.fromCryptoTag ? (
+                            <Text style={styles.sentText}>Sent</Text>
+                        ) : (
+                            <Text style={styles.receiveText}>Received</Text>
+                        )
+                    }
                 </View>
                 <View style={[styles.timeContainer, isSmallScreen && styles.smallScreenTimeContainer
                 ]}>
@@ -90,9 +108,13 @@ function TransactionDetails({ route }: any): JSX.Element {
                     style={[styles.senderItem, isSmallScreen && styles.smallScreenSenderItem]}
                 >
                     <Image
-                        source={{ uri: `https://ui-avatars.com/api/?name=John+Doe&color=fff&size=30&font-size=0.7` }}
+                        source={{
+                            uri: route.params.fromProfilePicture
+                                ? `http://10.0.0.174:8000/${route.params.fromProfilePicture.profilePicture}`
+                                : `https://ui-avatars.com/api/?name=${route.params.fromName}&color=fff&size=30&font-size=0.7`,
+                        }}
                         style={styles.senderProfilePicture}
-                        resizeMode="contain"
+                        resizeMode="cover"
                     />
                     <View style={styles.senderInfo}>
                         <Text style={styles.senderCryptoTag}>{route.params.fromCryptoTag}</Text>
@@ -105,9 +127,13 @@ function TransactionDetails({ route }: any): JSX.Element {
                     style={[styles.recipientItem, isSmallScreen && styles.smallScreenRecipientItem]}
                 >
                     <Image
-                        source={{ uri: `https://ui-avatars.com/api/?name=John+Doe&color=fff&size=30&font-size=0.7` }}
+                        source={{
+                            uri: route.params.toProfilePicture
+                                ? `http://10.0.0.174:8000/${route.params.toProfilePicture}`
+                                : `https://ui-avatars.com/api/?name=${route.params.toName}&color=fff&size=30&font-size=0.7`,
+                        }}
                         style={styles.recipientProfilePicture}
-                        resizeMode="contain"
+                        resizeMode="cover"
                     />
                     <View style={styles.recipientInfo}>
                         <Text style={styles.recipientCryptoTag}>{route.params.toCryptoTag}</Text>
@@ -177,6 +203,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '600',
         color: '#347AF0',
+    },
+    receiveText: {
+        fontSize: 20,
+        fontWeight: '600',
+        color: 'red',
     },
     transactionHeader: {
         width: '100%',
@@ -303,7 +334,7 @@ const styles = StyleSheet.create({
         color: '#B5BBC9',
         fontWeight: 'bold',
         marginLeft: '10%',
-        marginTop: isSmallScreen ? '3%' : '0%',
+        marginTop: isSmallScreen ? '3%' : '1%',
         alignSelf: 'flex-start',
     },
     recipientItem: {
@@ -311,7 +342,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         paddingVertical: 10,
         paddingHorizontal: 20,
-        marginTop: !isSmallScreen ? 10 : 0,
+        marginTop: 0,
         marginLeft: '10%',
         width: '100%',
     },
