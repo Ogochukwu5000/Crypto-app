@@ -17,6 +17,7 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function TransactionDetails({ route }: any): JSX.Element {
     const navigation = useNavigation();
     const user = useSelector((state: RootState) => state.userReducer.user);
+    console.log(route.params);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -99,7 +100,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                 <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
                 <View style={styles.transactionIdContainer}>
                     <Text style={styles.transactionIdLabel}>Transaction ID</Text>
-                    <Text style={styles.transactionIdValue}>{route.param.transactionHash ? `${route.params.transactionHash.slice(0, 6)}...${route.params.transactionHash.slice(-6)}` : "Loading"}</Text>
+                    <Text style={styles.transactionIdValue}>{route.params.transactionHash}</Text>
                 </View>
                 <Text style={styles.fromLabel}>From</Text>
                 <View
