@@ -10,7 +10,10 @@ import {
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
-function ActivityDetails(): JSX.Element {
+function ActivityDetails({ route }: any): JSX.Element {
+    const transaction = route.params.transaction;
+
+    console.log(transaction);
     return (
         <SafeAreaView style={styles.container}>
             {/* Image */}
@@ -30,22 +33,32 @@ function ActivityDetails(): JSX.Element {
                 style={[styles.bottomHalfModal, isSmallScreen && styles.smallScreenBottomHalfModal]}
             >
                 <View style={styles.transactionHeader}>
-                    <Image
-                        source={require('../../assets/sent.png')}
-                        style={[styles.image, isSmallScreen && styles.smallScreenImage]}
-                        resizeMode="contain"
-                    />
-                    <Text style={styles.sentText}>Sent</Text>
+                    {
+                        transaction.is_sender ? (
+                            <Image
+                                source={require('../../assets/sent.png')}
+                                style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                                resizeMode="contain"
+                            />
+                        ) : (
+                            <Image
+                                source={require('../../assets/recipient.png')}
+                                style={[styles.image, isSmallScreen && styles.smallScreenImage]}
+                                resizeMode="contain"
+                            />
+                        )
+                    }
+                    <Text style={transaction.is_sender ? styles.sentText : styles.recipientText}>{transaction.is_sender ? 'Sent' : 'Receive'}</Text>
                 </View>
                 <View style={[styles.timeContainer, isSmallScreen && styles.smallScreenTimeContainer
                 ]}>
                     <View>
                         <Text style={styles.dateLabel}>Date</Text>
-                        <Text style={styles.dateValue}>Aug 19, 2019</Text>
+                        <Text style={styles.dateValue}>{transaction.date}</Text>
                     </View>
                     <View>
                         <Text style={styles.timeLabel}>Time</Text>
-                        <Text style={styles.timeValue}>10:30 AM</Text>
+                        <Text style={styles.timeValue}>{transaction.time}</Text>
                     </View>
                 </View>
                 <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
@@ -54,7 +67,7 @@ function ActivityDetails(): JSX.Element {
                         Amount
                     </Text>
                     <Text style={styles.amountInBtcValue}>
-                        0.0001 BTC
+                        {transaction.amount_crypto.toFixed(5)} ETH
                     </Text>
                 </View>
 
@@ -63,7 +76,7 @@ function ActivityDetails(): JSX.Element {
                         Amount($)
                     </Text>
                     <Text style={styles.amountInUsdValue}>
-                        $5.00
+                        ${transaction.amount_usd}
                     </Text>
                 </View>
 
@@ -75,20 +88,23 @@ function ActivityDetails(): JSX.Element {
                 <View style={[styles.dottedLine, isSmallScreen && styles.smallScreenDottedLines]} />
                 <View style={styles.transactionIdContainer}>
                     <Text style={styles.transactionIdLabel}>Transaction ID</Text>
-                    <Text style={styles.transactionIdValue}>0x4c4...a7f</Text>
+                    <Text style={styles.transactionIdValue}>{transaction.transaction_hash.slice(0, 6)}...{transaction.transaction_hash.slice(-5)}</Text>
                 </View>
                 <Text style={styles.fromLabel}>From</Text>
                 <View
                     style={[styles.senderItem, isSmallScreen && styles.smallScreenSenderItem]}
                 >
                     <Image
-                        source={{ uri: `https://ui-avatars.com/api/?name=John+Doe&color=fff&size=30&font-size=0.7` }}
-                        style={styles.senderProfilePicture}
-                        resizeMode="contain"
+                        source={{
+                            uri: transaction.to_profile_picture
+                                ? `http://10.0.0.174:8000/${transaction.to_profile_picture}`
+                                : `https://ui-avatars.com/api/?name=${transaction.to_name}&color=fff&size=30&font-size=0.7`,
+                        }} style={styles.senderProfilePicture}
+                        resizeMode="cover"
                     />
                     <View style={styles.senderInfo}>
-                        <Text style={styles.senderCryptoTag}>{`jdoe`}</Text>
-                        <Text style={styles.senderFullName}>{`John Doe (You)`}</Text>
+                        <Text style={styles.senderCryptoTag}>{transaction.from_crypto_tag}</Text>
+                        <Text style={styles.senderFullName}>{transaction.from_name}</Text>
                     </View>
 
                 </View>
@@ -97,13 +113,16 @@ function ActivityDetails(): JSX.Element {
                     style={[styles.recipientItem, isSmallScreen && styles.smallScreenRecipientItem]}
                 >
                     <Image
-                        source={{ uri: `https://ui-avatars.com/api/?name=John+Doe&color=fff&size=30&font-size=0.7` }}
-                        style={styles.recipientProfilePicture}
-                        resizeMode="contain"
+                        source={{
+                            uri: transaction.from_profile_picture
+                                ? `http://10.0.0.174:8000/${transaction.from_profile_picture}`
+                                : `https://ui-avatars.com/api/?name=${transaction.from_name}&color=fff&size=30&font-size=0.7`,
+                        }} style={styles.recipientProfilePicture}
+                        resizeMode="cover"
                     />
                     <View style={styles.recipientInfo}>
-                        <Text style={styles.recipientCryptoTag}>{`jdoe`}</Text>
-                        <Text style={styles.recipientFullName}>{`John Doe`}</Text>
+                        <Text style={styles.recipientCryptoTag}>{transaction.to_crypto_tag}</Text>
+                        <Text style={styles.recipientFullName}>{transaction.to_name}</Text>
                     </View>
                 </View>
             </SafeAreaView>
@@ -164,6 +183,11 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '600',
         color: '#347AF0',
+    },
+    recipientText: {
+        fontSize: 20,
+        fontWeight: '600',
+        color: 'red',
     },
     transactionHeader: {
         width: '100%',
