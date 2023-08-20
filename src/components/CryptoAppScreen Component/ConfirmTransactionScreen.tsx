@@ -164,7 +164,6 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
                             <View style={styles.amountInUsd}>
                                 <Text style={styles.amountInUsdText}>
                                     Amount($)
-                                    {route.params.amount}
                                 </Text>
                                 <Text style={styles.amountInUsdValue}>
                                     ${route.params.amount}
