@@ -7,6 +7,8 @@ import {
     View,
     TouchableOpacity,
     FlatList,
+    ActivityIndicator,
+    RefreshControl,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -39,6 +41,8 @@ import { useSelector } from 'react-redux';
 
 function ActivityMain(): JSX.Element {
     const [transactions, setTransactions] = useState();
+    const [loading, setLoading] = useState(true);
+    const [refreshing, setRefreshing] = useState(false); // Add refreshing state
     const navigation = useNavigation();
     const user = useSelector((state: RootState) => state.userReducer.user);
     const renderItem = ({ item }: any) => (
@@ -76,12 +80,26 @@ function ActivityMain(): JSX.Element {
         </TouchableOpacity>
     );
     useEffect(() => {
+        setLoading(true);
         axios.get(`http://10.0.0.174:8000/transaction/${user?.cryptoTag}`).then(response => {
             setTransactions(response.data.transactions);
+            setLoading(false);
         }).catch(error => {
             console.error(JSON.stringify(error));
+            setLoading(false);
         });
     }, []);
+
+    const onRefresh = () => {
+        setRefreshing(true); // Set refreshing state to true when the user pulls down the list
+        axios.get(`http://10.0.0.174:8000/transaction/${user?.cryptoTag}`).then(response => {
+            setTransactions(response.data.transactions);
+            setRefreshing(false); // Set refreshing state to false after the API call is complete
+        }).catch(error => {
+            console.error(JSON.stringify(error));
+            setRefreshing(false); // Set refreshing state to false if there is an error
+        });
+    };
 
     return (
         <SafeAreaView style={styles.container}>
@@ -91,7 +109,20 @@ function ActivityMain(): JSX.Element {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
                 contentContainerStyle={styles.listContainer}
+                refreshControl={ // Add refreshControl prop to the FlatList component
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={onRefresh}
+                        colors={['#3447F0']}
+                        tintColor={'#3447F0'}
+                    />
+                }
             />
+            {loading && !refreshing && ( // Display the loading spinner if loading state is true and refreshing state is false
+                <View style={styles.loadingContainer}>
+                    <ActivityIndicator size="large" color="#3447F0" />
+                </View>
+            )}
         </SafeAreaView>
     )
 }
@@ -152,6 +183,17 @@ const styles = StyleSheet.create({
     transactionDate: {
         color: '#AFAFAF',
         fontSize: 18,
+    },
+    loadingContainer: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        zIndex: 1,
     },
 });
 
