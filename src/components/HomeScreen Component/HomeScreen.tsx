@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     Image,
     ActivityIndicator,
+    RefreshControl,
 } from 'react-native';
 import CoinDetailedScreen from './CoinDetailedScreen';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -46,6 +47,7 @@ function Home(): JSX.Element {
     const [usdtcoin, setUsdtCoin] = useState<Coin | null>(null);
     const [usdccoin, setUsdCoin] = useState<Coin | null>(null);
     const [isLoading, setIsLoading] = useState(false);
+    const [refreshing, setRefreshing] = useState(false); // Add refreshing state
 
     const loadData = async () => {
         setIsLoading(true);
@@ -93,6 +95,13 @@ function Home(): JSX.Element {
         }
     };
 
+    const onRefresh = () => {
+        setRefreshing(true); // Set refreshing state to true when the user pulls down the list
+        fetchEthCoinData();
+        setCoinId('ethereum');
+        setRefreshing(false); // Set refreshing state to false after the API call is complete
+    };
+
     useEffect(() => {
         fetchEthCoinData();
         fetchUsdtCoinData();
@@ -117,14 +126,19 @@ function Home(): JSX.Element {
                 style={[styles.bottomHalfModal, isSmallScreen && styles.isSmallBottomHalfModal]}>
                 {
                     isConnected ? (
-                        isLoading ? (
-                            <View style={styles.loading}>
-                                <ActivityIndicator size="large" color="#0000ff" />
-                            </View>
-                        ) : (
+                        (
                             <>
                                 <Text style={styles.assetText}>Asset</Text>
-                                <ScrollView style={styles.assetContainer}>
+                                <ScrollView style={styles.assetContainer}
+                                    refreshControl={ // Add refreshControl prop to the FlatList component
+                                        <RefreshControl
+                                            refreshing={refreshing}
+                                            onRefresh={onRefresh}
+                                            colors={['#3447F0']}
+                                            tintColor={'#3447F0'}
+                                        />
+                                    }
+                                >
                                     <TouchableOpacity style={styles.asset}
                                         onPress={() => {
                                             setCoinId('ethereum');
