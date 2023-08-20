@@ -57,10 +57,12 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
             // console.log(`Response: ${JSON.stringify(response.data.transaction)}`);
             setIsLoading(false);
             // @ts-ignore
+            const formattedTransaction = transaction.slice(0, 6) + '...' + transaction.slice(-6);
+            // @ts-ignore
             navigation.navigate('TransactionDetails', {
                 amount: response.data.transaction.amount_usd,
                 cryptoAmount: response.data.transaction.amount_crypto,
-                transactionHash: response.data.transaction.transaction_hash,
+                transactionHash: formattedTransaction,
                 toCryptoTag: response.data.transaction.to_crypto_tag,
                 toName: response.data.transaction.to_name,
                 fromCryptoTag: response.data.transaction.from_crypto_tag,
