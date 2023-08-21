@@ -17,6 +17,7 @@ import { RootState } from '../../../store/reducers';
 import { useNavigation } from '@react-navigation/native';
 import Loading from '../LoadingScreen Component/LoadingScreen';
 import { StackActions } from '@react-navigation/native';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -30,7 +31,7 @@ function VerifyEmailScreen(): JSX.Element {
     const [otp, setOtp] = useState('');
 
     useEffect(() => {
-        axios.post('http://10.0.0.174:8000/user/sendverification', {
+        axios.post(`${BASE_URL}user/sendverification`, {
             email: user?.email,
         }).then((response) => {
             // console.log('Response: ', response.data);

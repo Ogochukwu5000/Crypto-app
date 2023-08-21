@@ -16,6 +16,7 @@ import { TextEncoder, TextDecoder } from 'text-encoding';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import axios from 'axios';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -151,7 +152,7 @@ function Wallet(): JSX.Element {
 
     useEffect(() => {
         if (address) {
-            axios.post('http://10.0.0.174:8000/user/add-wallet-address', {
+            axios.post(`${BASE_URL}user/add-wallet-address`, {
                 wallet_address: address,
                 email: user?.email,
             }).then((res) => {

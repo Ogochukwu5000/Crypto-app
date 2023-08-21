@@ -10,6 +10,7 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { RootState } from '../../../store/reducers';
 import { useSelector } from 'react-redux';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -109,7 +110,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                     <Image
                         source={{
                             uri: route.params.fromProfilePicture
-                                ? `http://10.0.0.174:8000/${route.params.fromProfilePicture.profilePicture}`
+                                ? `${BASE_URL}${route.params.fromProfilePicture.profilePicture}`
                                 : `https://ui-avatars.com/api/?name=${route.params.fromName}&color=fff&size=30&font-size=0.7`,
                         }}
                         style={styles.senderProfilePicture}
@@ -128,7 +129,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                     <Image
                         source={{
                             uri: route.params.toProfilePicture
-                                ? `http://10.0.0.174:8000/${route.params.toProfilePicture}`
+                                ? `${BASE_URL}${route.params.toProfilePicture}`
                                 : `https://ui-avatars.com/api/?name=${route.params.toName}&color=fff&size=30&font-size=0.7`,
                         }}
                         style={styles.recipientProfilePicture}

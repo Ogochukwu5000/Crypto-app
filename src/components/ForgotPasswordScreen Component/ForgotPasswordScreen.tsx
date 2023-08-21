@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -41,7 +42,7 @@ function ForgotPassword(): JSX.Element {
     }
 
     axios
-      .post('http://10.0.0.174:8000/user/forgot-password', {
+      .post(`${BASE_URL}user/forgot-password`, {
         email: email.toLowerCase(),
       }).
       then((response) => {

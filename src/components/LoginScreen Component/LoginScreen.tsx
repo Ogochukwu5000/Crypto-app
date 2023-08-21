@@ -14,6 +14,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import Loading from '../LoadingScreen Component/LoadingScreen';
+import { BASE_URL } from '../../constants/config';
 
 function LoginScreen(): JSX.Element {
   const [email, setEmail] = useState('');
@@ -32,7 +33,7 @@ function LoginScreen(): JSX.Element {
       isEmail = true;
     }
 
-    axios.post('http://10.0.0.174:8000/user/login', {
+    axios.post(`${BASE_URL}/user/login`, {
       email: isEmail ? email : Alert.alert('Invalid email or password'),
       password,
     }).then((response) => {

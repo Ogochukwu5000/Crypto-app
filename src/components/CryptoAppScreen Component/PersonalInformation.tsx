@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from "../../../store/reducers";
 import axios from 'axios';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -47,7 +48,7 @@ function PersonalInformation(): JSX.Element {
             return;
         }
         axios
-            .post('http://10.0.0.174:8000/user/update-personal-info', {
+            .post(`${BASE_URL}user/update-personal-info`, {
                 firstName,
                 lastName,
                 cryptoTag,

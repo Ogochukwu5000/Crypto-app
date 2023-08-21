@@ -15,6 +15,7 @@ import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -51,7 +52,7 @@ function CreateNewPassword(): JSX.Element {
       return;
     }
 
-    axios.post(`http://10.0.0.174:8000/user/reset-password`, {
+    axios.post(`${BASE_URL}user/reset-password`, {
       password,
       email: user?.email,
     }).then((response) => {

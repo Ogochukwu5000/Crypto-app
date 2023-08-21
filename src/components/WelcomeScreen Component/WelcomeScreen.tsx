@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import { useNavigation } from '@react-navigation/native';
 import Loading from '../LoadingScreen Component/LoadingScreen';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -18,7 +19,7 @@ function Welcome(): JSX.Element {
     const registerUser = async () => {
         setIsLoading(true);
         try {
-            const response = await axios.post('http://10.0.0.174:8000/user/register', {
+            const response = await axios.post(`${BASE_URL}user/register`, {
                 email: user?.email,
                 first_name: user?.firstName,
                 last_name: user?.lastName,

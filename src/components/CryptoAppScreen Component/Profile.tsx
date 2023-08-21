@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import ImagePicker, { ImageOrVideo } from "react-native-image-crop-picker";
 import axios from 'axios';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -92,7 +93,7 @@ function Profile(): JSX.Element {
                             });
                             data.append('crypto_tag', user?.cryptoTag as string);
                             axios
-                                .post(`http://10.0.0.174:8000/user/profile-picture`, data, {
+                                .post(`${BASE_URL}user/profile-picture`, data, {
                                     headers: {
                                         'Content-Type': 'multipart/form-data',
                                     },
@@ -149,7 +150,7 @@ function Profile(): JSX.Element {
                 <View style={styles.profileHeader}>
                     <Image
                         // source={require('../../assets/Oval.png')}
-                        source={user?.profilePicture.profilePicture ? { uri: `http://10.0.0.174:8000/${user?.profilePicture.profilePicture}` } : { uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' }}
+                        source={user?.profilePicture.profilePicture ? { uri: `${BASE_URL}${user?.profilePicture.profilePicture}` } : { uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' }}
                         style={[styles.image, isSmallScreen && styles.smallScreenImage]}
                         // resize to scale
                         resizeMode="cover"

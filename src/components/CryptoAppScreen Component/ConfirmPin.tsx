@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { RootState } from '../../../store/reducers';
 import { useSelector } from 'react-redux';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -74,7 +75,7 @@ function ConfirmPin(): JSX.Element {
 
     const handlePinSubmit = () => {
         if (pin.length === 4 && pin === user?.newPin) {
-            axios.post('http://10.0.0.174:8000/user/change-pin', {
+            axios.post(`${BASE_URL}user/change-pin`, {
                 email: user?.email,
                 new_pin: pin,
             }).then((res) => {

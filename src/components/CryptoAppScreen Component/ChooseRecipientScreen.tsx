@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -23,7 +24,7 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
     const navigation = useNavigation();
 
     useEffect(() => {
-        axios.get('http://10.0.0.174:8000/user/get-all-users')
+        axios.get(`${BASE_URL}user/get-all-users`)
             .then(response => {
                 const users = response.data.users;
                 setRecipients(users); // Set the recipients state with the fetched data
@@ -51,7 +52,7 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
             <Image
                 source={{
                     uri: item.profile_picture
-                        ? `http://10.0.0.174:8000/${item.profile_picture}`
+                        ? `${BASE_URL}${item.profile_picture}`
                         : `https://ui-avatars.com/api/?name=${item.first_name}+${item.last_name}&color=fff&size=30&font-size=0.7`,
                 }}
                 style={styles.recipientProfilePicture}

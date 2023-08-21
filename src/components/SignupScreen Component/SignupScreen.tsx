@@ -15,6 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useDispatch } from 'react-redux';
 import axios from 'axios';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -44,7 +45,7 @@ function SignupScreen(): JSX.Element {
 
     const checkEmail = async (email: string): Promise<boolean> => {
         try {
-            const response = await axios.post('http://10.0.0.174:8000/user/check-email', {
+            const response = await axios.post(`${BASE_URL}user/check-email`, {
                 email: email,
             });
             return response.data.status;

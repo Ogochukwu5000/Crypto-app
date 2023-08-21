@@ -6,6 +6,7 @@ import {
     View,
     Dimensions,
 } from 'react-native';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -97,7 +98,7 @@ function ActivityDetails({ route }: any): JSX.Element {
                     <Image
                         source={{
                             uri: transaction.to_profile_picture
-                                ? `http://10.0.0.174:8000/${transaction.to_profile_picture}`
+                                ? `${BASE_URL}${transaction.to_profile_picture}`
                                 : `https://ui-avatars.com/api/?name=${transaction.to_name}&color=fff&size=30&font-size=0.7`,
                         }} style={styles.senderProfilePicture}
                         resizeMode="cover"
@@ -115,7 +116,7 @@ function ActivityDetails({ route }: any): JSX.Element {
                     <Image
                         source={{
                             uri: transaction.from_profile_picture
-                                ? `http://10.0.0.174:8000/${transaction.from_profile_picture}`
+                                ? `${BASE_URL}${transaction.from_profile_picture}`
                                 : `https://ui-avatars.com/api/?name=${transaction.from_name}&color=fff&size=30&font-size=0.7`,
                         }} style={styles.recipientProfilePicture}
                         resizeMode="cover"

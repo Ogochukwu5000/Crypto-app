@@ -15,6 +15,7 @@ import { RootState } from '../../../store/reducers';
 import { useWalletConnectModal } from '@walletconnect/modal-react-native';
 import Loading from '../LoadingScreen Component/LoadingScreen';
 import axios from 'axios';
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -44,7 +45,7 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
 
             // Send the transaction to the backend
             setIsLoading(true);
-            const response = await axios.post('http://10.0.0.174:8000/transaction/add-transaction', {
+            const response = await axios.post(`${BASE_URL}transaction/add-transaction`, {
                 amount_crypto: route.params.cryptoAmount,
                 amount_usd: route.params.amount,
                 transaction_hash: transaction,
@@ -124,7 +125,7 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
                                 <Image
                                     source={{
                                         uri: route.params.recipient.profile_picture
-                                            ? `http://10.0.0.174:8000/${route.params.recipient.profile_picture}`
+                                            ? `${BASE_URL}${route.params.recipient.profile_picture}`
                                             : `https://ui-avatars.com/api/?name=${route.params.recipient.first_name}+${route.params.recipient.last_name}&color=fff&size=30&font-size=0.7`,
                                     }}
                                     style={styles.recipientProfilePicture}

@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-
+import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -39,7 +39,7 @@ function ChooseCryptoTag(): JSX.Element {
 
     const handleNext = () => {
         axios
-            .post('http://10.0.0.174:8000/user/check-crypto-tag', {
+            .post(`${BASE_URL}user/check-crypto-tag`, {
                 crypto_tag: cryptoTag,
             })
             .then((response) => {

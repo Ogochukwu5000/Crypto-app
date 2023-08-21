@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { RootState } from '../../../store/reducers';
 import { useSelector } from 'react-redux';
+import { BASE_URL } from '../../constants/config';
 
 /*
     {
@@ -81,7 +82,7 @@ function ActivityMain(): JSX.Element {
     );
     useEffect(() => {
         setLoading(true);
-        axios.get(`http://10.0.0.174:8000/transaction/${user?.cryptoTag}`).then(response => {
+        axios.get(`${BASE_URL}transaction/${user?.cryptoTag}`).then(response => {
             setTransactions(response.data.transactions);
             setLoading(false);
         }).catch(error => {
@@ -92,7 +93,7 @@ function ActivityMain(): JSX.Element {
 
     const onRefresh = () => {
         setRefreshing(true); // Set refreshing state to true when the user pulls down the list
-        axios.get(`http://10.0.0.174:8000/transaction/${user?.cryptoTag}`).then(response => {
+        axios.get(`${BASE_URL}transaction/${user?.cryptoTag}`).then(response => {
             setTransactions(response.data.transactions);
             setRefreshing(false); // Set refreshing state to false after the API call is complete
         }).catch(error => {
