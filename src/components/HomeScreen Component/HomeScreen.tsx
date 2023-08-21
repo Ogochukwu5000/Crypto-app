@@ -69,31 +69,32 @@ function Home(): JSX.Element {
             });
             setEthCoin(response.data);
         } catch (e: any) {
+            console.log("This shit is acting up")
             console.log(e.response.data);
         }
     };
 
-    const fetchUsdtCoinData = async () => {
-        try {
-            const response = await axios.get(`${COIN_GECO_API}coins/${`tether`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
-                headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
-            });
-            setUsdtCoin(response.data);
-        } catch (e: any) {
-            console.log(e.response.data);
-        }
-    };
+    // const fetchUsdtCoinData = async () => {
+    //     try {
+    //         const response = await axios.get(`${COIN_GECO_API}coins/${`tether`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
+    //             headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
+    //         });
+    //         setUsdtCoin(response.data);
+    //     } catch (e: any) {
+    //         console.log(e.response.data);
+    //     }
+    // };
 
-    const fetchUsdcCoinData = async () => {
-        try {
-            const response = await axios.get(`${COIN_GECO_API}coins/${`usd-coin`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
-                headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
-            });
-            setUsdCoin(response.data);
-        } catch (e: any) {
-            console.log(e.response.data);
-        }
-    };
+    // const fetchUsdcCoinData = async () => {
+    //     try {
+    //         const response = await axios.get(`${COIN_GECO_API}coins/${`usd-coin`}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=false`, {
+    //             headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
+    //         });
+    //         setUsdCoin(response.data);
+    //     } catch (e: any) {
+    //         console.log(e.response.data);
+    //     }
+    // };
 
     const onRefresh = () => {
         setRefreshing(true); // Set refreshing state to true when the user pulls down the list
@@ -104,8 +105,8 @@ function Home(): JSX.Element {
 
     useEffect(() => {
         fetchEthCoinData();
-        fetchUsdtCoinData();
-        fetchUsdcCoinData();
+        // fetchUsdtCoinData();
+        // fetchUsdcCoinData();
     }, [coinId]);
 
 
