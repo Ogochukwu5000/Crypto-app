@@ -428,7 +428,7 @@ PODS:
     - React-perflogger (= 0.71.8)
   - ReactNativeART (1.2.0):
     - React
-  - RNCAsyncStorage (1.19.1):
+  - RNCAsyncStorage (1.19.2):
     - React-Core
   - RNCMaskedView (0.1.11):
     - React
@@ -443,6 +443,11 @@ PODS:
     - React-Core
     - React-RCTImage
     - TOCropViewController
+  - RNNotifee (7.8.0):
+    - React-Core
+    - RNNotifee/NotifeeCore (= 7.8.0)
+  - RNNotifee/NotifeeCore (7.8.0):
+    - React-Core
   - RNOS (1.2.6):
     - React
   - RNReanimated (3.3.0):
@@ -480,6 +485,8 @@ PODS:
   - RNSVG (13.10.0):
     - React-Core
   - SocketRocket (0.6.0)
+  - TcpSockets (3.3.2):
+    - React
   - TOCropViewController (2.6.1)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -555,10 +562,12 @@ DEPENDENCIES:
   - "RNCMaskedView (from `../node_modules/@react-native-community/masked-view`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNImageCropPicker (from `../node_modules/react-native-image-crop-picker`)
+  - "RNNotifee (from `../node_modules/@notifee/react-native`)"
   - RNOS (from `../node_modules/react-native-os`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - RNSVG (from `../node_modules/react-native-svg`)
+  - TcpSockets (from `../node_modules/react-native-tcp`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -669,6 +678,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-gesture-handler"
   RNImageCropPicker:
     :path: "../node_modules/react-native-image-crop-picker"
+  RNNotifee:
+    :path: "../node_modules/@notifee/react-native"
   RNOS:
     :path: "../node_modules/react-native-os"
   RNReanimated:
@@ -677,6 +688,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-screens"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  TcpSockets:
+    :path: "../node_modules/react-native-tcp"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -734,15 +747,17 @@ SPEC CHECKSUMS:
   React-runtimeexecutor: 7c51ae9d4b3e9608a2366e39ccaa606aa551b9ed
   ReactCommon: 85c98ab0a509e70bf5ee5d9715cf68dbf495b84c
   ReactNativeART: 78edc68dd4a1e675338cd0cd113319cf3a65f2ab
-  RNCAsyncStorage: f47fe18526970a69c34b548883e1aeceb115e3e1
+  RNCAsyncStorage: f57e929cd7757f2cb3dd8186d123c09e8281a1ad
   RNCMaskedView: 0e1bc4bfa8365eba5fbbb71e07fbdc0555249489
   RNGestureHandler: dec4645026e7401a0899f2846d864403478ff6a5
   RNImageCropPicker: 486e2f7e2b0461ce24321f751410dce1b3b49e6d
+  RNNotifee: f3c01b391dd8e98e67f539f9a35a9cbcd3bae744
   RNOS: 6f2f9a70895bbbfbdad7196abd952e7b01d45027
   RNReanimated: 9976fbaaeb8a188c36026154c844bf374b3b7eeb
   RNScreens: 50ffe2fa2342eabb2d0afbe19f7c1af286bc7fb3
   RNSVG: 80584470ff1ffc7994923ea135a3e5ad825546b9
   SocketRocket: fccef3f9c5cedea1353a9ef6ada904fde10d6608
+  TcpSockets: 14306fb79f9750ea7d2ddd02d8bed182abb01797
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: 065f0b74dba4832d6e328238de46eb72c5de9556
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
