@@ -252,7 +252,7 @@ function CryptoAppMain(): JSX.Element {
         }, 10000);
 
         return () => clearInterval(intervalId);
-    }, [isConnected]);
+    }, [isConnected, ethBalance, getEthBalance, formattedEthBalance]);
 
     return (
         <SafeAreaView style={styles.container}>
