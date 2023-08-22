@@ -47,7 +47,7 @@ function ActivityMain(): JSX.Element {
     const navigation = useNavigation();
     const user = useSelector((state: RootState) => state.userReducer.user);
     const renderItem = ({ item }: any) => (
-        <TouchableOpacity style={styles.transactionContainer} onPress={() => {
+        <TouchableOpacity style={styles.transactionContainer} key={item._id} onPress={() => {
             // @ts-ignore
             navigation.navigate('ActivityTransactionDetails', {
                 transaction: item,
