@@ -10,6 +10,7 @@ import {
     Dimensions,
     TouchableOpacity,
     FlatList,
+    ActivityIndicator,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -21,22 +22,27 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function ChooseRecipientScreen({ route }: any): JSX.Element {
     const [cryptoTag, setCryptoTag] = useState('');
     const [recipients, setRecipients] = useState(null);
+    const [isLoading, setIsLoading] = useState(false); // Add isLoading state
     const navigation = useNavigation();
 
     useEffect(() => {
+        setIsLoading(true); // Set isLoading to true before making the API call
         axios.get(`${BASE_URL}user/get-all-users`)
             .then(response => {
                 const users = response.data.users;
                 setRecipients(users); // Set the recipients state with the fetched data
+                setIsLoading(false); // Set isLoading to false after the API call is complete
             })
             .catch(error => {
                 console.error(JSON.stringify(error));
+                setIsLoading(false); // Set isLoading to false after the API call is complete
             });
     }, []);
 
     const renderItem = ({ item }: { item: any }) => (
         <TouchableOpacity
             style={styles.recipientItem}
+            key={item._id}
             onPress={() => {
                 // @ts-ignore
                 navigation.navigate('CurrentPin', {
@@ -107,13 +113,19 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
                         placeholderTextColor={'#3D4C63'}
                     />
                 </View>
-                <FlatList
-                    // @ts-ignore
-                    data={cryptoTag === '' ? recipients : recipients.filter((recipient: any) => recipient.crypto_tag.includes(cryptoTag))}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
-                    style={styles.recipientList}
-                />
+                {isLoading ? ( // Add activity indicator when isLoading is true
+                    <View style={[styles.recipientList, { flex: 1, justifyContent: 'center' }]}>
+                        <ActivityIndicator size="large" color="#0000ff" />
+                    </View>
+                ) : (
+                    <FlatList
+                        // @ts-ignore
+                        data={cryptoTag === '' ? recipients : recipients.filter((recipient: any) => recipient.crypto_tag.includes(cryptoTag))}
+                        renderItem={renderItem}
+                        keyExtractor={(item) => item.id}
+                        style={styles.recipientList}
+                    />
+                )}
             </KeyboardAvoidingView>
         </SafeAreaView>
     );
