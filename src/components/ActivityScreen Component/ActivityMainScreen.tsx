@@ -72,7 +72,7 @@ function ActivityMain(): JSX.Element {
             </View>
             <View>
                 <Text style={styles.transactionAmount}>${item.amount_usd}</Text>
-                <Text style={styles.transactionCryptoAmount}>{item.amount_crypto.toFixed(5)}</Text>
+                <Text style={styles.transactionCryptoAmount}>{item.amount_crypto.toFixed(5)} ETH</Text>
             </View>
             <View>
                 <Text style={styles.transactionType}>{item.time}</Text>
