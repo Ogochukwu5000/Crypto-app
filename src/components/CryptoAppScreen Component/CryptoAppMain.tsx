@@ -132,6 +132,17 @@ function CryptoAppMain(): JSX.Element {
     };
 
     const handleNavigateToChooseRecipient = () => {
+        if (!ethBalance) return Alert.alert(
+            "Balance Loading",
+            "Please wait while your balance loads",
+            [
+                {
+                    text: "Cancel",
+                    onPress: () => console.log("Cancel Pressed"),
+                    style: "cancel"
+                }
+            ]
+        );
         if (amount !== '0' && cryptoAmount !== '0.00') {
             if (isConnected) {
                 const params = {
