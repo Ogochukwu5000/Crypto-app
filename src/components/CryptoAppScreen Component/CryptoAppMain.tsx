@@ -266,12 +266,20 @@ function CryptoAppMain(): JSX.Element {
         return () => clearInterval(intervalId);
     }, [isConnected, ethBalance, getEthBalance, formattedEthBalance]);
 
-    // useEffect(() => {
-    //     if (Notifications) {
-    //         Notifications.registerRemoteNotifications();
+    useEffect(() => {
+        if (Notifications) {
+            // Request permissions on iOS, refresh token on Android
+            // Notifications.registerRemoteNotifications();
 
-    //     }
-    // }, []);
+            // Notifications.events().registerRemoteNotificationsRegistered((event) => {
+            //     // TODO: Send the token to my server so it could send back push notifications...
+            //     console.log("Device Token Received", event.deviceToken);
+            // });
+            // Notifications.events().registerRemoteNotificationsRegistrationFailed((event) => {
+            //     console.error(event);
+            // });
+        }
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
