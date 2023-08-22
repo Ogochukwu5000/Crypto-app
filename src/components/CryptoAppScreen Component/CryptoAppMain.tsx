@@ -7,6 +7,7 @@ import axios from 'axios';
 import web3 from 'web3';
 import { useDispatch } from 'react-redux';
 import { COIN_GECO_API } from '../../constants/config';
+import { Notifications } from 'react-native-notifications';
 
 
 interface KeypadButtonProps {
@@ -264,6 +265,13 @@ function CryptoAppMain(): JSX.Element {
 
         return () => clearInterval(intervalId);
     }, [isConnected, ethBalance, getEthBalance, formattedEthBalance]);
+
+    // useEffect(() => {
+    //     if (Notifications) {
+    //         Notifications.registerRemoteNotifications();
+
+    //     }
+    // }, []);
 
     return (
         <SafeAreaView style={styles.container}>
