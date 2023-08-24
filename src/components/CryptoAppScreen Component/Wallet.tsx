@@ -31,7 +31,7 @@ function Wallet(): JSX.Element {
 
     const providerMetadata = {
         name: 'Crypto App',
-        description: 'Crypto App is a decentralized application that allows you send and receive crypto with your crypto tag.',
+        description: 'Crypto App is a decentralized application that allows you send and receive eth with your crypto tag.',
         url: 'https://cryptoapplabs.com/',
         icons: [require("../../assets/App logo.png")],
         redirect: {
