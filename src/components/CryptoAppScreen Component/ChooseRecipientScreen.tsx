@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     FlatList,
     ActivityIndicator,
+    Alert,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
@@ -31,6 +32,7 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
             .then(response => {
                 const users = response.data.users;
                 setRecipients(users); // Set the recipients state with the fetched data
+                console.log(recipients);
                 setIsLoading(false); // Set isLoading to false after the API call is complete
             })
             .catch(error => {
@@ -44,6 +46,18 @@ function ChooseRecipientScreen({ route }: any): JSX.Element {
             style={styles.recipientItem}
             key={item._id}
             onPress={() => {
+                if (!item.wallet_address) {
+                    return Alert.alert(
+                        "Wallet Address",
+                        `oops! ${item.first_name} hasn't added a wallet address`,
+                        [
+                            {
+                                text: "Okay",
+                                onPress: () => console.log("Okay Pressed"),
+                            }
+                        ]
+                    );
+                }
                 // @ts-ignore
                 navigation.navigate('CurrentPin', {
                     recipient: item,
