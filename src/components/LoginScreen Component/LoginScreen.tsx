@@ -33,7 +33,7 @@ function LoginScreen(): JSX.Element {
       isEmail = true;
     }
 
-    axios.post(`${BASE_URL}/user/login`, {
+    axios.post(`${BASE_URL}user/login`, {
       email: isEmail ? email : Alert.alert('Invalid email or password'),
       password,
     }).then((response) => {
