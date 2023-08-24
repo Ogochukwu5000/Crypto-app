@@ -133,6 +133,25 @@ function CryptoAppMain(): JSX.Element {
     };
 
     const handleNavigateToChooseRecipient = () => {
+        if (!isConnected) {
+            return Alert.alert(
+                "Connect Wallet",
+                "Please connect your wallet to continue",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                    },
+                    {
+                        text: "Connect",
+                        onPress: () => {
+                            navigation.navigate('Profile' as never);
+                        }
+                    }
+                ]
+            );
+        }
         if (!ethBalance) return Alert.alert(
             "Balance Loading",
             "Please wait while your balance loads",
