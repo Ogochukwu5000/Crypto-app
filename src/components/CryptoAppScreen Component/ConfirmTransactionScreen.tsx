@@ -16,6 +16,7 @@ import { useWalletConnectModal } from '@walletconnect/modal-react-native';
 import Loading from '../LoadingScreen Component/LoadingScreen';
 import axios from 'axios';
 import { BASE_URL } from '../../constants/config';
+import moment from 'moment';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -33,6 +34,11 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
             to: route.params.recipient.wallet_address,
             value: route.params.weiAmount,
         };
+
+        const date = new Date();
+        const time = new Date();
+        const formattedDate = moment(date).format("MMM DD, YYYY");
+        const formattedTime = moment(time).format("hh:mm A");
 
         try {
             // Send the transaction using WalletConnect
@@ -53,6 +59,8 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
                 to_name: `${route.params.recipient.first_name} ${route.params.recipient.last_name}`,
                 from_crypto_tag: user?.cryptoTag,
                 from_name: `${user?.firstName} ${user?.lastName}`,
+                formattedDate,
+                formattedTime,
             });
 
             // console.log(`Response: ${JSON.stringify(response.data.transaction)}`);
