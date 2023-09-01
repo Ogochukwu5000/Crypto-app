@@ -205,71 +205,72 @@ function CryptoAppMain(): JSX.Element {
     }, [amount]);
 
     useEffect(() => {
-        const intervalId = setInterval(() => {
-            getEthBalance();
-            getUsdtBalance();
-            getUsdcBalance();
-            axios
-                .get(`${COIN_GECO_API}simple/price?ids=ethereum&vs_currencies=usd`, {
-                    headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
-                })
-                .then((response) => {
-                    const ethPrice = response.data.ethereum.usd;
-                    setCurrentEthPrice(ethPrice);
-                    const usdBalance = ethBalance as any * ethPrice;
-                    setFormattedEthBalance(usdBalance.toFixed(2));
-                })
-                .catch((error) => {
-                    console.log(error);
+        if (isConnected) {
+            const intervalId = setInterval(() => {
+                getEthBalance();
+                getUsdtBalance();
+                getUsdcBalance();
+                axios
+                    .get(`${COIN_GECO_API}simple/price?ids=ethereum&vs_currencies=usd`, {
+                        headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
+                    })
+                    .then((response) => {
+                        const ethPrice = response.data.ethereum.usd;
+                        setCurrentEthPrice(ethPrice);
+                        const usdBalance = ethBalance as any * ethPrice;
+                        setFormattedEthBalance(usdBalance.toFixed(2));
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
+                axios
+                    .get(`${COIN_GECO_API}simple/price?ids=tether&vs_currencies=usd`, {
+                        headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
+                    })
+                    .then((response) => {
+                        const usdtPrice = response.data.tether.usd;
+                        const usdBalance = usdtBalance as any * usdtPrice;
+                        setFormattedUsdtBalance(usdBalance.toFixed(2));
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
+                axios
+                    .get(`${COIN_GECO_API}simple/price?ids=usd-coin&vs_currencies=usd`, {
+                        headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
+                    })
+                    .then((response) => {
+                        const usdcPrice = response.data['usd-coin'].usd;
+                        const usdBalance = usdcBalance as any * usdcPrice;
+                        setFormattedUsdcBalance(usdBalance.toFixed(2));
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
+                const updatedBalance = {
+                    eth: {
+                        tokenBalance: ethBalance,
+                        usdBalance: formattedEthBalance,
+                    },
+                    usdt: {
+                        tokenBalance: usdtBalance,
+                        usdBalance: formattedUsdtBalance,
+                    },
+                    usdc: {
+                        tokenBalance: usdcBalance,
+                        usdBalance: formattedUsdcBalance,
+                    },
+                };
+                dispatch({
+                    type: 'SET_BALANCE',
+                    payload: updatedBalance,
                 });
-
-            axios
-                .get(`${COIN_GECO_API}simple/price?ids=tether&vs_currencies=usd`, {
-                    headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
-                })
-                .then((response) => {
-                    const usdtPrice = response.data.tether.usd;
-                    const usdBalance = usdtBalance as any * usdtPrice;
-                    setFormattedUsdtBalance(usdBalance.toFixed(2));
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-
-            axios
-                .get(`${COIN_GECO_API}simple/price?ids=usd-coin&vs_currencies=usd`, {
-                    headers: { 'x-cg-pro-api-key': 'CG-j4iM5vibsMDL2DwEzT2ww4No' },
-                })
-                .then((response) => {
-                    const usdcPrice = response.data['usd-coin'].usd;
-                    const usdBalance = usdcBalance as any * usdcPrice;
-                    setFormattedUsdcBalance(usdBalance.toFixed(2));
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-
-            const updatedBalance = {
-                eth: {
-                    tokenBalance: ethBalance,
-                    usdBalance: formattedEthBalance,
-                },
-                usdt: {
-                    tokenBalance: usdtBalance,
-                    usdBalance: formattedUsdtBalance,
-                },
-                usdc: {
-                    tokenBalance: usdcBalance,
-                    usdBalance: formattedUsdcBalance,
-                },
-            };
-            dispatch({
-                type: 'SET_BALANCE',
-                payload: updatedBalance,
-            });
-        }, 10000);
-
-        return () => clearInterval(intervalId);
+            }, 10000);
+            return () => clearInterval(intervalId);
+        }
     }, [isConnected, ethBalance, getEthBalance, formattedEthBalance]);
 
     useEffect(() => {
