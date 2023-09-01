@@ -14,7 +14,6 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function ActivityDetails({ route }: any): JSX.Element {
     const transaction = route.params.transaction;
 
-    console.log(transaction);
     return (
         <SafeAreaView style={styles.container}>
             {/* Image */}
