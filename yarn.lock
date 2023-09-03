@@ -11773,7 +11773,7 @@ react-native-svg@*, react-native-svg@^13.10.0, "react-native-svg@> 6.4.1", react
     css-select "^5.1.0"
     css-tree "^1.1.3"
 
-react-native-tcp-socket@^3.4.1:
+react-native-tcp-socket@^3.7.1:
   version "3.7.1"
   resolved "https://registry.npmjs.org/react-native-tcp-socket/-/react-native-tcp-socket-3.7.1.tgz"
   integrity sha512-ToyFSYuJp0/DQ7bXd/vTwF5m3yhNSRngIpVlBFBDccDZQmp2qIo0exrObCNlJLOOHb38dil726hM+GKjR1/60w==
