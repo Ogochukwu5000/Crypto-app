@@ -279,7 +279,7 @@ function CryptoAppMain(): JSX.Element {
             // Notifications.registerRemoteNotifications();
 
             // Notifications.events().registerRemoteNotificationsRegistered((event) => {
-            //     // TODO: Send the token to my server so it could send back push notifications...
+            // TODO: Send the token to my server so it could send back push notifications...
             //     console.log("Device Token Received", event.deviceToken);
             // });
             // Notifications.events().registerRemoteNotificationsRegistrationFailed((event) => {
