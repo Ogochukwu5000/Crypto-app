@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../components/HomeScreen Component/HomeScreen';
-import Search from '../components/SearchScreen Component/SearchScreen';
+// import Search from '../components/SearchScreen Component/SearchScreen';
 import Activity from '../components/ActivityScreen Component/ActivityScreen';
 import { SvgXml } from 'react-native-svg';
 import CryptoAppMain from '../components/CryptoAppScreen Component/CryptoAppMain';
