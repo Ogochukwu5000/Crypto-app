@@ -7,7 +7,7 @@
       android:label="Crypto App"
       android:icon="@mipmap/ic_launcher"
       android:allowBackup="false"
-      android:theme="@style/AppTheme">
+      android:theme="@style/SplashTheme">
       <activity
         android:name=".MainActivity"
         android:label="Crypto App"
