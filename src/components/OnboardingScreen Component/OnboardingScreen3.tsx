@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         width: responsiveWidth(50),
         height: 50,
         borderRadius: 25,
-        marginTop: "15%",
+        marginTop: responsiveHeight(5),
         alignItems: 'center',
         justifyContent: 'center',
     },

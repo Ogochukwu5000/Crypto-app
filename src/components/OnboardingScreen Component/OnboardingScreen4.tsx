@@ -9,6 +9,11 @@ import {
     Dimensions
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+    responsiveHeight,
+    responsiveWidth,
+    responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400;
@@ -33,8 +38,8 @@ function OnboardingScreen4({ setGettingStarted }: { setGettingStarted: (value: b
                     resizeMode="contain"
                     style={{ marginTop: 40 }}
                 />
-                <Text style={{ fontSize: !isSmallScreen ? 45 : 41, fontWeight: '600', marginTop: !isSmallScreen ? 45 : 30, textAlign: "center" }}>A One Stop Shop For All Your Wallets.</Text>
-                <Text style={{ fontSize: 20, fontWeight: '300', marginTop: !isSmallScreen ? 30 : 30, textAlign: "center", width: "80%" }}>
+                <Text style={{ fontSize: responsiveFontSize(3), fontWeight: '600', marginTop: !isSmallScreen ? 45 : 30, textAlign: "center", color: "black" }}>A One Stop Shop For All Your Wallets.</Text>
+                <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '300', marginTop: !isSmallScreen ? 30 : 30, textAlign: "center", width: "80%", color: "black" }}>
                     connect your wallet with crypto app and make transactions seamlessly, yes we’re serious!</Text>
                 <TouchableOpacity style={styles.nextButton} onPress={changeFirstTimeValue}>
                     <Text style={styles.NextButtonText}>Lets GO!</Text>
@@ -51,12 +56,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
-        width: '90%',
-        height: !isSmallScreen ? '30%' : '27%',
+        width: responsiveWidth(100),
+        height: responsiveHeight(35),
     },
     Header: {
         color: '#fff',
-        fontSize: 20,
+        fontSize: responsiveFontSize(2),
         fontWeight: '500',
         padding: 10,
     },
@@ -65,8 +70,8 @@ const styles = StyleSheet.create({
     },
     bottomHalfModal: {
         backgroundColor: '#fff',
-        width: '100%',
-        height: '63%',
+        width: responsiveWidth(100),
+        height: responsiveHeight(50),
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         alignItems: 'center',
@@ -75,10 +80,10 @@ const styles = StyleSheet.create({
     },
     nextButton: {
         backgroundColor: '#3447F0',
-        width: 200,
+        width: responsiveWidth(50),
         height: 50,
         borderRadius: 25,
-        marginTop: !isSmallScreen ? '15%' : '10%',
+        marginTop: responsiveHeight(3),
         alignItems: 'center',
         justifyContent: 'center',
     },
