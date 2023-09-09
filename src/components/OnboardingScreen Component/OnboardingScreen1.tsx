@@ -10,6 +10,11 @@ import {
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+    responsiveHeight,
+    responsiveWidth,
+    responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 
 const { width } = Dimensions.get('window');
@@ -36,7 +41,7 @@ function OnboardingScreen1({ setGettingStarted }: { setGettingStarted: (value: b
                     resizeMode="contain"
                     style={{ marginTop: 40 }}
                 />
-                <Text style={{ fontSize: 45, fontWeight: '600', marginTop: 45, textAlign: "center" }}>Welcome to CryptoApp</Text>
+                <Text style={{ fontSize: 45, fontWeight: '600', marginTop: 45, textAlign: "center", color: "black" }}>Welcome to CryptoApp</Text>
                 <Text style={{ fontSize: 20, fontWeight: '300', marginTop: 30, textAlign: "center", width: "80%" }}>Send and receive Eth the cool way with Crypto app!</Text>
                 <TouchableOpacity style={styles.nextButton} onPress={() => {
                     navigation.navigate('OnboardingScreen2' as never);
@@ -55,12 +60,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     image: {
-        width: '90%',
-        height: '30%',
+        width: responsiveWidth(100),
+        height: responsiveHeight(25),
     },
     Header: {
         color: '#fff',
-        fontSize: 20,
+        fontSize: responsiveFontSize(2),
         fontWeight: '500',
         padding: 10,
     },
@@ -79,10 +84,10 @@ const styles = StyleSheet.create({
     },
     nextButton: {
         backgroundColor: '#3447F0',
-        width: 200,
+        width: responsiveWidth(50),
         height: 50,
         borderRadius: 25,
-        marginTop: !isSmallScreen ? '15%' : '10%',
+        marginTop: "15%",
         alignItems: 'center',
         justifyContent: 'center',
     },
