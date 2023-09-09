@@ -40,8 +40,8 @@ function OnboardingScreen3({ setGettingStarted }: { setGettingStarted: (value: b
                     resizeMode="contain"
                     style={{ marginTop: 40 }}
                 />
-                <Text style={{ fontSize: responsiveFontSize(3), fontWeight: '600', marginTop: !isSmallScreen ? 45 : 30, textAlign: "center" }}>Goodbye To Long Wallet Address</Text>
-                <Text style={{ fontSize: responsiveFontSize(2), marginTop: 30, textAlign: "center", width: "80%" }}>Say goodbye to long wallet addresses and hello to your unique Crypto tag the future of transactions!</Text>
+                <Text style={{ fontSize: responsiveFontSize(3), fontWeight: '600', marginTop: !isSmallScreen ? 45 : 30, textAlign: "center", color: "black" }}>Goodbye To Long Wallet Address</Text>
+                <Text style={{ fontSize: responsiveFontSize(2), marginTop: 30, textAlign: "center", width: "80%", color: "black" }}>Say goodbye to long wallet addresses and hello to your unique Crypto tag the future of transactions!</Text>
                 <TouchableOpacity style={styles.nextButton} onPress={() => {
                     navigation.navigate('OnboardingScreen4' as never);
                 }}>
