@@ -41,8 +41,8 @@ function OnboardingScreen1({ setGettingStarted }: { setGettingStarted: (value: b
                     resizeMode="contain"
                     style={{ marginTop: 40 }}
                 />
-                <Text style={{ fontSize: 45, fontWeight: '600', marginTop: 45, textAlign: "center", color: "black" }}>Welcome to CryptoApp</Text>
-                <Text style={{ fontSize: 20, fontWeight: '300', marginTop: 30, textAlign: "center", width: "80%" }}>Send and receive Eth the cool way with Crypto app!</Text>
+                <Text style={{ fontSize: responsiveFontSize(4), fontWeight: '600', marginTop: 45, textAlign: "center", color: "black" }}>Welcome to CryptoApp</Text>
+                <Text style={{ fontSize: responsiveFontSize(2), fontWeight: '300', marginTop: 30, textAlign: "center", width: "80%", color: "black" }}>Send and receive Eth the cool way with Crypto app!</Text>
                 <TouchableOpacity style={styles.nextButton} onPress={() => {
                     navigation.navigate('OnboardingScreen2' as never);
                 }}>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: responsiveWidth(100),
-        height: responsiveHeight(25),
+        height: responsiveHeight(35),
     },
     Header: {
         color: '#fff',
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     },
     bottomHalfModal: {
         backgroundColor: '#fff',
-        width: '100%',
-        height: '63%',
+        width: responsiveWidth(100),
+        height: responsiveHeight(50),
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         alignItems: 'center',
