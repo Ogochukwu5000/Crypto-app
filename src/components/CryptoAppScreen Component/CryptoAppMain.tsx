@@ -9,7 +9,6 @@ import { useDispatch } from 'react-redux';
 import { COIN_GECO_API } from '../../constants/config';
 import { Notifications } from 'react-native-notifications';
 
-
 interface KeypadButtonProps {
     value: string;
     onPress: () => void;
@@ -17,7 +16,7 @@ interface KeypadButtonProps {
 }
 
 const { width } = Dimensions.get('window');
-const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
+const isSmallScreen = width < 430; // Adjust the width value based on the screen size you consider as small
 
 function KeypadButton({ value, onPress, isHighlighted }: KeypadButtonProps): JSX.Element {
     return (
