@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: responsiveWidth(100),
-    height: responsiveHeight(35),
+    height: responsiveHeight(30),
     marginTop: responsiveHeight(5),
   },
   welcomeHeader: {
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
   bottomHalfLoginModal: {
     backgroundColor: '#fff',
     width: responsiveWidth(100),
-    height: responsiveHeight(50),
+    height: responsiveHeight(53),
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     alignItems: 'center',
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
   },
 
   input: {
-    width: '100%',
+    width: responsiveWidth(90),
     height: 50,
     marginTop: '5%',
     borderBottomWidth: 1,
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   },
 
   loginFooter: {
-    marginTop: '17%',
+    // marginTop: responsiveHeight(1),
   },
 
   signUpButton: {
