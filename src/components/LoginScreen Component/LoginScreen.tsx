@@ -15,6 +15,11 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import Loading from '../LoadingScreen Component/LoadingScreen';
 import { BASE_URL } from '../../constants/config';
+import {
+  responsiveHeight,
+  responsiveWidth,
+  responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 function LoginScreen(): JSX.Element {
   const [email, setEmail] = useState('');
@@ -160,19 +165,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    width: '90%',
-    height: '30%',
-    marginTop: '8%',
+    width: responsiveWidth(100),
+    height: responsiveHeight(35),
+    marginTop: responsiveHeight(5),
   },
   welcomeHeader: {
     color: '#fff',
-    fontSize: 30,
+    fontSize: responsiveFontSize(4),
     fontWeight: 'bold',
   },
   bottomHalfLoginModal: {
     backgroundColor: '#fff',
-    width: '100%',
-    height: '63%',
+    width: responsiveWidth(100),
+    height: responsiveHeight(50),
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     alignItems: 'center',
