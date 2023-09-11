@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     bottomHalfModal: {
         backgroundColor: '#fff',
         width: '100%',
-        height: '85%',
+        height: '83%',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         alignItems: 'center',
