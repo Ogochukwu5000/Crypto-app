@@ -15,6 +15,11 @@ import axios from 'axios';
 import { RootState } from '../../../store/reducers';
 import { useSelector } from 'react-redux';
 import { BASE_URL } from '../../constants/config';
+import {
+    responsiveHeight,
+    responsiveWidth,
+    responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -283,7 +288,7 @@ const styles = StyleSheet.create({
         marginTop: '5%',
         gap: 25,
         justifyContent: 'center',
-        height: '30%',
+        height: responsiveHeight(25),
         marginLeft: '3%',
     },
     smallScreenPinContainer: {
