@@ -12,6 +12,12 @@ import {
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
 const { width } = Dimensions.get('window');
+import {
+    responsiveHeight,
+    responsiveWidth,
+    responsiveFontSize
+  } from "react-native-responsive-dimensions";
+
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function CreatePin(): JSX.Element {
@@ -260,7 +266,7 @@ const styles = StyleSheet.create({
         marginTop: '5%',
         gap: 25,
         justifyContent: 'center',
-        height: '30%',
+        height: responsiveHeight(25),
         marginLeft: '3%',
     },
     smallScreenPinContainer: {
