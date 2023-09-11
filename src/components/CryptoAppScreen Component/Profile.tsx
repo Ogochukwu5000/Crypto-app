@@ -17,7 +17,7 @@ import axios from 'axios';
 import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
-const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
+const isSmallScreen = width < 430; // Adjust the width value based on the screen size you consider as small
 
 function Profile(): JSX.Element {
     const navigation = useNavigation();
@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
         width: '100%',
         display: 'flex',
         alignItems: 'center',
-        marginTop: '19%',
+        marginTop: '10%',
     },
     cryptoTag: {
         fontSize: 14,
