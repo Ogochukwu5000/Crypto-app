@@ -18,6 +18,11 @@ import { useNavigation } from '@react-navigation/native';
 import Loading from '../LoadingScreen Component/LoadingScreen';
 import { StackActions } from '@react-navigation/native';
 import { BASE_URL } from '../../constants/config';
+import {
+    responsiveHeight,
+    responsiveWidth,
+    responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -201,14 +206,14 @@ const styles = StyleSheet.create({
         marginLeft: '6%',
     },
     emailImage: {
-        width: 300,
-        height: 500,
+        width: responsiveWidth(70),
+        height: responsiveHeight(50),
         marginTop: '10%',
         marginLeft: '10%',
     },
     smallScreenEmailImage: {
-        width: 300,
-        height: 300,
+        width: responsiveWidth(70),
+        height: responsiveHeight(50),
         marginTop: '10%',
         marginLeft: '10%',
     },
