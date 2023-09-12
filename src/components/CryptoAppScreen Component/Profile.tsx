@@ -312,7 +312,7 @@ const styles = StyleSheet.create({
         width: '100%',
         display: 'flex',
         alignItems: 'center',
-        marginTop: '10%',
+        marginTop: '20%',
     },
     cryptoTag: {
         fontSize: 14,
@@ -328,7 +328,7 @@ const styles = StyleSheet.create({
         width: '85%',
         display: 'flex',
         alignItems: 'flex-start',
-        marginTop: '5%',
+        marginTop: '3%',
         backgroundColor: '#F0F0F0',
         padding: 20,
         borderRadius: 25,
