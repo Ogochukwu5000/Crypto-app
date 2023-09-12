@@ -9,7 +9,7 @@ import {
 import { BASE_URL } from '../../constants/config';
 
 const { width } = Dimensions.get('window');
-const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
+const isSmallScreen = width < 430; // Adjust the width value based on the screen size you consider as small
 
 function ActivityDetails({ route }: any): JSX.Element {
     const transaction = route.params.transaction;
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'flex-start',
-        marginLeft: '5%',
+        marginLeft: '10%',
     },
     image: {
         width: 80,
