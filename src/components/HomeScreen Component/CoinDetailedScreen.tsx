@@ -52,7 +52,7 @@ const filterDaysArray = [
 ];
 
 const { width } = Dimensions.get('window');
-const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
+const isSmallScreen = width < 430; // Adjust the width value based on the screen size you consider as small
 
 const CoinDetailedScreen = ({ coinId }: CoinDetailedScreenProps): JSX.Element => {
     const [coin, setCoin] = useState<Coin | null>(null);
