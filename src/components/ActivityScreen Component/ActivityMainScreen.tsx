@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
         fontSize: 30,
         fontWeight: '500',
         marginTop: 20,
-        marginBottom: 50,
+        marginBottom: 10,
     },
     listContainer: {
         alignItems: 'center',
