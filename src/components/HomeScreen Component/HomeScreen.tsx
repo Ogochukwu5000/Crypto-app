@@ -17,6 +17,11 @@ import { useSelector } from 'react-redux';
 import { RootState } from "../../../store/reducers";
 import axios from 'axios';
 import { COIN_GECO_API } from '../../constants/config';
+import {
+    responsiveHeight,
+    responsiveWidth,
+    responsiveFontSize
+} from "react-native-responsive-dimensions";
 
 
 const { width } = Dimensions.get('window');
@@ -235,7 +240,7 @@ const styles = StyleSheet.create({
     bottomHalfModal: {
         backgroundColor: '#fff',
         width: '100%',
-        height: '52%',
+        height: responsiveHeight(43),
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         alignItems: 'center',
