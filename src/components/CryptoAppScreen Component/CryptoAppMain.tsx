@@ -15,8 +15,9 @@ interface KeypadButtonProps {
     isHighlighted: boolean;
 }
 
-const { width } = Dimensions.get('window');
-const isSmallScreen = width < 430; // Adjust the width value based on the screen size you consider as small
+const { width, height } = Dimensions.get('window');
+const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
+const isSmallHeight = height < 700; // Adjust the height value based on the screen size you consider as small
 
 function KeypadButton({ value, onPress, isHighlighted }: KeypadButtonProps): JSX.Element {
     return (
@@ -348,24 +349,24 @@ function CryptoAppMain(): JSX.Element {
                     Choose Recipient
                 </Text>
             </TouchableOpacity>
-            <View style={[styles.keypadContainer, isSmallScreen && styles.keypadContainerSmallScreen
+            <View style={[styles.keypadContainer, isSmallHeight && styles.keypadContainerSmallScreen
             ]}>
-                <View style={[styles.keypadRow, isSmallScreen && styles.smallScreenKeypadRow]}>
+                <View style={[styles.keypadRow, isSmallHeight && styles.smallScreenKeypadRow]}>
                     <KeypadButton value="1" onPress={() => handleKeypadPress('1')} isHighlighted={false} />
                     <KeypadButton value="2" onPress={() => handleKeypadPress('2')} isHighlighted={false} />
                     <KeypadButton value="3" onPress={() => handleKeypadPress('3')} isHighlighted={false} />
                 </View>
-                <View style={[styles.keypadRow, isSmallScreen && styles.smallScreenKeypadRow]}>
+                <View style={[styles.keypadRow, isSmallHeight && styles.smallScreenKeypadRow]}>
                     <KeypadButton value="4" onPress={() => handleKeypadPress('4')} isHighlighted={false} />
                     <KeypadButton value="5" onPress={() => handleKeypadPress('5')} isHighlighted={false} />
                     <KeypadButton value="6" onPress={() => handleKeypadPress('6')} isHighlighted={false} />
                 </View>
-                <View style={[styles.keypadRow, isSmallScreen && styles.smallScreenKeypadRow]}>
+                <View style={[styles.keypadRow, isSmallHeight && styles.smallScreenKeypadRow]}>
                     <KeypadButton value="7" onPress={() => handleKeypadPress('7')} isHighlighted={false} />
                     <KeypadButton value="8" onPress={() => handleKeypadPress('8')} isHighlighted={false} />
                     <KeypadButton value="9" onPress={() => handleKeypadPress('9')} isHighlighted={false} />
                 </View>
-                <View style={[styles.keypadRow, isSmallScreen && styles.smallScreenKeypadRow]}>
+                <View style={[styles.keypadRow, isSmallHeight && styles.smallScreenKeypadRow]}>
                     <KeypadButton value="." onPress={() => handleKeypadPress('.')} isHighlighted={false} />
                     <KeypadButton value="0" onPress={() => handleKeypadPress('0')} isHighlighted={false} />
                     <TouchableOpacity style={styles.keypadButton} onPress={handleDeletePress}>
