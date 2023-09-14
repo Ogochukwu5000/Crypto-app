@@ -16,8 +16,8 @@ import ImagePicker, { ImageOrVideo } from "react-native-image-crop-picker";
 import axios from 'axios';
 import { BASE_URL } from '../../constants/config';
 
-const { width } = Dimensions.get('window');
-const isSmallScreen = width < 430; // Adjust the width value based on the screen size you consider as small
+const { height } = Dimensions.get('window');
+const isSmallScreen = height < 700; // Adjust the width value based on the screen size you consider as small
 
 function Profile(): JSX.Element {
     const navigation = useNavigation();
