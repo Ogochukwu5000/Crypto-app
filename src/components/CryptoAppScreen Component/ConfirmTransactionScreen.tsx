@@ -18,8 +18,8 @@ import axios from 'axios';
 import { BASE_URL } from '../../constants/config';
 import moment from 'moment';
 
-const { width } = Dimensions.get('window');
-const isSmallScreen = width < 430; // Adjust the width value based on the screen size you consider as small
+const { height } = Dimensions.get('window');
+const isSmallScreen = height < 700; // Adjust the width value based on the screen size you consider as small
 
 function ConfirmTransactionScreen({ route }: any): JSX.Element {
     const navigation = useNavigation();
