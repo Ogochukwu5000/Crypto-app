@@ -33,6 +33,7 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
             from: user?.walletAddress,
             to: route.params.recipient.wallet_address,
             value: route.params.weiAmount,
+            data: '0x',
         };
 
         const date = new Date();
