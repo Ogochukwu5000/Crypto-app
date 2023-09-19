@@ -33,7 +33,7 @@ function Wallet(): JSX.Element {
         name: 'Crypto App',
         description: 'Crypto App is a decentralized application that allows you send and receive eth with your crypto tag.',
         url: 'https://cryptoapplabs.com/',
-        icons: [require("../../assets/App logo.png")],
+        icons: ["https://lh3.googleusercontent.com/a-/ALV-UjXnie1aEliI-h0aOdCcn5nz9V8dtEILFgitaw_8yZz82Pn0mEzQS1izJEGTOFYgFKRBvYYkxOyoLwjBXDtBCOWsYHIUWDm02UduA1fyI6GIgR7VY3XgbB-pIOg2jNlUhssOGl3xILbwjxpZBafk2Z-BSPAsfqrh2eko_4tR2rsTs9F6B-2Mo6729Qcpjw7Io1hUWRpBTny42wZj-5cibUhM_j8iyrjkZjUq3N75-ZfMfrTgfEkabURDnLgt7VfhhugwZChQpGvbCkoYolhZzagTlKjMTHp4h2IHciz5wAYTuk5LE_zGXx8DCOIrWATlxFDqmreXRCGLNxfuYv1Qu3p_0WA1vNCnkiByHW7YHZvIBVFJmLBAQM86Z-gP6TM-vPfN4CkWjqGuzd5pu6lCjC__tFyWuW-Fac8-BUN140Va24hY5ru3_9QRTdHJmwDbp8gpcZGQI3fFQiEerJj3WgMbOB6UeGCfi4XyMqzSGYvGUw9BPdcqX-zmxVOj1tQouGLBOEJ2rVOESY-TOoDtDbNiKQkq_sHYcQvIOVyi4GvueOIBYanBktc0nVTnBu3r_KdSCzedeIStclOrrFeee7oezNeeFavbaEfTodn4p1ln4rFE85VahjVbPn3NP5B3corAU1kAsoyig5A7xUPtucEevv-j_7dXO6qHLLDgalLgwCPmBk2vQh4I68htZb-S1nzcKZSQY5YV1Emokqvfj3PhDx9nmoonvAQ_HqRuBeex-he_pzUuBGpRHMrtXcgDEZJFjrghzOPrQD0kd_WVOUfEBN9eBWPxMNSlrf9gctTzX6fkwAQW9-L3b1lVw0WOOvk7kdFn_CLWIRwmxBcpLohlADBPLmE4MftwPIQ2DlyegbaMoVyxDwAx21n2p-M-JseVmrPuUWn1GGipJyfwykQEOaq9IZuQ0fniMIYXoIj7oWOT9HGWxwYNzLItsYi2XA=s576-c-no"],
         redirect: {
             native: 'cryptoapp://',
             universal: 'https://cryptoapplabs.com/',
