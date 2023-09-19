@@ -42,6 +42,23 @@ function Wallet(): JSX.Element {
         textDecoder: new TextDecoder(),
     };
 
+    const sessionParams = {
+        namespaces: {
+            eip155: {
+                methods: [
+                    "eth_sendTransaction",
+                    "eth_signTransaction",
+                    "eth_sign",
+                    "personal_sign",
+                    "eth_signTypedData",
+                ],
+                chains: ["eip155:44787"],
+                events: ["chainChanged", "accountsChanged"],
+                rpcMap: {},
+            },
+        },
+    };
+
     const wallets = [
         // { name: 'Metamask', address: '', image: require('../../assets/metamask.png') },
         // { name: 'Coinbase Wallet', address: '', image: require('../../assets/coinbase.png') },
@@ -235,6 +252,7 @@ function Wallet(): JSX.Element {
                     <WalletConnectModal
                         projectId={projectId}
                         providerMetadata={providerMetadata}
+                        sessionParams={sessionParams}
                     />
                 </View>
             </KeyboardAvoidingView>
