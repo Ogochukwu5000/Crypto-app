@@ -153,7 +153,7 @@ function CryptoAppMain(): JSX.Element {
         if (amount !== '0' && cryptoAmount !== '0.00') {
             if (isConnected) {
                 const params = {
-                    weiAmount: parseInt(web3.utils.toWei(cryptoAmount, "ether")).toString(16),
+                    weiAmount: web3.utils.toHex(parseInt(web3.utils.toWei(cryptoAmount, "ether")).toString(16)),
                     cryptoAmount: cryptoAmount ? cryptoAmount : '0.00',
                     selectedCrypto: selectedCrypto,
                     fromAddress: address,
