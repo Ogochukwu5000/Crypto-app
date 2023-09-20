@@ -84,7 +84,7 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
             });
         } catch (error: any) {
             console.error(`Error: ${JSON.stringify(error, null, 4)}`);
-            if (error.code === 5000) {
+            if (error.code === 5000 || error.code === -32000) {
                 // User rejected request
                 navigation.navigate('CryptoAppMainScreen' as never);
                 Alert.alert('Transaction Cancelled');
