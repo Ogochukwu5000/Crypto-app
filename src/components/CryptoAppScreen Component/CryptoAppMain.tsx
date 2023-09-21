@@ -7,7 +7,7 @@ import axios from 'axios';
 import web3 from 'web3';
 import { useDispatch } from 'react-redux';
 import { COIN_GECO_API } from '../../constants/config';
-import { Notifications } from 'react-native-notifications';
+import { Notification, Notifications } from 'react-native-notifications';
 
 interface KeypadButtonProps {
     value: string;
@@ -304,14 +304,29 @@ function CryptoAppMain(): JSX.Element {
     useEffect(() => {
         if (Notifications) {
             // Request permissions on iOS, refresh token on Android
-            // Notifications.registerRemoteNotifications();
+            Notifications.registerRemoteNotifications();
 
-            // Notifications.events().registerRemoteNotificationsRegistered((event) => {
-            // TODO: Send the token to my server so it could send back push notifications...
-            //     console.log("Device Token Received", event.deviceToken);
-            // });
-            // Notifications.events().registerRemoteNotificationsRegistrationFailed((event) => {
-            //     console.error(event);
+            Notifications.events().registerRemoteNotificationsRegistered((event) => {
+                console.log("Device Token Received", event.deviceToken);
+            });
+            Notifications.events().registerRemoteNotificationsRegistrationFailed((event) => {
+                console.error(event);
+            });
+
+            Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
+                console.log(`Notification received in foreground: ${notification.title} : ${notification.body}`);
+                completion({ alert: true, sound: true, badge: true });
+            });
+
+            // Notifications.ios.checkPermissions().then((currentPermissions) => {
+            //     console.log('Badges enabled: ' + !!currentPermissions.badge);
+            //     console.log('Sounds enabled: ' + !!currentPermissions.sound);
+            //     console.log('Alerts enabled: ' + !!currentPermissions.alert);
+            //     console.log('Car Play enabled: ' + !!currentPermissions.carPlay);
+            //     console.log('Critical Alerts enabled: ' + !!currentPermissions.criticalAlert);
+            //     console.log('Provisional enabled: ' + !!currentPermissions.provisional);
+            //     console.log('Provides App Notification Settings enabled: ' + !!currentPermissions.providesAppNotificationSettings);
+            //     console.log('Announcement enabled: ' + !!currentPermissions.announcement);
             // });
         }
     }, []);
