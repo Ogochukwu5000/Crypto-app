@@ -5,9 +5,10 @@ import { useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { Alchemy, Network } from "alchemy-sdk";
 import axios from 'axios';
 import web3 from 'web3';
-import { useDispatch } from 'react-redux';
-import { COIN_GECO_API } from '../../constants/config';
-import { Notification, Notifications } from 'react-native-notifications';
+import { useDispatch, useSelector } from 'react-redux';
+import { COIN_GECO_API, BASE_URL } from '../../constants/config';
+import { Notifications } from 'react-native-notifications';
+import { RootState } from '../../../store/reducers';
 
 interface KeypadButtonProps {
     value: string;
@@ -46,6 +47,7 @@ function CryptoAppMain(): JSX.Element {
     const [usdcBalance, setUsdcBalance] = useState<any>(null);
     const [cryptoAmount, setCryptoAmount] = useState<any>("0.00");
     const [currentEthPrice, setCurrentEthPrice] = useState<any>(null);
+    const user = useSelector((state: RootState) => state.userReducer.user);
     const usdToEth = (1 / currentEthPrice) as any;
     const settings = {
         apiKey: "U9HkfdvfM9qNbYWbyeHxMsaG0jzgqp8E",
@@ -307,27 +309,25 @@ function CryptoAppMain(): JSX.Element {
             Notifications.registerRemoteNotifications();
 
             Notifications.events().registerRemoteNotificationsRegistered((event) => {
-                console.log("Device Token Received", event.deviceToken);
+                // console.log("Device Token Received", event.deviceToken);
+                axios.post(`${BASE_URL}user/store-device-token`, {
+                    deviceToken: event.deviceToken,
+                    crypto_tag: user?.cryptoTag,
+                }).then((response) => {
+                    console.log(response);
+                }).catch((error) => {
+                    console.log(error);
+                }
+                );
             });
             Notifications.events().registerRemoteNotificationsRegistrationFailed((event) => {
                 console.error(event);
             });
 
             Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
-                console.log(`Notification received in foreground: ${notification.title} : ${notification.body}`);
+                // console.log(`Notification received in foreground: ${notification.title} : ${notification.body}`);
                 completion({ alert: true, sound: true, badge: true });
             });
-
-            // Notifications.ios.checkPermissions().then((currentPermissions) => {
-            //     console.log('Badges enabled: ' + !!currentPermissions.badge);
-            //     console.log('Sounds enabled: ' + !!currentPermissions.sound);
-            //     console.log('Alerts enabled: ' + !!currentPermissions.alert);
-            //     console.log('Car Play enabled: ' + !!currentPermissions.carPlay);
-            //     console.log('Critical Alerts enabled: ' + !!currentPermissions.criticalAlert);
-            //     console.log('Provisional enabled: ' + !!currentPermissions.provisional);
-            //     console.log('Provides App Notification Settings enabled: ' + !!currentPermissions.providesAppNotificationSettings);
-            //     console.log('Announcement enabled: ' + !!currentPermissions.announcement);
-            // });
         }
     }, []);
 
