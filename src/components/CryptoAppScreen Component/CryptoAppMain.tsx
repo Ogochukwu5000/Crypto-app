@@ -163,6 +163,21 @@ function CryptoAppMain(): JSX.Element {
                 }
             ]
         );
+
+        // check if amount is greater than 10 
+        if (parseFloat(amount) < 10) {
+            return Alert.alert(
+                "Minimum Amount",
+                "Please enter an amount greater than $10",
+                [
+                    {
+                        text: "Cancel",
+                        onPress: () => console.log("Cancel Pressed"),
+                        style: "cancel"
+                    }
+                ]
+            );
+        }
         if (amount !== '0' && cryptoAmount !== '0.00') {
             if (isConnected) {
                 const params = {
