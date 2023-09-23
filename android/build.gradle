@@ -14,11 +14,6 @@ buildscript {
         google()
         mavenCentral()
     }
-    plugins {
-        id("com.android.application")
-        id("com.google.gms.google-services")
-        id 'com.google.gms.google-services' version '4.3.15' apply false
-    }
     dependencies {
         classpath("com.android.tools.build:gradle:7.4.2")
         classpath("com.facebook.react:react-native-gradle-plugin")
@@ -30,3 +25,9 @@ buildscript {
     }
     apply plugin: 'com.google.gms.google-services'
 }
+
+plugins {
+        id("com.android.application")
+        id("com.google.gms.google-services")
+        id 'com.google.gms.google-services' version '4.3.15' apply false
+    }
