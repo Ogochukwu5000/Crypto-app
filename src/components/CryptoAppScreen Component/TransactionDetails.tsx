@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react';
 import {
     Text,
     Image,
@@ -11,6 +12,7 @@ import { useNavigation } from '@react-navigation/native';
 import { RootState } from '../../../store/reducers';
 import { useSelector } from 'react-redux';
 import { BASE_URL } from '../../constants/config';
+import { Notifications } from "react-native-notifications";
 
 const { height } = Dimensions.get('window');
 const isSmallScreen = height < 700; // Adjust the width value based on the screen size you consider as small
@@ -18,7 +20,17 @@ const isSmallScreen = height < 700; // Adjust the width value based on the scree
 function TransactionDetails({ route }: any): JSX.Element {
     const navigation = useNavigation();
     const user = useSelector((state: RootState) => state.userReducer.user);
-    console.log(route.params);
+    // Schedule a local notification
+    const notification = {
+        title: 'Crypto App',
+        body: `$${route.params.amount} of ETH successfully sent to ${route.params.toName}`,
+        data: { customData: '123' }, // Custom data to pass to your app
+        ios: { sound: true }, // Optional: Play a sound on iOS
+    };
+
+    useEffect(() => {
+        Notifications.postLocalNotification(notification as any);
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -89,7 +101,7 @@ function TransactionDetails({ route }: any): JSX.Element {
                         Amount($)
                     </Text>
                     <Text style={styles.amountInUsdValue}>
-                        $5.00
+                        ${route.params.amount}
                     </Text>
                 </View>
 
