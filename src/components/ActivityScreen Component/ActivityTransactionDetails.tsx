@@ -9,7 +9,7 @@ import {
 import { BASE_URL } from '../../constants/config';
 
 const { height } = Dimensions.get('window');
-const isSmallScreen = height < 700; // Adjust the width value based on the screen size you consider as small
+const isSmallScreen = height < 790; // Adjust the width value based on the screen size you consider as small
 
 function ActivityDetails({ route }: any): JSX.Element {
     const transaction = route.params.transaction;

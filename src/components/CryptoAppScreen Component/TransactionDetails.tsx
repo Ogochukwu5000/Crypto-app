@@ -15,7 +15,7 @@ import { BASE_URL } from '../../constants/config';
 import { Notifications } from "react-native-notifications";
 
 const { height } = Dimensions.get('window');
-const isSmallScreen = height < 700; // Adjust the width value based on the screen size you consider as small
+const isSmallScreen = height < 790; // Adjust the width value based on the screen size you consider as small
 
 function TransactionDetails({ route }: any): JSX.Element {
     const navigation = useNavigation();
