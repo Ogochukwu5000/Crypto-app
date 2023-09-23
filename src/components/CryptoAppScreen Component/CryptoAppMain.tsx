@@ -5,9 +5,8 @@ import { useWalletConnectModal } from '@walletconnect/modal-react-native';
 import { Alchemy, Network } from "alchemy-sdk";
 import axios from 'axios';
 import web3 from 'web3';
-import { useDispatch, useSelector } from 'react-redux';
-import { COIN_GECO_API, BASE_URL } from '../../constants/config';
-import { RootState } from '../../../store/reducers';
+import { useDispatch } from 'react-redux';
+import { COIN_GECO_API } from '../../constants/config';
 
 interface KeypadButtonProps {
     value: string;
@@ -46,7 +45,6 @@ function CryptoAppMain(): JSX.Element {
     const [usdcBalance, setUsdcBalance] = useState<any>(null);
     const [cryptoAmount, setCryptoAmount] = useState<any>("0.00");
     const [currentEthPrice, setCurrentEthPrice] = useState<any>(null);
-    const user = useSelector((state: RootState) => state.userReducer.user);
     const usdToEth = (1 / currentEthPrice) as any;
     const settings = {
         apiKey: "U9HkfdvfM9qNbYWbyeHxMsaG0jzgqp8E",
