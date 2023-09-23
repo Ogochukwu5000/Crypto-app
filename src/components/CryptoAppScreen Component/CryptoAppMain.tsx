@@ -7,7 +7,6 @@ import axios from 'axios';
 import web3 from 'web3';
 import { useDispatch, useSelector } from 'react-redux';
 import { COIN_GECO_API, BASE_URL } from '../../constants/config';
-import { Notifications } from 'react-native-notifications';
 import { RootState } from '../../../store/reducers';
 
 interface KeypadButtonProps {
