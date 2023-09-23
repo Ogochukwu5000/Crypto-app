@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Home from '../components/HomeScreen Component/HomeScreen';
 // import Search from '../components/SearchScreen Component/SearchScreen';
 import Activity from '../components/ActivityScreen Component/ActivityScreen';
 import { SvgXml } from 'react-native-svg';
 import CryptoAppMain from '../components/CryptoAppScreen Component/CryptoAppMain';
+import { Notifications } from 'react-native-notifications';
+import axios from 'axios';
+import { BASE_URL } from '../constants/config';
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store/reducers';
 
 const cryptoAppSvgFocused = `
 <svg width="45" height="34" viewBox="0 0 45 34" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -96,6 +101,34 @@ const activitySvgNotFocused = `
 
 function PostAuthenticationNav(): JSX.Element {
   const Tab = createBottomTabNavigator();
+  const user = useSelector((state: RootState) => state.userReducer.user);
+  useEffect(() => {
+    if (Notifications) {
+      // Request permissions on iOS, refresh token on Android
+      Notifications.registerRemoteNotifications();
+
+      Notifications.events().registerRemoteNotificationsRegistered((event) => {
+        // console.log("Device Token Received", event.deviceToken);
+        axios.post(`${BASE_URL}user/store-device-token`, {
+          deviceToken: event.deviceToken,
+          crypto_tag: user?.cryptoTag,
+        }).then((response) => {
+          console.log(response);
+        }).catch((error) => {
+          console.log(error);
+        }
+        );
+      });
+      Notifications.events().registerRemoteNotificationsRegistrationFailed((event) => {
+        console.error(event);
+      });
+
+      Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
+        // console.log(`Notification received in foreground: ${notification.title} : ${notification.body}`);
+        completion({ alert: true, sound: true, badge: true });
+      });
+    }
+  }, []);
   return (
     <Tab.Navigator initialRouteName="cryptoapp" screenOptions={({ route }) => ({
       headerShown: false,
