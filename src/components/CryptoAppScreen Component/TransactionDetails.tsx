@@ -23,7 +23,7 @@ function TransactionDetails({ route }: any): JSX.Element {
     // Schedule a local notification
     const notification = {
         title: 'Crypto App',
-        body: `$${route.params.amount} of ETH successfully sent to ${route.params.toName}`,
+        body: `$${route.params.amount} of ETH successfully sent to ${route.params.toCryptoTag}`,
         data: { customData: '123' }, // Custom data to pass to your app
         ios: { sound: true }, // Optional: Play a sound on iOS
     };
