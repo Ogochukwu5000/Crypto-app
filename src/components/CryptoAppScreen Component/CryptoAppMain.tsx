@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, SafeAreaView, StyleSheet, Image, TouchableOpacity, Dimensions, Alert } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useWalletConnectModal } from '@walletconnect/modal-react-native';
+import { useWalletConnectModal, WalletConnectModal } from '@walletconnect/modal-react-native';
 import { Alchemy, Network } from "alchemy-sdk";
 import axios from 'axios';
 import web3 from 'web3';
@@ -51,6 +51,37 @@ function CryptoAppMain(): JSX.Element {
         network: Network.ETH_MAINNET,
     };
     const alchemy = new Alchemy(settings);
+    const projectId = '68a720495e3c0321e66a2ecca9dd75db';
+
+    const providerMetadata = {
+        name: 'Crypto App',
+        description: 'Crypto App is a decentralized application that allows you send and receive eth with your crypto tag.',
+        url: 'https://cryptoapplabs.com/',
+        icons: ["https://lh3.googleusercontent.com/a-/ALV-UjXnie1aEliI-h0aOdCcn5nz9V8dtEILFgitaw_8yZz82Pn0mEzQS1izJEGTOFYgFKRBvYYkxOyoLwjBXDtBCOWsYHIUWDm02UduA1fyI6GIgR7VY3XgbB-pIOg2jNlUhssOGl3xILbwjxpZBafk2Z-BSPAsfqrh2eko_4tR2rsTs9F6B-2Mo6729Qcpjw7Io1hUWRpBTny42wZj-5cibUhM_j8iyrjkZjUq3N75-ZfMfrTgfEkabURDnLgt7VfhhugwZChQpGvbCkoYolhZzagTlKjMTHp4h2IHciz5wAYTuk5LE_zGXx8DCOIrWATlxFDqmreXRCGLNxfuYv1Qu3p_0WA1vNCnkiByHW7YHZvIBVFJmLBAQM86Z-gP6TM-vPfN4CkWjqGuzd5pu6lCjC__tFyWuW-Fac8-BUN140Va24hY5ru3_9QRTdHJmwDbp8gpcZGQI3fFQiEerJj3WgMbOB6UeGCfi4XyMqzSGYvGUw9BPdcqX-zmxVOj1tQouGLBOEJ2rVOESY-TOoDtDbNiKQkq_sHYcQvIOVyi4GvueOIBYanBktc0nVTnBu3r_KdSCzedeIStclOrrFeee7oezNeeFavbaEfTodn4p1ln4rFE85VahjVbPn3NP5B3corAU1kAsoyig5A7xUPtucEevv-j_7dXO6qHLLDgalLgwCPmBk2vQh4I68htZb-S1nzcKZSQY5YV1Emokqvfj3PhDx9nmoonvAQ_HqRuBeex-he_pzUuBGpRHMrtXcgDEZJFjrghzOPrQD0kd_WVOUfEBN9eBWPxMNSlrf9gctTzX6fkwAQW9-L3b1lVw0WOOvk7kdFn_CLWIRwmxBcpLohlADBPLmE4MftwPIQ2DlyegbaMoVyxDwAx21n2p-M-JseVmrPuUWn1GGipJyfwykQEOaq9IZuQ0fniMIYXoIj7oWOT9HGWxwYNzLItsYi2XA=s576-c-no"],
+        redirect: {
+            native: 'cryptoapp://',
+            universal: 'https://cryptoapplabs.com/',
+        },
+        textEncoder: new TextEncoder(),
+        textDecoder: new TextDecoder(),
+    };
+
+    const sessionParams = {
+        namespaces: {
+            eip155: {
+                methods: [
+                    "eth_sendTransaction",
+                    "eth_signTransaction",
+                    "eth_sign",
+                    "personal_sign",
+                    "eth_signTypedData",
+                ],
+                chains: ["eip155:44787"],
+                events: ["chainChanged", "accountsChanged"],
+                rpcMap: {},
+            },
+        },
+    };
 
     const getEthBalance = async () => {
         const balance = await alchemy.core.getBalance(address as any);
@@ -386,6 +417,11 @@ function CryptoAppMain(): JSX.Element {
                     </TouchableOpacity>
                 </View>
             </View>
+            <WalletConnectModal
+                projectId={projectId}
+                providerMetadata={providerMetadata}
+                sessionParams={sessionParams}
+            />
         </SafeAreaView>
     );
 }
