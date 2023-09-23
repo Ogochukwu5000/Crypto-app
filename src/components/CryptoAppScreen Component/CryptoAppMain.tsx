@@ -303,34 +303,6 @@ function CryptoAppMain(): JSX.Element {
         }
     }, [isConnected, ethBalance, getEthBalance, formattedEthBalance]);
 
-    useEffect(() => {
-        if (Notifications) {
-            // Request permissions on iOS, refresh token on Android
-            Notifications.registerRemoteNotifications();
-
-            Notifications.events().registerRemoteNotificationsRegistered((event) => {
-                // console.log("Device Token Received", event.deviceToken);
-                axios.post(`${BASE_URL}user/store-device-token`, {
-                    deviceToken: event.deviceToken,
-                    crypto_tag: user?.cryptoTag,
-                }).then((response) => {
-                    console.log(response);
-                }).catch((error) => {
-                    console.log(error);
-                }
-                );
-            });
-            Notifications.events().registerRemoteNotificationsRegistrationFailed((event) => {
-                console.error(event);
-            });
-
-            Notifications.events().registerNotificationReceivedForeground((notification, completion) => {
-                // console.log(`Notification received in foreground: ${notification.title} : ${notification.body}`);
-                completion({ alert: true, sound: true, badge: true });
-            });
-        }
-    }, []);
-
     return (
         <SafeAreaView style={styles.container}>
             <TouchableOpacity style={styles.profileImage} onPress={() => {
