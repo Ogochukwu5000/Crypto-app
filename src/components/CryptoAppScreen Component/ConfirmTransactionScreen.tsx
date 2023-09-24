@@ -19,7 +19,7 @@ import { BASE_URL } from '../../constants/config';
 import moment from 'moment';
 
 const { height } = Dimensions.get('window');
-const isSmallScreen = height < 790; // Adjust the width value based on the screen size you consider as small
+const isSmallScreen = height < 700; // Adjust the width value based on the screen size you consider as small
 
 function ConfirmTransactionScreen({ route }: any): JSX.Element {
     const navigation = useNavigation();
@@ -43,10 +43,12 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
 
         try {
             // Send the transaction using WalletConnect
-            const transaction = await provider?.request({
-                method: 'eth_sendTransaction',
-                params: [tx],
-            });
+            // const transaction = await provider?.request({
+            //     method: 'eth_sendTransaction',
+            //     params: [tx],
+            // });
+
+            const transaction = '0x0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a';
 
             // console.log(`Transaction: ${transaction}`);
 
