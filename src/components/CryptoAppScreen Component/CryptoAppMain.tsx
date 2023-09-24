@@ -16,7 +16,7 @@ interface KeypadButtonProps {
 
 const { width, height } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
-const isSmallHeight = height < 790; // Adjust the height value based on the screen size you consider as small
+const isSmallHeight = height < 700; // Adjust the height value based on the screen size you consider as small
 
 function KeypadButton({ value, onPress, isHighlighted }: KeypadButtonProps): JSX.Element {
     return (
