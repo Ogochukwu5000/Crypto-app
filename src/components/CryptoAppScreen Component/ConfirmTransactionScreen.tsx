@@ -43,12 +43,10 @@ function ConfirmTransactionScreen({ route }: any): JSX.Element {
 
         try {
             // Send the transaction using WalletConnect
-            // const transaction = await provider?.request({
-            //     method: 'eth_sendTransaction',
-            //     params: [tx],
-            // });
-
-            const transaction = '0x0a0a0a0a0a0a0a0a0a0a0a0a0a0a0a';
+            const transaction = await provider?.request({
+                method: 'eth_sendTransaction',
+                params: [tx],
+            });
 
             // console.log(`Transaction: ${transaction}`);
 
