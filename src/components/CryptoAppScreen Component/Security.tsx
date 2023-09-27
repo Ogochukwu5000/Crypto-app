@@ -68,6 +68,13 @@ function Security(): JSX.Element {
                         style={[styles.arrow, { marginLeft: 'auto' }]}
                     />
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.profileItemContainer}>
+                    <Text style={styles.profileItemText}>Delete Account</Text>
+                    <Image
+                        source={require('../../assets/arrow.png')}
+                        style={[styles.arrow, { marginLeft: 'auto' }]}
+                    />
+                </TouchableOpacity>
             </View>
         </SafeAreaView >
     );
