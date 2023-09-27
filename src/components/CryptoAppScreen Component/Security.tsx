@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     Text,
     Image,
@@ -6,15 +6,68 @@ import {
     StyleSheet,
     View,
     Dimensions,
+    Alert,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import axios from 'axios';
+import { BASE_URL } from '../../constants/config';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
 
 function Security(): JSX.Element {
     const navigation = useNavigation();
+    const user = useSelector((state: RootState) => state.userReducer.user);
+    const handleDeleteAccount = () => {
+        Alert.alert(
+            'Confirm Account Deletion',
+            'Are you sure you want to delete your account?',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    onPress: () => {
+                        Alert.alert(
+                            'Confirm Account Deletion',
+                            'This action is irreversible. Are you sure you want to delete your account?',
+                            [
+                                {
+                                    text: 'Cancel',
+                                    style: 'cancel',
+                                },
+                                {
+                                    text: 'Delete',
+                                    onPress: () => {
+                                        axios
+                                            .delete(`${BASE_URL}/user/delete`, {
+                                                data: {
+                                                    cryptoTag: user?.cryptoTag,
+                                                },
+                                            })
+                                            .then((res) => {
+                                                Alert.alert('Account Deleted Successfully');
+                                                navigation.navigate('Login' as never);
+                                            })
+                                            .catch((err) => {
+                                                Alert.alert('Error', err.message);
+                                            });
+                                    },
+                                },
+                            ],
+                            { cancelable: false }
+                        );
+                    },
+                },
+            ],
+            { cancelable: false }
+        );
+    };
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -68,7 +121,7 @@ function Security(): JSX.Element {
                         style={[styles.arrow, { marginLeft: 'auto' }]}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.profileItemContainer}>
+                <TouchableOpacity style={styles.profileItemContainer} onPress={handleDeleteAccount}>
                     <Text style={styles.profileItemText}>Delete Account</Text>
                     <Image
                         source={require('../../assets/arrow.png')}
