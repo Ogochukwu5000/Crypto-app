@@ -53,6 +53,7 @@ function Security(): JSX.Element {
                                             })
                                             .then((res) => {
                                                 Alert.alert('Account Deleted Successfully');
+                                                dispatch({ type: 'LOGOUT' });
                                                 navigation.navigate('Login' as never);
                                             })
                                             .catch((err) => {
