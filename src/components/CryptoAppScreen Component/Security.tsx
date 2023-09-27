@@ -46,10 +46,8 @@ function Security(): JSX.Element {
                                     text: 'Delete',
                                     onPress: () => {
                                         axios
-                                            .delete(`${BASE_URL}/user/delete`, {
-                                                data: {
-                                                    cryptoTag: user?.cryptoTag,
-                                                },
+                                            .post(`${BASE_URL}user/delete`, {
+                                                cryptoTag: user?.cryptoTag,
                                             })
                                             .then((res) => {
                                                 Alert.alert('Account Deleted Successfully');
@@ -57,6 +55,7 @@ function Security(): JSX.Element {
                                                 navigation.navigate('Login' as never);
                                             })
                                             .catch((err) => {
+                                                console.log(JSON.stringify(err));
                                                 Alert.alert('Error', err.message);
                                             });
                                     },
