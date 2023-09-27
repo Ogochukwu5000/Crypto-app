@@ -12,7 +12,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { BASE_URL } from '../../constants/config';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../../store/reducers';
 
 const { width } = Dimensions.get('window');
@@ -21,6 +21,7 @@ const isSmallScreen = width < 400; // Adjust the width value based on the screen
 function Security(): JSX.Element {
     const navigation = useNavigation();
     const user = useSelector((state: RootState) => state.userReducer.user);
+    const dispatch = useDispatch();
     const handleDeleteAccount = () => {
         Alert.alert(
             'Confirm Account Deletion',
