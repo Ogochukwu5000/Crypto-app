@@ -8,7 +8,8 @@ import {
     Dimensions,
     Alert,
     LayoutAnimation,
-    LogBox
+    LogBox,
+    Platform,
 } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import axios from 'axios';
@@ -23,6 +24,7 @@ import {
     responsiveWidth,
     responsiveFontSize
 } from "react-native-responsive-dimensions";
+import PromptAndroid from 'react-native-prompt-android';
 
 const { width } = Dimensions.get('window');
 const isSmallScreen = width < 400; // Adjust the width value based on the screen size you consider as small
@@ -51,24 +53,57 @@ function VerifyEmailScreen(): JSX.Element {
     const handleEnterCode = () => {
         let code = '';
         LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        Alert.prompt(
-            'Enter Code',
-            'Please enter the code you received in your email:',
-            (text) => {
-                code = text;
-                if (code === otp) {
-                    setIsLoading(true);
-                    setTimeout(() => {
-                        setIsLoading(false);
-                        navigation.dispatch(StackActions.replace('Welcome' as never));
-                    }, 2000);
-                } else {
-                    Alert.alert('Error', 'Invalid code');
+        if (Platform.OS === 'android') {
+            PromptAndroid(
+                'Enter Code',
+                'Please enter the code you received in your email:',
+                [
+                    {
+                        text: 'Cancel',
+                        onPress: () => { },
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'OK',
+                        onPress: (text: string) => {
+                            code = text;
+                            if (code === otp) {
+                                setIsLoading(true);
+                                setTimeout(() => {
+                                    setIsLoading(false);
+                                    navigation.dispatch(StackActions.replace('Welcome' as never));
+                                }, 2000);
+                            } else {
+                                Alert.alert('Error', 'Invalid code');
+                            }
+                        },
+                    },
+                ],
+                {
+                    type: 'plain-text',
+                    defaultValue: '',
                 }
-            },
-            undefined,
-            ''
-        );
+            );
+        } else {
+            Alert.prompt(
+                'Enter Code',
+                'Please enter the code you received in your email:',
+                (text) => {
+                    code = text;
+                    if (code === otp) {
+                        setIsLoading(true);
+                        setTimeout(() => {
+                            setIsLoading(false);
+                            navigation.dispatch(StackActions.replace('Welcome' as never));
+                        }, 2000);
+                    } else {
+                        Alert.alert('Error', 'Invalid code');
+                    }
+                },
+                undefined,
+                ''
+            );
+        }
     };
 
     return (
