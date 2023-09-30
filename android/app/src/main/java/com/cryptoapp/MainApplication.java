@@ -1,4 +1,4 @@
-package com.cryptoapp;
+package com.cryptoapplabs;
 
 import android.app.Application;
 import com.facebook.react.PackageList;
