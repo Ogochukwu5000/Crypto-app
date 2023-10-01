@@ -411,15 +411,15 @@ const styles = StyleSheet.create({
     },
     backButton: {
         backgroundColor: '#3447F0',
-        width: 200,
-        height: 50,
+        width: 150,
+        height: 40,
         borderRadius: 25,
         marginTop: '5%',
         alignItems: 'center',
         justifyContent: 'center',
     },
     smallScreenBackButton: {
-        marginTop: '5%',
+        marginTop: '2%',
     },
     backButtonText: {
         color: '#fff',
