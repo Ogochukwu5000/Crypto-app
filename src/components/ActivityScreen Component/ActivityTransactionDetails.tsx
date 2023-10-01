@@ -13,7 +13,7 @@ const isSmallScreen = height < 790; // Adjust the width value based on the scree
 
 function ActivityDetails({ route }: any): JSX.Element {
     const transaction = route.params.transaction;
-
+    console.log(transaction);
     return (
         <SafeAreaView style={styles.container}>
             {/* Image */}
@@ -96,9 +96,9 @@ function ActivityDetails({ route }: any): JSX.Element {
                 >
                     <Image
                         source={{
-                            uri: transaction.to_profile_picture
-                                ? `${BASE_URL}${transaction.to_profile_picture}`
-                                : `https://ui-avatars.com/api/?name=${transaction.to_name}&color=fff&size=30&font-size=0.7`,
+                            uri: transaction.from_profile_picture
+                                ? `${BASE_URL}${transaction.from_profile_picture}`
+                                : `https://ui-avatars.com/api/?name=${transaction.from_name}&color=fff&size=30&font-size=0.7`,
                         }} style={styles.senderProfilePicture}
                         resizeMode="cover"
                     />
@@ -114,9 +114,9 @@ function ActivityDetails({ route }: any): JSX.Element {
                 >
                     <Image
                         source={{
-                            uri: transaction.from_profile_picture
-                                ? `${BASE_URL}${transaction.from_profile_picture}`
-                                : `https://ui-avatars.com/api/?name=${transaction.from_name}&color=fff&size=30&font-size=0.7`,
+                            uri: transaction.to_profile_picture
+                                ? `${BASE_URL}${transaction.to_profile_picture}`
+                                : `https://ui-avatars.com/api/?name=${transaction.to_name}&color=fff&size=30&font-size=0.7`,
                         }} style={styles.recipientProfilePicture}
                         resizeMode="cover"
                     />
